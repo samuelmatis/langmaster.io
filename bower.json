@@ -1,0 +1,12 @@
+{
+  "name": "words",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~1.9.0",
+    "underscore": "~1.5.1",
+    "backbone": "~1.1.0",
+    "modernizr": "~2.6.2",
+    "marionette": "~1.2.1"
+  },
+  "devDependencies": {}
+}
