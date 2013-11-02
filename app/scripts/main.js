@@ -5,6 +5,7 @@ window.words = {
     Models: {},
     Collections: {},
     Views: {},
+    Templates: {},
     Routers: {},
     init: function () {
         'use strict';
