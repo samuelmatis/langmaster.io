@@ -19,7 +19,7 @@ Words.on("initialize:after", function() {
         },{
             "id": 2,
             "word": "house",
-            "translate": "word",
+            "translate": "dom",
             "knowIndex": 8.4
         }
     ]);
