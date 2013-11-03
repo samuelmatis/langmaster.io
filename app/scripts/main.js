@@ -1,19 +1,15 @@
 /*global words, $*/
 
+// Define new Marionette application
+var Words = new Marionette.Application();
 
-window.words = {
-    Models: {},
-    Collections: {},
-    Views: {},
-    Templates: {},
-    Routers: {},
-    init: function () {
-        'use strict';
-        console.log('Hello from Backbone!');
-    }
-};
+// Add regions on page
+Words.addRegions({
 
-$(document).ready(function () {
-    'use strict';
-    words.init();
+});
+
+// On start
+Words.on("initialize:after", function() {
+
+    Words.init();
 });
