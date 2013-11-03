@@ -14,12 +14,12 @@ Words.on("initialize:after", function() {
         {
             "id": 1,
             "word": "car",
-            "translate": "auto",
+            "translation": "auto",
             "knowIndex": 4.352
         },{
             "id": 2,
             "word": "house",
-            "translate": "dom",
+            "translation": "dom",
             "knowIndex": 8.4
         }
     ]);
