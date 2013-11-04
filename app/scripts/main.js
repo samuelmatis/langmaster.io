@@ -45,4 +45,7 @@ App.on("initialize:after", function() {
 });
 
 // Start application
+var applicationRouter = new App.Routers.AppRouter();
+Backbone.history.start();
+
 App.start();
