@@ -6,10 +6,10 @@ App.Models = App.Models || {};
     'use strict';
 
     /**
-    *  Word model
-    *
-    *  Persists one word
-    */
+     *  Word model
+     *
+     *  Persists one word
+     */
     App.Models.Word = Backbone.Model.extend({
 
     });
