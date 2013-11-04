@@ -6,10 +6,25 @@ App.Views = App.Views || {};
     'use strict';
 
     /**
-    *  Word item view
-    *
-    *  Renders row in table
-    */
+     *  Words page layout
+     *
+     *  Renders all views on the words page
+     */
+    App.Views.WordLayout = Marionette.Layout.extend({
+
+        template: "#words-layout-template",
+
+        regions: {
+            wordList: "#list-words",
+            newWord: "#add-new-word"
+        }
+    });
+
+    /**
+     *  Word item view
+     *
+     *  Renders row in table
+     */
     App.Views.WordItemView = Marionette.ItemView.extend({
 
     	tagName: "tr",
@@ -19,10 +34,10 @@ App.Views = App.Views || {};
 
 
     /**
-    *  Word table view
-    *
-    *  Renders whole table with WordItemView
-    */
+     *  Word table view
+     *
+     *  Renders whole table with WordItemView
+     */
     App.Views.WordTableView = Marionette.CompositeView.extend({
 
     	itemView: App.Views.WordItemView,
@@ -34,10 +49,10 @@ App.Views = App.Views || {};
 
 
     /**
-    *  Add a new word
-    *
-    *  Renders form for creating a new word
-    */
+     *  Add a new word
+     *
+     *  Renders form for creating a new word
+     */
     App.Views.NewWord = Marionette.ItemView.extend({
 
         template: "#words-new-word",
@@ -46,8 +61,8 @@ App.Views = App.Views || {};
             'click #submit': 'submit'
         },
 
-        submit: function(event) {
-            event.preventDefault();
+        submit: function(e) {
+            e.preventDefault();
             alert("clicked add word");
         }
     })
