@@ -1,18 +1,18 @@
-/*global Words, Backbone, Marionette, JST*/
+/*global App, Backbone, Marionette, JST*/
 
-Words.Collections = Words.Collections || {};
+App.Collections = App.Collections || {};
 
 (function () {
     'use strict';
 
    /**
-    *  Collection of words
+    *  Collection of App
     *
-    *  model: Words.Models.Word
+    *  model: App.Models.Word
     */
-    Words.Collections.Words = Backbone.Collection.extend({
+    App.Collections.Words = Backbone.Collection.extend({
 
-        model: Words.Models.Word,
+        model: App.Models.Word,
 
         // Sort models
         comparator: 'id'

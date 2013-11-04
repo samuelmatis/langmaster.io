@@ -1,6 +1,6 @@
-/*global Words, Backbone, Marionette, JST*/
+/*global App, Backbone, Marionette, JST*/
 
-Words.Models = Words.Models || {};
+App.Models = App.Models || {};
 
 (function () {
     'use strict';
@@ -10,7 +10,7 @@ Words.Models = Words.Models || {};
     *
     *  Persists one word
     */
-    Words.Models.Word = Backbone.Model.extend({
+    App.Models.Word = Backbone.Model.extend({
 
     });
 

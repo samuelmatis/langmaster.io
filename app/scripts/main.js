@@ -1,16 +1,16 @@
-/*global Words, Backbone, Marionette, JST*/
+/*global App, Backbone, Marionette, JST*/
 
 // Add regions on page
-Words.addRegions({
+App.addRegions({
     wordsList: '#words-list'
 });
 
 // On start
-Words.on("initialize:after", function() {
+App.on("initialize:after", function() {
 
     // Define test words
     // Known index - from 1 to 10
-    var words = new Words.Collections.Words([
+    var words = new App.Collections.Words([
         {
             "id": 1,
             "word": "car",
@@ -25,14 +25,14 @@ Words.on("initialize:after", function() {
     ]);
 
     // Create a view
-    var wordsListView = new Words.Views.WordTableView({
+    var wordsListView = new App.Views.WordTableView({
         collection: words
     });
 
     // Connect view with region
-    Words.wordsList.show(wordsListView);
+    App.wordsList.show(wordsListView);
 
 });
 
 // Start application
-Words.start();
+App.start();

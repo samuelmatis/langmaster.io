@@ -1,6 +1,6 @@
-/*global Words, Backbone, Marionette, JST*/
+/*global App, Backbone, Marionette, JST*/
 
-Words.Views = Words.Views || {};
+App.Views = App.Views || {};
 
 (function () {
     'use strict';
@@ -10,25 +10,46 @@ Words.Views = Words.Views || {};
     *
     *  Renders row in table
     */
-    Words.Views.WordItemView = Marionette.ItemView.extend({
+    App.Views.WordItemView = Marionette.ItemView.extend({
 
     	tagName: "tr",
-    	
+
     	template: "#words-row-template"
     });
+
 
     /**
     *  Word table view
     *
     *  Renders whole table with WordItemView
     */
-    Words.Views.WordTableView = Marionette.CompositeView.extend({
+    App.Views.WordTableView = Marionette.CompositeView.extend({
 
-    	itemView: Words.Views.WordItemView,
+    	itemView: App.Views.WordItemView,
 
     	itemViewContainer: "tbody",
 
     	template: "#words-table-template"
     });
+
+
+    /**
+    *  Add a new word
+    *
+    *  Renders form for creating a new word
+    */
+    App.Views.NewWord = Marionette.ItemView.extend({
+
+        template: "#words-new-word",
+
+        events: {
+            'click #submit': 'submit'
+        },
+
+        submit: function(event) {
+            event.preventDefault();
+            alert("clicked add word");
+        }
+    })
 
 })();
