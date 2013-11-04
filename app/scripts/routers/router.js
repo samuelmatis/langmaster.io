@@ -52,7 +52,7 @@ App.Routers = App.Routers || {};
             console.log("User " + name);
         },
 
-        settings: function() {
+        showSettings: function() {
             console.log("Settings page...");
         }
 
