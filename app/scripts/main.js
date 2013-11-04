@@ -21,6 +21,16 @@ App.on("initialize:after", function() {
             "word": "house",
             "translation": "dom",
             "knowIndex": 8.4
+        }, {
+            "id": 3,
+            "word": "computer",
+            "translation": "pocitac",
+            "knowIndex": 10
+        }, {
+            "id": 4,
+            "word": "book",
+            "translation": "kniha",
+            "knowIndex": 7.1
         }
     ]);
 
