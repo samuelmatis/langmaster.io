@@ -25,6 +25,9 @@ App.Routers = App.Routers || {};
             // #test
             "test": "showTest",
 
+            // #user
+            "user": "showUser",
+
             // #user/samuelmatis
             "user/:name": "showUser",
 
@@ -49,7 +52,11 @@ App.Routers = App.Routers || {};
         },
 
         showUser: function(name) {
-            console.log("User " + name);
+            if(arguments.length == 1) {
+                console.log("User " + name);
+            } else {
+                console.log("User page...");
+            }
         },
 
         showSettings: function() {
