@@ -15,22 +15,22 @@ App.on("initialize:after", function() {
             "id": 1,
             "word": "car",
             "translation": "auto",
-            "knowIndex": 4.352
+            "knowIndex": 4
         },{
             "id": 2,
             "word": "house",
             "translation": "dom",
-            "knowIndex": 8.4
+            "knowIndex": 5
         }, {
             "id": 3,
             "word": "computer",
             "translation": "pocitac",
-            "knowIndex": 10
+            "knowIndex": 2
         }, {
             "id": 4,
             "word": "book",
             "translation": "kniha",
-            "knowIndex": 7.1
+            "knowIndex": 3
         }
     ]);
 
@@ -44,8 +44,12 @@ App.on("initialize:after", function() {
 
 });
 
-// Start the application
+// Curly brackets in templates
+// _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
+
+// Turn on routing system
 var applicationRouter = new App.Routers.AppRouter();
 Backbone.history.start();
 
+// Start the application
 App.start();

@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-                <div class="pure-g-r content-ribbon">
+                <div class="pure-g content-ribbon">
 
                     <div class="pure-u-1-3" id="list-words">
                         <div class="l-box">
@@ -54,20 +54,21 @@
 
                     <div class="pure-u-2-3" id="add-new-word">
                         <div class="l-box">
-                            <h4 class="content-subhead">Your words</h4>
 
                             <form class="pure-form">
                                 <fieldset>
+                                    <legend>Add a new word</legend>
                                     <div class="pure-g-r">
                                         <input type="text" class="pure-input-1-4" placeholder="Word">
                                         <input type="text" class="pure-input-1-4" placeholder="Translation">
                                     </div>
                                 </fieldset>
 
-                                <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" id="submit">Add word</button>
+                                <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
                             </form>
                         </div>
                     </div>
+
                 </div>
 
             <div class="footer">
@@ -80,7 +81,6 @@
             <table class="pure-table">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Word</th>
                         <th>Translation</th>
                         <th>KnowIndex</th>
@@ -95,10 +95,9 @@
 
         <!-- Template for row in the table -->
         <script type="text/template" id="words-row-template">
-            <td><%= id %></td>
             <td><%= word %></td>
             <td><%= translation %></td>
-            <td><%= knowIndex %></td>
+            <td><% for(var i=0; i < knowIndex; i++){%><img src="images/star-on.png"><% } %></td>
         </script>
 
 
