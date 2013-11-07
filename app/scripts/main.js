@@ -1,5 +1,10 @@
 /*global App, Backbone, Marionette, JST*/
 
+// Interpolate templates
+_.templateSettings = {
+  interpolate: /\{\{(.+?)\}\}/g
+};
+
 // Add regions on page
 App.addRegions({
     wordsList: '#words-list'

@@ -99,9 +99,9 @@
 
         <!-- Template for row in the table -->
         <script type="text/template" id="words-row-template">
-            <td><%= word %></td>
-            <td><%= translation %></td>
-            <td><% for(var i=0; i < knowIndex; i++){%><img src="images/star-on.png"><% } %></td>
+            <td>{{ word }}</td>
+            <td>{{ translation }}</td>
+            <td>{ for(var i=0; i < knowIndex; i++){ }<img src="images/star-on.png">{ } }</td>
         </script>
 
 
