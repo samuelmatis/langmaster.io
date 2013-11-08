@@ -49,9 +49,6 @@ App.on("initialize:after", function() {
 
 });
 
-// Curly brackets in templates
-// _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
-
 // Turn on routing system
 var applicationRouter = new App.Routers.AppRouter();
 Backbone.history.start();
