@@ -1,8 +1,8 @@
 #!flask/bin/python
-from flask import Flask, jsonify, abort, request, make_response, url_for
+from flask import Flask, jsonify, abort, request, make_response, url_for, render_template
 from flask.ext.httpauth import HTTPBasicAuth
 
-app = Flask(__name__, static_url_path = "")
+app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
 
 tasks = [{
             "id": 1,
@@ -25,6 +25,10 @@ tasks = [{
             "translation": "kniha",
             "knowIndex": 3
         }]
+
+@app.route('/', methods = ['GET'])
+def home():
+    return render_template("index.html")
 
 @app.route('/api/', methods = ['GET'])
 def get_tasks():
