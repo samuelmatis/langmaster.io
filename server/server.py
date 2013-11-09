@@ -4,7 +4,7 @@ from flask.ext.httpauth import HTTPBasicAuth
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
 
-tasks = [{
+words = [{
             "id": 1,
             "word": "car",
             "translation": "auto",
@@ -31,32 +31,32 @@ def home():
     return render_template("index.html")
 
 @app.route('/api/', methods = ['GET'])
-def get_tasks():
-    return jsonify( { 'tasks': tasks } )
+def get_words():
+    return jsonify( { 'words': words } )
 
-@app.route('/api/<int:task_id>', methods = ['GET'])
-def get_task(task_id):
-    task = filter(lambda t: t['id'] == task_id, tasks)
-    if len(task) == 0:
+@app.route('/api/<int:word_id>', methods = ['GET'])
+def get_word(word_id):
+    item = filter(lambda t: t['id'] == word_id, words)
+    if len(item) == 0:
         abort(404)
-    return jsonify( { 'task': task[0] } )
+    return jsonify( { 'item': item[0] } )
 
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
 @app.route('/api/', methods = ['POST'])
-def create_task():
+def create_word():
     if not request.json or not 'word' in request.json:
         abort(400)
-    task = {
-        'id': tasks[-1]['id'] + 1, #to ti da automaticky id
-        'word': request.json.get('word',""), # to sa vyzaduje
-        'translation': request.json.get('translation', ""), #to ti da ""
-        'knowIndex': 0 #to ti da 0 ok
+    item = {
+        'id': words[-1]['id'] + 1,
+        'word': request.json["word"],
+        'translation': request.json.get('translation', ""),
+        'knowIndex': 2
     }
-    tasks.append(task)
-    return jsonify( { 'task': task } ), 201
+    words.append(item)
+    return jsonify( { 'item': item } ), 201
 
 if __name__ == '__main__':
     app.run(debug = True)
