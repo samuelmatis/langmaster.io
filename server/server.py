@@ -26,11 +26,11 @@ tasks = [{
             "knowIndex": 3
         }]
 
-@app.route('/', methods = ['GET'])
+@app.route('/api/', methods = ['GET'])
 def get_tasks():
     return jsonify( { 'tasks': tasks } )
 
-@app.route('/<int:task_id>', methods = ['GET'])
+@app.route('/api/<int:task_id>', methods = ['GET'])
 def get_task(task_id):
     task = filter(lambda t: t['id'] == task_id, tasks)
     if len(task) == 0:
@@ -41,7 +41,7 @@ def get_task(task_id):
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
-@app.route('/', methods = ['POST'])
+@app.route('/api/', methods = ['POST'])
 def create_task():
     if not request.json or not 'word' in request.json:
         abort(400)
