@@ -58,5 +58,31 @@ def create_word():
     words.append(item)
     return jsonify( { 'item': item } ), 201
 
+@app.route('/api/<int:word_id>', methods = ['PUT'])
+def update_word(word_id):
+    item = filter(lambda t: t['id'] == word_id, words)
+    if len(item) == 0:
+        abort(404)
+    if not request.json:
+        abort(400)
+    if 'word' in request.json and type(request.json['word']) != unicode:
+        abort(400)
+    if 'translation' in request.json and type(request.json['translation']) is not unicode:
+        abort(400)
+    if 'knowIndex' in request.json and type(request.json['done']) is not int:
+        abort(400)
+    item[0]['word'] = request.json.get('word', item[0]['word'])
+    item[0]['translation'] = request.json.get('translation', item[0]['translation'])
+    item[0]['knowIndex'] = request.json.get('knowIndex', item[0]['knowIndex'])
+    return jsonify( { 'item': item[0] } )
+
+@app.route('/api/<int:word_id>', methods = ['DELETE'])
+def delete_word(word_id):
+    item = filter(lambda t: t['id'] == word_id, words)
+    if len(item) == 0:
+        abort(404)
+    words.remove(item[0])
+    return jsonify( { 'result': True } )
+
 if __name__ == '__main__':
     app.run(debug = True)
