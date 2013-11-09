@@ -43,13 +43,13 @@ def not_found(error):
 
 @app.route('/', methods = ['POST'])
 def create_task():
-    if not request.json or not 'title' in request.json:
+    if not request.json or not 'word' in request.json:
         abort(400)
     task = {
-        'id': tasks[-1]['id'] + 1,
-        'word': request.json['word'],
-        'translation': request.json.get('translation', ""),
-        'knowIndex': 0
+        'id': tasks[-1]['id'] + 1, #to ti da automaticky id
+        'word': request.json.get('word',""), # to sa vyzaduje
+        'translation': request.json.get('translation', ""), #to ti da ""
+        'knowIndex': 0 #to ti da 0 ok
     }
     tasks.append(task)
     return jsonify( { 'task': task } ), 201
