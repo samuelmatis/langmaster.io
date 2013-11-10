@@ -1,52 +1,28 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, request, make_response, url_for, render_template
 from flask.ext.httpauth import HTTPBasicAuth
+import os
+import datetime
+import pymongo
+from pymongo import MongoClient
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
 
-words = [{
-            "id": 1,
-            "word": "car",
-            "translation": "auto",
-            "knowIndex": 4
-        },{
-            "id": 2,
-            "word": "house",
-            "translation": "dom",
-            "knowIndex": 5
-        }, {
-            "id": 3,
-            "word": "computer",
-            "translation": "pocitac",
-            "knowIndex": 2
-        }, {
-            "id": 4,
-            "word": "book",
-            "translation": "kniha",
-            "knowIndex": 3
-        }]
-
-users = [ {
-    "id": 1,
-    "username": "Roko",
-    "password": "AAAAA",
-    "email": "parad.peter@gmail.com",
-    "words": [
-          {
-               "word": "String",
-               "translation": "String",
-               "knowIndex": 3
-          }
-     ]
-}]
+MONGO_URL = os.environ.get('mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words')
+client = MongoClient(MONGO_URL)
+db = client.mydatabase
+words = db.words
+users = db.users
+words_count = words.count()
+users_count = users.count()
 
 @app.route('/', methods = ['GET'])
 def home():
     return render_template("index.html")
 
-@app.route('/api/', methods = ['GET'])
+@app.route('/api/words/', methods = ['GET'])
 def get_words():
-    return jsonify( { 'words': words } )
+    return db.words.find()
 
 @app.route('/api/words/<int:word_id>/', methods = ['GET'])
 def get_word(word_id):
