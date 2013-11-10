@@ -48,7 +48,7 @@ def home():
 def get_words():
     return jsonify( { 'words': words } )
 
-@app.route('/api/<int:word_id>/', methods = ['GET'])
+@app.route('/api/words/<int:word_id>/', methods = ['GET'])
 def get_word(word_id):
     item = filter(lambda t: t['id'] == word_id, words)
     if len(item) == 0:
@@ -59,7 +59,7 @@ def get_word(word_id):
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
 
-@app.route('/api/', methods = ['POST'])
+@app.route('/api/words/', methods = ['POST'])
 def create_word():
     if not request.json or not 'word' in request.json:
         abort(400)
@@ -72,7 +72,7 @@ def create_word():
     words.append(item)
     return jsonify( { 'item': item } ), 201
 
-@app.route('/api/<int:word_id>/', methods = ['PUT'])
+@app.route('/api/words/<int:word_id>/', methods = ['PUT'])
 def update_word(word_id):
     item = filter(lambda t: t['id'] == word_id, words)
     if len(item) == 0:
@@ -90,7 +90,7 @@ def update_word(word_id):
     item[0]['knowIndex'] = request.json.get('knowIndex', item[0]['knowIndex'])
     return jsonify( { 'item': item[0] } )
 
-@app.route('/api/<int:word_id>/', methods = ['DELETE'])
+@app.route('/api/words/<int:word_id>/', methods = ['DELETE'])
 def delete_word(word_id):
     item = filter(lambda t: t['id'] == word_id, words)
     if len(item) == 0:
