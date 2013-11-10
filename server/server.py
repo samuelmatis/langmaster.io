@@ -26,6 +26,20 @@ words = [{
             "knowIndex": 3
         }]
 
+users = [ {
+    "id": 1
+    "username": "Roko"
+    "password": "AAAAA"
+    "email": "parad.peter@gmail.com"
+    "words": [
+          {
+               "word": "String"
+               "translation": "String"
+               "knowIndex": 3
+          }
+     ]
+}]
+
 @app.route('/', methods = ['GET'])
 def home():
     return render_template("index.html")
@@ -83,6 +97,13 @@ def delete_word(word_id):
         abort(404)
     words.remove(item[0])
     return jsonify( { 'result': True } )
+
+@app.route('/api/users' , methods = ['GET'])
+def get_users():
+    return jsonify( { 'users': users } )
+
+
+
 
 if __name__ == '__main__':
     app.run(debug = True)
