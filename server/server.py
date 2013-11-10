@@ -27,14 +27,14 @@ words = [{
         }]
 
 users = [ {
-    "id": 1
-    "username": "Roko"
-    "password": "AAAAA"
-    "email": "parad.peter@gmail.com"
+    "id": 1,
+    "username": "Roko",
+    "password": "AAAAA",
+    "email": "parad.peter@gmail.com",
     "words": [
           {
-               "word": "String"
-               "translation": "String"
+               "word": "String",
+               "translation": "String",
                "knowIndex": 3
           }
      ]
