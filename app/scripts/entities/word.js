@@ -23,7 +23,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             if(words === undefined) {
                 initializeWords();
             }
-            return contacts;
+            return words;
         }
     };
 

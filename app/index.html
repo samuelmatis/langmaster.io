@@ -27,81 +27,77 @@
         <![endif]-->
 
         <div class="content">
-            <script type="text/template" id="menu-template">
-                <div class="header">
-                    <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal" id="nav">
-                        <a class="pure-menu-heading" href="">Words</a>
+           
+            <div class="header">
+                <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal" id="nav">
+                    <a class="pure-menu-heading" href="">Words</a>
 
-                        <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#test">Test</a></li>
-                            <li class="pure-menu-selected"><a href="#words">Vocabulary</a></li>
-                            <li><a href="#user">User</a></li>
-                            <li><a href="#settings">Settings</a></li>
-                        </ul>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#test">Test</a></li>
+                        <li class="pure-menu-selected"><a href="#words">Vocabulary</a></li>
+                        <li><a href="#user">User</a></li>
+                        <li><a href="#settings">Settings</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pure-g content-ribbon">
+                <div class="pure-u-1-3" id="list-words">
+                    <div class="l-box">
+                        <h4 class="content-subhead">Your words</h4>
+
+                        <p id="words-list"></p>
                     </div>
                 </div>
-            </script>
 
-            <script type="text/template" id="words-layout-template">
-                <div class="pure-g content-ribbon">
-                    <div class="pure-u-1-3" id="list-words">
-                        <div class="l-box">
-                            <h4 class="content-subhead">Your words</h4>
+                <div class="pure-u-2-3" id="add-new-word">
+                    <div class="l-box">
 
-                            <p id="words-list"></p>
-                        </div>
+                        <form class="pure-form">
+                            <fieldset>
+                                <legend>Add a new word</legend>
+                                <div class="pure-g-r">
+                                    <input type="text" class="pure-input-1-4" placeholder="Word">
+                                    <input type="text" class="pure-input-1-4" placeholder="Translation">
+                                </div>
+                            </fieldset>
+
+                            <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
+                        </form>
                     </div>
-
-                    <div class="pure-u-2-3" id="add-new-word">
-                        <div class="l-box">
-
-                            <form class="pure-form">
-                                <fieldset>
-                                    <legend>Add a new word</legend>
-                                    <div class="pure-g-r">
-                                        <input type="text" class="pure-input-1-4" placeholder="Word">
-                                        <input type="text" class="pure-input-1-4" placeholder="Translation">
-                                    </div>
-                                </fieldset>
-
-                                <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
-                            </form>
-                        </div>
-                    </div>
-
                 </div>
-            </script>
 
-            <script type="text/template" id="footer-template">
-                <div class="footer">
-                    Made with love in Slovakia.
-                </div>
-            </script>
+            </div>
+
+            <div class="footer">
+                Made with love in Slovakia.
+            </div>
         </div>
 
-        <!-- Template for a whole table -->
-        <script type="text/template" id="words-table-template">
-            <table class="pure-table">
-                <thead>
-                    <tr>
-                        <th>Word</th>
-                        <th>Translation</th>
-                        <th>KnowIndex</th>
-                    </tr>
-                </thead>
 
-                <tbody>
+        <script type="text/template" id="word-list">
+            <thead>
+                <tr>
+                    <th>Word</th>
+                    <th>Translation</th>
+                    <th>KnowIndex</th>
+                </tr>
+            </thead>
 
-                </tbody>
-            </table>
+            <tbody>
+            </tbody>
         </script>
 
-        <!-- Template for row in the table -->
-        <script type="text/template" id="words-row-template">
-            <td>{{ word }}</td>
-            <td>{{ translation }}</td>
-            <td>{ for(var i=0; i < knowIndex; i++){ }<img src="images/star-on.png">{ } }</td>
+
+        <script type="text/template" id="word-list-item">
+            <td><%= word %></td>
+            <td><%= translation %></td>
+            <td>
+                <% for(var i=0; i < knowIndex; i++){ %>
+                    <img src="images/star-on.png">
+                <% } %>
+            </td>
         </script>
 
 
@@ -120,16 +116,17 @@
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
-        <script src="bower_components/handlebars.js/dist/handlebars.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/main.js -->
-        <script type="text/javascript"> var App = new Marionette.Application(); </script>
-        <script src="scripts/models/word.js"></script>
-        <script src="scripts/collections/words.js"></script>
-        <script src="scripts/views/words.js"></script>
-        <script src="scripts/routers/router.js"></script>
         <script src="scripts/main.js"></script>
+        <script src="scripts/entities/word.js"></script>
+        <script src="scripts/words/list_view.js"></script>
+        <script src="scripts/words/list_controller.js"></script>
         <!-- endbuild -->
+
+        <script type="text/javascript">
+           App.start();
+        </script>
 </body>
 </html>
