@@ -8,13 +8,11 @@ from pymongo import MongoClient
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
 
-MONGO_URL = os.environ.get('mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words')
+MONGO_URL = "mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words"
 client = MongoClient(MONGO_URL)
 db = client.mydatabase
 words = db.words
 users = db.users
-words_count = words.count()
-users_count = users.count()
 
 @app.route('/', methods = ['GET'])
 def home():
@@ -22,7 +20,8 @@ def home():
 
 @app.route('/api/words/', methods = ['GET'])
 def get_words():
-    return db.words.find()
+    return render_template("index.html")
+
 
 @app.route('/api/words/<int:word_id>/', methods = ['GET'])
 def get_word(word_id):
