@@ -1,34 +1,56 @@
 #!flask/bin/python
-from flask import Flask, jsonify, abort, request, make_response, url_for, render_template
+from flask import Flask, jsonify, abort, request, make_response, url_for, render_template, Response
 from flask.ext.httpauth import HTTPBasicAuth
-import os
 import datetime
 import pymongo
-from pymongo import MongoClient
+import os, sys
+from pymongo import Connection
+from bson import BSON
+from bson import json_util
+import json
+from bson.json_util import loads
+from bson import *
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
 
-MONGO_URL = "mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words"
-client = MongoClient(MONGO_URL)
-db = client.mydatabase
+
+server = "ds053948.mongolab.com"
+port = 53948
+db_name = 'words'
+username = "admin"
+password = "iicenajv"
+
+
+#MONGO_URL = "mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words"
+#client = MongoClient(MONGO_URL)
+#db = client.mydatabase
+con = Connection(server, port)
+db = con[db_name]
+db.authenticate(username, password)
 words = db.words
 users = db.users
-
+JSON_words = words.find_one()
+JSON_users = users.find_one()
 @app.route('/', methods = ['GET'])
 def home():
     return render_template("index.html")
 
 @app.route('/api/words/', methods = ['GET'])
 def get_words():
-    return render_template("index.html")
+    monta= json.dumps(JSON_words, sort_keys=True, indent=4, default=json_util.default)
+    #db.words.insert({"word": "maslo", "translation": "butter", "knowIndex": 2})
+    resp = Response(response=monta,
+                    mimetype="application/json")
+    return resp
+    #return render_template("index.html")
 
 
 @app.route('/api/words/<int:word_id>/', methods = ['GET'])
 def get_word(word_id):
-    item = filter(lambda t: t['id'] == word_id, words)
+    """item = filter(lambda t: t['id'] == word_id, words)
     if len(item) == 0:
-        abort(404)
-    return jsonify( { 'item': item[0] } )
+        abort(404)"""
+     #nothing
 
 @app.errorhandler(404)
 def not_found(error):
