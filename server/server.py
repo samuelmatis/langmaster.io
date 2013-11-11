@@ -1,15 +1,11 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, request, make_response, url_for, render_template, Response
-from flask.ext.httpauth import HTTPBasicAuth
 import datetime
 import pymongo
-import os, sys
 from pymongo import Connection
-from bson import BSON
 from bson import json_util
 import json
-from bson.json_util import loads
-from bson import *
+
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
 
@@ -29,16 +25,16 @@ db = con[db_name]
 db.authenticate(username, password)
 words = db.words
 users = db.users
-JSON_words = words.find_one()
-JSON_users = users.find_one()
+
 @app.route('/', methods = ['GET'])
 def home():
     return render_template("index.html")
 
 @app.route('/api/words/', methods = ['GET'])
 def get_words():
-    monta= json.dumps(JSON_words, sort_keys=True, indent=4, default=json_util.default)
-    #db.words.insert({"word": "maslo", "translation": "butter", "knowIndex": 2})
+
+    monta= json.dumps(words.find_one(), sort_keys=True, indent=4, default=json_util.default)
+
     resp = Response(response=monta,
                     mimetype="application/json")
     return resp
