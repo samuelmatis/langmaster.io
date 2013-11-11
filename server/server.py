@@ -20,7 +20,7 @@ db_name = 'words'
 username = "admin"
 password = "iicenajv"
 
-
+s = "s"
 #MONGO_URL = "mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words"
 #client = MongoClient(MONGO_URL)
 #db = client.mydatabase
