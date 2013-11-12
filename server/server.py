@@ -5,6 +5,7 @@ import pymongo
 from pymongo import Connection
 from bson import json_util
 import json
+import ast
 
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
@@ -16,7 +17,7 @@ db_name = 'words'
 username = "admin"
 password = "iicenajv"
 
-s = "s"
+
 #MONGO_URL = "mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words"
 #client = MongoClient(MONGO_URL)
 #db = client.mydatabase
@@ -32,21 +33,23 @@ def home():
 
 @app.route('/api/words/', methods = ['GET'])
 def get_words():
-
-    monta= json.dumps(words.find_one(), sort_keys=True, indent=4, default=json_util.default)
-
-    resp = Response(response=monta,
-                    mimetype="application/json")
-    return resp
-    #return render_template("index.html")
+    Jsonwords = json.dumps(words.find_one(), sort_keys=True, default=json_util.default)
+    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    if Jsonwords != "null":
+        return Jsonwords
+    else:
+        return Response(response="{}", mimetype="application/json")
+    #success
 
 
 @app.route('/api/words/<int:word_id>/', methods = ['GET'])
 def get_word(word_id):
-    """item = filter(lambda t: t['id'] == word_id, words)
-    if len(item) == 0:
-        abort(404)"""
-     #nothing
+    Jsonwords = json.dumps(words.find_one(), sort_keys=True, default=json_util.default)
+    d =  ast.literal_eval(Jsonwords)
+    item = filter(lambda t: t['id'] == word_id, d)
+    #if len(item) == 0:
+    #    abort(404)
+    return jsonify ({"item":d})
 
 @app.errorhandler(404)
 def not_found(error):
@@ -93,15 +96,28 @@ def delete_word(word_id):
 
 @app.route('/api/users/' , methods = ['GET'])
 def get_users():
-    return jsonify( { 'users': users } )
-
+    Jsonwords = json.dumps(users.find_one(), sort_keys=True, default=json_util.default)
+    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    if Jsonwords != "null":
+        return Jsonpage
+    else:
+        return Response(response="{}", mimetype="application/json")
+    #success
 @app.route('/api/users/<user_name>/' , methods = ['GET'])
 def get_user(user_name):
+    """
     user = filter(lambda t: t['username'] == user_name, users)
     if len(user) == 0:
         abort(404)
     return jsonify( { 'user': user[0] } )
-
+    """
+    Jsonwords = json.dumps(words.find_one({"name": str(user_name) }), sort_keys=True, default=json_util.default)
+    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    #if Jsonwords != "null":
+    return Jsonwords
+    #else:
+    #    return Response(response="{}", mimetype="application/json")
+    #success
 @app.route('/api/users/', methods = ['POST'])
 def create_user():
     if not request.json or not 'username' in request.json:
@@ -115,6 +131,8 @@ def create_user():
     }
     users.append(user)
     return jsonify( { 'user': user } ), 201
+
+
 
 @app.route('/api/users/<user_name>/', methods = ['PUT'])
 def update_user(user_name):
