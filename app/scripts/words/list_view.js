@@ -1,19 +1,41 @@
 App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
-	List.Word = Marionette.ItemView.extend({
-		tagName: "tr",
-		template: "#word-list-item"
-	});
+    List.Word = Marionette.ItemView.extend({
+        tagName: "tr",
+        template: "#word-list-item",
 
-	List.Words = Marionette.CompositeView.extend({
-		tagName: "table",
-		className: "pure-table",
+        events: {
+            "click td": "highlightWord",
+            "click button.js-edit": "editClicked",
+            "click td a.js-show": "showClicked"
+        },
 
-		template: "#word-list",
+        highlightWord: function() {
+            this.$el.css('background-color', 'red');
+            // console.log("clicked");
+        },
 
-		itemView: List.Word,
+        deleteClicked: function(e) {
+            e.stopPropagation();
+            // this.trigger("contact:delete", this.model);
+        },
 
-		itemViewContainer: "tbody"
-	});
+        showClicked: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.trigger("word:show", this.model);
+        }
+    });
+
+    List.Words = Marionette.CompositeView.extend({
+        tagName: "table",
+        className: "pure-table",
+
+        template: "#word-list",
+
+        itemView: List.Word,
+
+        itemViewContainer: "tbody"
+    });
 
 });
