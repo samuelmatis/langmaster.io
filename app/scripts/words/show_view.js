@@ -1,7 +1,16 @@
 App.module("Words.Show", function(Show, App, Backbone, Marionette, $, _) {
 
 	Show.Word = Marionette.ItemView.extend({
-		template: "#word-view"
+		template: "#word-view",
+
+		events: {
+			"click a.js-back": "goBack"
+		},
+
+		goBack: function(e) {
+			e.preventDefault();
+			App.trigger("words:list");
+		}
 	});
 
 });

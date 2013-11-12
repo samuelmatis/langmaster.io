@@ -6,22 +6,23 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
         events: {
             "click td": "highlightWord",
-            "click button.js-edit": "editClicked",
-            "click td a.js-show": "showClicked"
+            "click td a.js-edit": "editClicked",
+            "click button.js-delete": "deleteClicked"
         },
 
         highlightWord: function() {
-            this.$el.css('background-color', 'red');
+            // this.$el.css('background-color', '#eeeeee');
+            this.$el.toggleClass('pure-table-highlighted');
             // console.log("clicked");
         },
 
         deleteClicked: function(e) {
+            e.preventDefault();
             e.stopPropagation();
-            // this.trigger("contact:delete", this.model);
+            this.trigger("word:delete", this.model);
         },
 
-        showClicked: function(e) {
-            e.preventDefault();
+        editClicked: function(e) {
             e.stopPropagation();
             this.trigger("word:show", this.model);
         }
