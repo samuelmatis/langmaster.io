@@ -13,4 +13,8 @@ App.module("Words.Show", function(Show, App, Backbone, Marionette, $, _) {
 		}
 	});
 
+	Show.MissingWord = Marionette.ItemView.extend({
+		template: "#missing-word-view"
+	});
+
 });
