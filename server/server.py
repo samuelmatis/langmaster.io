@@ -6,6 +6,7 @@ from pymongo import Connection
 from bson import json_util
 import json
 import ast
+from bson.json_util import loads
 
 
 app = Flask(__name__, static_folder='../app', static_url_path='', template_folder='../app')
@@ -26,6 +27,9 @@ db = con[db_name]
 db.authenticate(username, password)
 words = db.words
 users = db.users
+
+
+
 
 @app.route('/', methods = ['GET'])
 def home():
@@ -98,8 +102,14 @@ def delete_word(word_id):
 def get_users():
     Jsonwords = json.dumps(users.find_one(), sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    l_users = []
+    for user in users.find():
+        l_users.append(user)
     if Jsonwords != "null":
-        return Jsonpage
+        #d = json.loads(str(l_users)[1:-1])
+        #return "{ 'users': {" + str(l_users)[1:-1]+"} }"
+        #return json.dumps(users.find_one, sort_keys=True, indent=4, default=json_util.default)
+        return jsonify({"users": l_users})
     else:
         return Response(response="{}", mimetype="application/json")
     #success
@@ -111,11 +121,11 @@ def get_user(user_name):
         abort(404)
     return jsonify( { 'user': user[0] } )
     """
-    Jsonwords = json.dumps(words.find_one({"name": str(user_name) }), sort_keys=True, default=json_util.default)
+    Jsonwords = json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     #if Jsonwords != "null":
-    return Jsonwords
-    #else:
+    return jsonify ({"user": Jsonwords } )
+    #else:programmer
     #    return Response(response="{}", mimetype="application/json")
     #success
 @app.route('/api/users/', methods = ['POST'])
