@@ -109,7 +109,7 @@ def get_users():
         #d = json.loads(str(l_users)[1:-1])
         #return "{ 'users': {" + str(l_users)[1:-1]+"} }"
         #return json.dumps(users.find_one, sort_keys=True, indent=4, default=json_util.default)
-        return jsonify({"users":str(l_users)[1:-1]})
+        return jsonify({"users": l_users})
     else:
         return Response(response="{}", mimetype="application/json")
     #success
@@ -121,10 +121,10 @@ def get_user(user_name):
         abort(404)
     return jsonify( { 'user': user[0] } )
     """
-    Jsonwords = json.dumps(words.find_one({"name": str(user_name) }), sort_keys=True, default=json_util.default)
+    Jsonwords = json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     #if Jsonwords != "null":
-    return Jsonwords
+    return jsonify ({"user": Jsonwords } )
     #else:programmer
     #    return Response(response="{}", mimetype="application/json")
     #success
