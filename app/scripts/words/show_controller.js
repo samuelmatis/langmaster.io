@@ -2,13 +2,12 @@ App.module("Words.Show", function(Show, App, Backbone, Marionette, $, _) {
 
     Show.Controller = {
         showWord: function(id) {
-            var words = App.request("words:entities");
-            var model = words.get(id);
+            var word = App.request("word:entity", id);
             var wordView;
 
-            if(model !== undefined) {
+            if(word !== undefined) {
                 wordView = new Show.Word({
-                    model: model
+                    model: word
                 });
             } else {
                 wordView = new Show.MissingWord();

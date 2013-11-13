@@ -131,13 +131,16 @@
 
         <!-- build:js scripts/vendor.js -->
         <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/json2/json2.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/backbone.localstorage/backbone.localStorage.js"></script>
         <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <script src="scripts/config/storage/localstorage.js"></script>
         <script src="scripts/entities/word.js"></script>
         <script src="scripts/router/words_app.js"></script>
         <script src="scripts/words/list_view.js"></script>

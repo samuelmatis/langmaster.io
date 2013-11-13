@@ -9,11 +9,11 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             });
 
             wordsListView.on("itemview:word:show", function(childView, model) {
-            	App.trigger("word:show", model.get('id'));
+                App.trigger("word:show", model.get('id'));
             });
 
             wordsListView.on("itemview:word:delete", function(childView, model) {
-            	words.remove(model);
+                model.destroy();
             });
             
             App.wordsList.show(wordsListView);
