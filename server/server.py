@@ -1,5 +1,6 @@
 #!flask/bin/python
-from flask import Flask, jsonify, abort, request, make_response, url_for, render_template, Response
+from flask import Flask, jsonify, abort, request, make_response, \
+ url_for, render_template, Response
 import datetime
 import pymongo
 from pymongo import Connection
@@ -109,7 +110,7 @@ def get_users():
         #d = json.loads(str(l_users)[1:-1])
         #return "{ 'users': {" + str(l_users)[1:-1]+"} }"
         #return json.dumps(users.find_one, sort_keys=True, indent=4, default=json_util.default)
-        return jsonify({"users": l_users})
+        return jsonify ({"users":(list(users.find()))})  #jsonify({"users": l_users})
     else:
         return Response(response="{}", mimetype="application/json")
     #success
@@ -123,8 +124,12 @@ def get_user(user_name):
     """
     Jsonwords = json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    d_users = {}
+    for user in users.find():
+        d_users[username] = user
+    return str(d_users)
     #if Jsonwords != "null":
-    return jsonify ({"user": Jsonwords } )
+    #return jsonify ({"user": Jsonwords } )
     #else:programmer
     #    return Response(response="{}", mimetype="application/json")
     #success
