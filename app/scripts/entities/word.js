@@ -1,13 +1,13 @@
 App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     Entities.Word = Backbone.Model.extend({
-        urlRoot: "contacts"
+        urlRoot: "words"
     });
 
     Entities.configureStorage(Entities.Word);
 
     Entities.WordCollection = Backbone.Collection.extend({
-        url: "contacts",
+        url: "words",
         model: Entities.Word
     });
 
@@ -40,8 +40,15 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
         getContactEntity: function(wordId) {
             var word = new Entities.Word({id: wordId});
-            word.fetch();
-            return word;
+            var defer = $.Deferred();
+            setTimeout(function() {
+                word.fetch({
+                    success: function(data) {
+                        defer.resolve(data);
+                    }
+                });
+            }, 2000);
+            return defer.promise();
         }
     };
 
