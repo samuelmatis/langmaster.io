@@ -46,15 +46,12 @@ def get_words():
         return Response(response="{}", mimetype="application/json")
     #success
 
-
+""" success """
 @app.route('/api/words/<int:word_id>/', methods = ['GET'])
 def get_word(word_id):
-    Jsonwords = json.dumps(words.find_one(), sort_keys=True, default=json_util.default)
-    d =  ast.literal_eval(Jsonwords)
-    item = filter(lambda t: t['id'] == word_id, d)
-    #if len(item) == 0:
-    #    abort(404)
-    return jsonify ({"item":d})
+    Jsonwords = json.dumps(words.find_one({"id" : word_id}), sort_keys=True, default=json_util.default)
+    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    return Jsonpage
 
 @app.errorhandler(404)
 def not_found(error):
@@ -114,25 +111,14 @@ def get_users():
     else:
         return Response(response="{}", mimetype="application/json")
     #success
+
+"""success"""
 @app.route('/api/users/<user_name>/' , methods = ['GET'])
 def get_user(user_name):
-    """
-    user = filter(lambda t: t['username'] == user_name, users)
-    if len(user) == 0:
-        abort(404)
-    return jsonify( { 'user': user[0] } )
-    """
     Jsonwords = json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    d_users = {}
-    for user in users.find():
-        d_users[username] = user
-    return str(d_users)
-    #if Jsonwords != "null":
-    #return jsonify ({"user": Jsonwords } )
-    #else:programmer
-    #    return Response(response="{}", mimetype="application/json")
-    #success
+    return Jsonpage
+
 @app.route('/api/users/', methods = ['POST'])
 def create_user():
     if not request.json or not 'username' in request.json:
