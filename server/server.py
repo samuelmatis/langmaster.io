@@ -31,7 +31,7 @@ users = db.users
 
 
 
-
+"""success"""
 @app.route('/', methods = ['GET'])
 def home():
     return render_template("index.html")
@@ -56,23 +56,26 @@ def get_word(word_id):
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
-
+"""success"""
 @app.route('/api/words/', methods = ['POST'])
 def create_word():
     if not request.json or not 'word' in request.json:
         abort(400)
+    l_words = list(words.find())
     item = {
-        'id': words[-1]['id'] + 1,
+        'id': l_words[-1]['id'] + 1,
         'word': request.json["word"],
         'translation': request.json.get('translation', ""),
         'knowIndex': 2
     }
-    words.append(item)
-    return jsonify( { 'item': item } ), 201
-
+    words.insert(item)
+    Jsonwords = json.dumps(item, sort_keys=True, default=json_util.default)
+    decoded = json.loads(Jsonwords)
+    return jsonify({"item":decoded}), 201
+"""success"""
 @app.route('/api/words/<int:word_id>/', methods = ['PUT'])
 def update_word(word_id):
-    item = filter(lambda t: t['id'] == word_id, words)
+    item = words.find_one({"id": word_id})
     if len(item) == 0:
         abort(404)
     if not request.json:
@@ -83,17 +86,43 @@ def update_word(word_id):
         abort(400)
     if 'knowIndex' in request.json and type(request.json['done']) is not int:
         abort(400)
-    item[0]['word'] = request.json.get('word', item[0]['word'])
-    item[0]['translation'] = request.json.get('translation', item[0]['translation'])
-    item[0]['knowIndex'] = request.json.get('knowIndex', item[0]['knowIndex'])
-    return jsonify( { 'item': item[0] } )
+    item['word'] = request.json.get('word', item['word'])
+    item['translation'] = request.json.get('translation', item['translation'])
+    item['knowIndex'] = request.json.get('knowIndex', item['knowIndex'])
+    n_item = {}
+    for data in item:
+        if data != "_id":
+            n_item[data] = item[data]
+    words.update({'_id': item['_id']}, {"$set": n_item}, upsert=False)
+    return jsonify( { 'user': n_item } )
 
+    return jsonify( { 'item': n_item } )
+
+
+    user = users.find_one({"username": user_name})
+    if len(user) == 0:
+        abort(404)
+    if not request.json:
+        abort(400)
+    if 'username' in request.json and type(request.json['username']) != unicode:
+        abort(400)
+    if 'password' in request.json and type(request.json['password']) !=  unicode:
+        abort(400)
+    if 'email' in request.json and type(request.json['email']) !=  unicode:
+        abort(400)
+
+    user['username'] = request.json.get('username', user['username'])
+    user['password'] = request.json.get('password', user['password'])
+    user['email'] = request.json.get('email', user['email'])
+    user['words'] = request.json.get('words', user['words'])
+
+"""success"""
 @app.route('/api/words/<int:word_id>/', methods = ['DELETE'])
 def delete_word(word_id):
-    item = filter(lambda t: t['id'] == word_id, words)
+    item = words.find_one({"id": word_id})
     if len(item) == 0:
         abort(404)
-    words.remove(item[0])
+    words.remove(item)
     return jsonify( { 'result': True } )
 
 
@@ -109,51 +138,65 @@ def get_users():
 """success"""
 @app.route('/api/users/<user_name>/' , methods = ['GET'])
 def get_user(user_name):
-    Jsonwords = json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)
+    if str(json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)) != "null":
+        Jsonwords = json.dumps(users.find_one({"name": user_name}), sort_keys=True, default=json_util.default)
+    else:
+        Jsonwords = json.dumps(users.find_one({"username": user_name}), sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     return Jsonpage
 
+
+"""success"""
 @app.route('/api/users/', methods = ['POST'])
 def create_user():
     if not request.json or not 'username' in request.json:
         abort(400)
+    l_users = list(users.find())
     user = {
-        'id': users[-1]['id'] + 1,
         'username': request.json["username"],
         'password': request.json["password"],
         'email': request.json["email"],
         'words': []
     }
-    users.append(user)
-    return jsonify( { 'user': user } ), 201
+    users.insert(user)
+    Jsonwords = json.dumps(user, sort_keys=True, default=json_util.default)
+    decoded = json.loads(Jsonwords)
+    return jsonify( { 'user': decoded } ), 201
 
 
 
+"""success"""
 @app.route('/api/users/<user_name>/', methods = ['PUT'])
 def update_user(user_name):
-    user = filter(lambda t: t['username'] == user_name, users)
+    user = users.find_one({"username": user_name})
     if len(user) == 0:
         abort(404)
     if not request.json:
         abort(400)
     if 'username' in request.json and type(request.json['username']) != unicode:
         abort(400)
-    if 'password' in request.json and type(request.json['password']) is not unicode:
+    if 'password' in request.json and type(request.json['password']) !=  unicode:
         abort(400)
-    if 'email' in request.json and type(request.json['email']) is not unicode:
+    if 'email' in request.json and type(request.json['email']) !=  unicode:
         abort(400)
-    user[0]['username'] = request.json.get('username', user[0]['username'])
-    user[0]['password'] = request.json.get('password', user[0]['password'])
-    user[0]['email'] = request.json.get('email', user[0]['email'])
-    user[0]['words'] = request.json.get('words', user[0]['words'])
-    return jsonify( { 'user': user[0] } )
 
+    user['username'] = request.json.get('username', user['username'])
+    user['password'] = request.json.get('password', user['password'])
+    user['email'] = request.json.get('email', user['email'])
+    user['words'] = request.json.get('words', user['words'])
+    n_user = {}
+    for data in user:
+        if data != "_id":
+            n_user[data] = user[data]
+    users.update({'_id': user['_id']}, {"$set": n_user}, upsert=False)
+    return jsonify( { 'user': n_user } )
+"""success"""
 @app.route('/api/users/<user_name>/', methods = ['DELETE'])
 def delete_user(user_name):
-    user = filter(lambda t: t['username'] == user_name, users)
+    user = users.find_one({"username": user_name})
     if len(user) == 0:
         abort(404)
-    users.remove(user[0])
+    users.remove(user)
     return jsonify( { 'result': True } )
 
 
