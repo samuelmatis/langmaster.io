@@ -36,15 +36,14 @@ users = db.users
 def home():
     return render_template("index.html")
 
+
+"""success"""
 @app.route('/api/words/', methods = ['GET'])
 def get_words():
-    Jsonwords = json.dumps(words.find_one(), sort_keys=True, default=json_util.default)
-    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    if Jsonwords != "null":
-        return Jsonwords
-    else:
-        return Response(response="{}", mimetype="application/json")
-    #success
+    l_words = list(words.find())
+    Jsonwords = json.dumps(l_words, sort_keys=True, default=json_util.default)
+    decoded = json.loads(Jsonwords)
+    return jsonify({"words":decoded})
 
 """ success """
 @app.route('/api/words/<int:word_id>/', methods = ['GET'])
@@ -53,6 +52,7 @@ def get_word(word_id):
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     return Jsonpage
 
+"""success"""
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify( { 'error': 'Not found' } ), 404)
@@ -96,21 +96,15 @@ def delete_word(word_id):
     words.remove(item[0])
     return jsonify( { 'result': True } )
 
+
+"""success"""
 @app.route('/api/users/' , methods = ['GET'])
 def get_users():
-    Jsonwords = json.dumps(users.find_one(), sort_keys=True, default=json_util.default)
-    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    l_users = []
-    for user in users.find():
-        l_users.append(user)
-    if Jsonwords != "null":
-        #d = json.loads(str(l_users)[1:-1])
-        #return "{ 'users': {" + str(l_users)[1:-1]+"} }"
-        #return json.dumps(users.find_one, sort_keys=True, indent=4, default=json_util.default)
-        return jsonify ({"users":(list(users.find()))})  #jsonify({"users": l_users})
-    else:
-        return Response(response="{}", mimetype="application/json")
-    #success
+    l_users = list(users.find())
+    Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
+    decoded = json.loads(Jsonwords)
+    return jsonify({"words":decoded})
+
 
 """success"""
 @app.route('/api/users/<user_name>/' , methods = ['GET'])
