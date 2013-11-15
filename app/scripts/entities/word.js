@@ -25,17 +25,26 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             word.save();
         });
 
-        return words;
+        return words.models;
     };
 
     var API = {
         getWordsEntities: function() {
             var words = new Entities.WordCollection();
-            words.fetch();
-            if(words.length === 0) {
-                return initializeWords();
-            }
-            return words;
+            var defer = $.Deferred();
+            words.fetch({
+                success: function(data) {
+                    defer.resolve(data);
+                }
+            });
+            var promise = defer.promise();
+            $.when(promise).done(function(words) {
+                if(words.length === 0) {
+                    var models = initializeWords();
+                    words.reset(models);
+                }
+            });
+            return promise;
         },
 
         getContactEntity: function(wordId) {
@@ -45,6 +54,9 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
                 word.fetch({
                     success: function(data) {
                         defer.resolve(data);
+                    },
+                    error: function(data) {
+                        defer.resolve(undefined);
                     }
                 });
             }, 2000);
