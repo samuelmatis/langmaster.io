@@ -1,4 +1,3 @@
-print 8
 from flask import Flask, redirect, url_for, session, request
 from flask_oauth import OAuth
 
@@ -7,7 +6,6 @@ SECRET_KEY = 'development key'
 DEBUG = True
 FACEBOOK_APP_ID = '188477911223606'
 FACEBOOK_APP_SECRET = '621413ddea2bcc5b2e83d42fc40495de'
-
 
 app = Flask(__name__)
 app.debug = DEBUG
