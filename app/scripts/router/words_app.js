@@ -27,7 +27,7 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     App.on("word:show", function(id) {
         App.navigate("words/" + id);
         API.showWord(id);
-    })
+    });
 
     App.addInitializer(function() {
         new Words.Router({
