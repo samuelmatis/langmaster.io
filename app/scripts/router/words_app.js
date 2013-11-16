@@ -3,7 +3,7 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     Words.Router = Marionette.AppRouter.extend({
         appRoutes: {
             "words": "listWords",
-            "words/:id/edit": "editWord"
+            "words/edit/:id": "editWord"
         }
     });
 

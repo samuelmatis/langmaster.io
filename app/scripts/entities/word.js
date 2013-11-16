@@ -1,7 +1,24 @@
 App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     Entities.Word = Backbone.Model.extend({
-        urlRoot: "words"
+        urlRoot: "words",
+
+        validate: function(attrs, options) {
+            var errors = {};
+            if(!attrs.word) {
+                errors.word = "Can't be blank";
+            }
+            if(!attrs.translation) {
+                errors.translation = "Can't be blank";
+            } else {
+                if(attrs.translation.length < 2) {
+                    errors.translation = "Is too short";
+                }
+            }
+            if(!_.isEmpty(errors)) {
+                return errors;
+            }
+        }
     });
 
     Entities.configureStorage(Entities.Word);

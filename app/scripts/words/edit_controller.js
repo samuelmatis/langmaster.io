@@ -14,8 +14,11 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
                     });
 
                     view.on("form:submit", function(data) {
-                        word.save(data);
-                        App.trigger("words:list");
+                        if(word.save(data)) {
+                            App.trigger("words:list");
+                        } else {
+                            view.triggerMethod("form:data:invalid", word.validationError);
+                        }
                     });
                 } else {
                     view = new App.Words.Show.MissingWord();
