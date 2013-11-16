@@ -7,6 +7,8 @@ from pymongo import Connection
 from bson import json_util
 import json
 from bson.json_util import loads
+from flask import Flask, redirect, url_for, session
+from flask_oauth import OAuth
 
 
 app = Flask(__name__, static_folder='../app', static_url_path='',
