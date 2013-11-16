@@ -7,8 +7,8 @@ from pymongo import Connection
 from bson import json_util
 import json
 from bson.json_util import loads
-from Auth import *
-
+import Auth
+print 5
 app = Flask(__name__, static_folder='../app', static_url_path='',
             template_folder='../app')
 
@@ -52,11 +52,11 @@ def get_word(word):
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     return Jsonpage
 
-@app.route('/login')
-def login():
-    return facebook.authorize(callback=url_for('facebook_authorized',
-        next=request.args.get('next') or request.referrer or None,
-        _external=True))
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
+
 
 @app.route('/api/words/', methods=['POST'])
 def create_word():
@@ -206,90 +206,5 @@ def delete_user(user_name):
     return jsonify({'result': True})
 
 
-SECRET_KEY = 'development key'
-DEBUG = True
-FACEBOOK_APP_ID = '188477911223606'
-FACEBOOK_APP_SECRET = '621413ddea2bcc5b2e83d42fc40495de'
-
-app.secret_key = SECRET_KEY
-oauth = OAuth()
-
-facebook = oauth.remote_app('facebook',
-    base_url='https://graph.facebook.com/',
-    request_token_url=None,
-    access_token_url='/oauth/access_token',
-    authorize_url='https://www.facebook.com/dialog/oauth',
-    consumer_key=FACEBOOK_APP_ID,
-    consumer_secret=FACEBOOK_APP_SECRET,
-    request_token_params={'scope': 'email'}
-)
-
-@app.route('/loginfb')
-def loginfb():
-    return facebook.authorize(callback=url_for('facebook_authorized',
-        next=request.args.get('next') or request.referrer or None,
-        _external=True))
-@app.route('/login/authorized')
-@facebook.authorized_handler
-def facebook_authorized(resp):
-    if resp is None:
-        return 'Access denied: reason=%s error=%s' % (
-            request.args['error_reason'],
-            request.args['error_description']
-        )
-    session['oauth_token'] = (resp['access_token'], '')
-    me = facebook.get('/me')
-    return 'Logged in as id=%s name=%s redirect=%s' % \
-        (me.data['id'], me.data['name'], request.args.get('next'))
-
-
-@facebook.tokengetter
-def get_facebook_oauth_token():
-    return session.get('oauth_token')
-
-
-GOOGLE_CLIENT_ID = '<Client-ID>'
-GOOGLE_CLIENT_SECRET = '<Client-secret>'
-REDIRECT_URI = '/authorized'  # one of the Redirect URIs from Google APIs console
-DEBUG = True
-
-app.secret_key = SECRET_KEY
-oauth = OAuth()
-
-google = oauth.remote_app('google',
-                          base_url='https://www.google.com/accounts/',
-                          authorize_url='https://accounts.google.com/o/oauth2/auth',
-                          request_token_url=None,
-                          request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email',
-                                                'response_type': 'code'},
-                          access_token_url='https://accounts.google.com/o/oauth2/token',
-                          access_token_method='POST',
-                          access_token_params={'grant_type': 'authorization_code'},
-                          consumer_key=GOOGLE_CLIENT_ID,
-                          consumer_secret=GOOGLE_CLIENT_SECRET)
-
-
-
-
-@app.route('/loginplus')
-def loginplus():
-    callback=url_for('authorized', _external=True)
-    return google.authorize(callback=callback)
-
-
-
-@app.route(REDIRECT_URI)
-@google.authorized_handler
-def authorized(resp):
-    access_token = resp['access_token']
-    session['access_token'] = access_token, ''
-    return redirect(url_for('index'))
-
-
-@google.tokengetter
-def get_access_token():
-    return session.get('access_token')
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)
