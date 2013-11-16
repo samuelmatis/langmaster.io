@@ -134,7 +134,7 @@ def get_users():
     l_users = list(users.find())
     Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
     decoded = json.loads(Jsonwords)
-    return jsonify({"words": decoded})
+    return jsonify({"users": decoded})
 
 
 @app.route('/api/users/<user_name>/', methods=['GET'])
