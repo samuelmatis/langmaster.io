@@ -38,8 +38,15 @@ def get_words():
 
 
 @app.route('/api/words/<int:word_id>/', methods=['GET'])
-def get_word(word_id):
+def get_id_word(word_id):
     Jsonwords = json.dumps(words.find_one({"id": word_id}), sort_keys=True,
+                           default=json_util.default)
+    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
+    return Jsonpage
+
+@app.route('/api/words/<word>/', methods=['GET'])
+def get_word(word):
+    Jsonwords = json.dumps(words.find_one({"word": word}), sort_keys=True,
                            default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     return Jsonpage
