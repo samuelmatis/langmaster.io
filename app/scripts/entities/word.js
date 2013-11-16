@@ -49,7 +49,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             return promise;
         },
 
-        getContactEntity: function(wordId) {
+        getWordEntity: function(wordId) {
             var word = new Entities.Word({id: wordId});
             var defer = $.Deferred();
             setTimeout(function() {
@@ -71,7 +71,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     });
 
     App.reqres.setHandler("word:entity", function(id) {
-        return API.getContactEntity(id);
+        return API.getWordEntity(id);
     });
 
 });

@@ -3,7 +3,7 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     Words.Router = Marionette.AppRouter.extend({
         appRoutes: {
             "words": "listWords",
-            "words/:id": "showWord"
+            "words/:id/edit": "editWord"
         }
     });
 
@@ -13,9 +13,8 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
             App.Words.List.Controller.listWords();
         },
 
-        showWord: function(id) {
-            console.log("[route] show word");
-            App.Words.Show.Controller.showWord(id);
+        editWord: function(id) {
+            App.Words.Edit.Controller.editWord(id);
         }
     };
 
@@ -24,9 +23,9 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
         API.listWords();
     });
 
-    App.on("word:show", function(id) {
-        App.navigate("words/" + id);
-        API.showWord(id);
+    App.on("word:edit", function(id) {
+        App.navigate("contacts/" + id + "/edit");
+        API.editWord(id);
     });
 
     App.addInitializer(function() {
