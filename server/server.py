@@ -7,7 +7,7 @@ from pymongo import Connection
 from bson import json_util
 import json
 from bson.json_util import loads
-from Auth import *
+
 
 app = Flask(__name__, static_folder='../app', static_url_path='',
             template_folder='../app')
