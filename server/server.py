@@ -65,8 +65,8 @@ def create_word():
     item = {
         'id': l_words[-1]['id'] + 1,
         'word': request.json["word"],
-        'translation': request.json.get('translation', ""),
-        'knowIndex': 2
+        'translation': request.json["translation"],
+        'knowIndex': 0
     }
     words.insert(item)
     Jsonwords = json.dumps(item, sort_keys=True, default=json_util.default)
@@ -156,6 +156,7 @@ def create_user():
         abort(400)
     l_users = list(users.find())
     user = {
+        'id': l_users[-1]['id'] + 1,
         'username': request.json["username"],
         'password': request.json["password"],
         'email': request.json["email"],
