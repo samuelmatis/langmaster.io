@@ -210,3 +210,7 @@ body .primary-button {
 #spinner {
     height: 200px;
 }
+
+.success {
+    background-color: #dff0d8;
+}

@@ -3,6 +3,10 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
     Edit.Word = Marionette.ItemView.extend({
         template: "#word-edit",
 
+        initialize: function() {
+            this.title = "Edit " + this.model.get('word');
+        },
+
         events: {
             "click button.js-submit": "submitClicked",
             "click a.js-back": "goBack"
@@ -17,6 +21,23 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
             e.preventDefault();
             var data = Backbone.Syphon.serialize(this);
             this.trigger("form:submit", data);
+        },
+
+        onRender: function() {
+            if(!this.options.asModal) {
+                var $title = $('<h1>', {text: this.title});
+                this.$el.prepend($title);
+            }
+        },
+
+        onShow: function() {
+            if(this.options.asModal) {
+                this.$el.dialog({
+                    modal: true,
+                    title: this.title,
+                    width: "auto"
+                });
+            }
         },
 
         onFormDataInvalid: function(errors) {
@@ -42,6 +63,6 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
             clearFormErrors();
             _.each(errors, markErrors); 
         }
-    })
+    });
 
 });

@@ -10,6 +10,15 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             "click button.js-delete": "deleteClicked"
         },
 
+        flash: function(cssClass) {
+            var $view = this.$el;
+            $view.hide().toggleClass(cssClass).fadeIn(800, function() {
+                setTimeout(function() {
+                    $view.toggleClass(cssClass);
+                }, 500);
+            });
+        },
+
         highlightWord: function() {
             // this.$el.css('background-color', '#eeeeee');
             this.$el.toggleClass('pure-table-highlighted');
@@ -23,8 +32,9 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         },
 
         editClicked: function(e) {
+            e.preventDefault();
             e.stopPropagation();
-            this.trigger("word:show", this.model);
+            this.trigger("word:edit", this.model);
         }
     });
 

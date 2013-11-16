@@ -11,14 +11,30 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                     collection: words
                 });
 
-                wordsListView.on("itemview:word:show", function(childView, model) {
-                    App.trigger("word:edit", model.get('id'));
+                wordsListView.on("itemview:word:edit", function(childView, model) {
+                    // App.trigger("word:edit", model.get('id'));
+                    var view = new App.Words.Edit.Word({
+                        model: model,
+                        asModal: true
+                    });
+
+                    view.on("form:submit", function(data) {
+                        if(model.save(data)) {
+                            childView.render();
+                            App.editDialog.close();
+                            childView.flash("success");
+                        } else {
+                            view/triggerMethod("form:data:invalid", model.validationError);
+                        }
+                    });
+
+                    App.editDialog.show(view);
                 });
 
                 wordsListView.on("itemview:word:delete", function(childView, model) {
                     model.destroy();
                 });
-                
+
                 App.wordsList.show(wordsListView);
             });
         }

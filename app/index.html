@@ -16,6 +16,7 @@
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/app.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
@@ -73,6 +74,8 @@
             <div class="footer">
                 Made with love in Slovakia.
             </div>
+
+            <div id="edit-dialog"></div>
         </div>
 
 
@@ -125,7 +128,6 @@
         </script>
 
         <script type="text/template" id="word-edit">
-            <h1>Edit word <i><%= word %></i></h1>
             <form class="pure-form pure-form-aligned">
                 <fieldset>
                     <div class="pure-control-group">
@@ -139,7 +141,6 @@
                     <button class="js-submit pure-button pure-button-primary">Save</button>
                 </fieldset>
             </form>
-            <a href="#words" class="js-back pure-button">Back to words list</a>
         </script>
 
 
@@ -155,6 +156,7 @@
 
         <!-- build:js scripts/vendor.js -->
         <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
         <script src="bower_components/json2/json2.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
