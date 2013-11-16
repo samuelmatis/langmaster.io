@@ -206,3 +206,7 @@ body .primary-button {
 .pure-table-highlighted {
     background-color: #eeeeee;
 }
+
+#spinner {
+    height: 200px;
+}

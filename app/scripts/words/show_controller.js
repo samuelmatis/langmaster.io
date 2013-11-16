@@ -2,6 +2,9 @@ App.module("Words.Show", function(Show, App, Backbone, Marionette, $, _) {
 
     Show.Controller = {
         showWord: function(id) {
+            var loadingView = new App.Common.Views.Loading();
+            App.wordsList.show(loadingView);
+
             var word = App.request("word:entity", id);
             $.when(word).done(function(word) {
                 var wordView;

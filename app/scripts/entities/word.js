@@ -32,11 +32,13 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         getWordsEntities: function() {
             var words = new Entities.WordCollection();
             var defer = $.Deferred();
-            words.fetch({
-                success: function(data) {
-                    defer.resolve(data);
-                }
-            });
+            setTimeout(function() {
+                words.fetch({
+                    success: function(data) {
+                        defer.resolve(data);
+                    }
+                });
+            }, 500);
             var promise = defer.promise();
             $.when(promise).done(function(words) {
                 if(words.length === 0) {
@@ -59,7 +61,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
                         defer.resolve(undefined);
                     }
                 });
-            }, 2000);
+            }, 500);
             return defer.promise();
         }
     };

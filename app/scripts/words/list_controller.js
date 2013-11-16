@@ -2,8 +2,10 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     List.Controller = {
         listWords: function() {
-            var words = App.request("words:entities");
+            var loadingView = new App.Common.Views.Loading();
+            App.wordsList.show(loadingView);
 
+            var words = App.request("words:entities");
             $.when(words).done(function(words) {
                 var wordsListView = new List.Words({
                     collection: words

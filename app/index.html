@@ -118,6 +118,10 @@
             <h1>This word does not exist</h1>
         </script>
 
+        <script type="text/template" id="loading-view">
+            <div id="spinner"></div>
+        </script>
+
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -136,12 +140,15 @@
         <script src="bower_components/backbone/backbone.js"></script>
         <script src="bower_components/backbone.localstorage/backbone.localStorage.js"></script>
         <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+        <script src="bower_components/spin.js/spin.js"></script>
+        <script src="bower_components/spin.js/jquery.spin.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/main.js -->
         <script src="scripts/main.js"></script>
         <script src="scripts/config/storage/localstorage.js"></script>
         <script src="scripts/entities/word.js"></script>
+        <script src="scripts/common/views.js"></script>
         <script src="scripts/router/words_app.js"></script>
         <script src="scripts/words/list_view.js"></script>
         <script src="scripts/words/list_controller.js"></script>
