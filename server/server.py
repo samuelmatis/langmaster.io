@@ -54,11 +54,7 @@ def get_word(word):
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
     return Jsonpage
 
-@app.route('/login')
-def login():
-    return facebook.authorize(callback=url_for('facebook_authorized',
-        next=request.args.get('next') or request.referrer or None,
-        _external=True))
+
 
 @app.route('/api/words/', methods=['POST'])
 def create_word():
