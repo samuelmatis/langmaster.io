@@ -15,7 +15,6 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
 
         submitClicked: function(e) {
             e.preventDefault();
-            console.log(1);
             var data = Backbone.Syphon.serialize(this);
             this.trigger("form:submit", data);
         }

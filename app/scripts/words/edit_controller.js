@@ -14,7 +14,6 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
                     });
 
                     view.on("form:submit", function(data) {
-                        console.log(2);
                         word.save(data);
                         App.trigger("words:list");
                     });
