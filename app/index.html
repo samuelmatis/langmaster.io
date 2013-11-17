@@ -43,33 +43,7 @@
                 </div>
             </div>
 
-            <div class="pure-g content-ribbon">
-                <div class="pure-u-11-24" id="list-words">
-                    <div class="l-box">
-                        <h4 class="content-subhead">Your words</h4>
-
-                        <p id="words-list"></p>
-                    </div>
-                </div>
-
-                <div class="pure-u-11-24" id="add-new-word">
-                    <div class="l-box">
-
-                        <form class="pure-form">
-                            <fieldset>
-                                <legend>Add a new word</legend>
-                                <div class="pure-g-r">
-                                    <input type="text" class="pure-input-1-4" placeholder="Word">
-                                    <input type="text" class="pure-input-1-4" placeholder="Translation">
-                                </div>
-                            </fieldset>
-
-                            <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
+            <div id="words"></div>
 
             <div class="footer">
                 Made with love in Slovakia.
@@ -80,17 +54,27 @@
 
 
         <script type="text/template" id="word-list">
-            <thead>
-                <tr>
-                    <th>Word</th>
-                    <th>Translation</th>
-                    <th>KnowIndex</th>
-                    <th></th>
-                </tr>
-            </thead>
+            
+            <div class="l-box">
+                <h4 class="content-subhead">Your words</h4>
 
-            <tbody>
-            </tbody>
+                <p id="words-list">
+                    <table class="pure-table">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Translation</th>
+                                <th>KnowIndex</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+                    </table>
+                </p>
+            </div>
+            
         </script>
 
 
@@ -141,6 +125,30 @@
                     <button class="js-submit pure-button pure-button-primary">Save</button>
                 </fieldset>
             </form>
+        </script>
+
+        <script type="text/template" id="words-list-layout">
+            <div class="pure-u-11-24" id="list-words"></div>
+            <div class="pure-u-11-24" id="add-new-word"></div>
+        </script>
+
+        <script type="text/template" id="words-list-newword">
+            
+            <div class="l-box">
+
+                <form class="pure-form">
+                    <fieldset>
+                        <legend>Add a new word</legend>
+                        <div class="pure-g-r">
+                            <input type="text" class="pure-input-1-4" placeholder="Word">
+                            <input type="text" class="pure-input-1-4" placeholder="Translation">
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
+                </form>
+
+            </div>
         </script>
 
 

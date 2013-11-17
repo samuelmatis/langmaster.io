@@ -1,5 +1,19 @@
 App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
+    List.Layout = Marionette.Layout.extend({
+        template: "#words-list-layout",
+        className: "pure-g content-ribbon",
+
+        regions: {
+            listRegion: "#list-words",
+            addRegion: "#add-new-word"
+        }
+    });
+
+    List.NewWord = Marionette.ItemView.extend({
+        template: "#words-list-newword"
+    });
+
     List.Word = Marionette.ItemView.extend({
         tagName: "tr",
         template: "#word-list-item",
@@ -39,8 +53,6 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
     });
 
     List.Words = Marionette.CompositeView.extend({
-        tagName: "table",
-        className: "pure-table",
 
         template: "#word-list",
 
