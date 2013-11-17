@@ -131,6 +131,10 @@
 
         <script type="text/template" id="words-list-newword">
             <div class="l-box">
+                <button class="js-oauth-facebook">Log in with Facebook</button>
+                <button class="js-oauth-twitter">Log in with Twitter</button>
+                <button class="js-oauth-google">Log in with Google</button>
+                <button class="js-oauth-linkedin">Log in with LinkedIn</button>
                 <form class="pure-form">
                     <fieldset>
                         <legend>Add a new word</legend>
@@ -140,7 +144,7 @@
                         </div>
                     </fieldset>
 
-                    <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
+                    <button type="submit" class="js-addnewword pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
                 </form>
             </div>
         </script>
@@ -165,6 +169,7 @@
         <script src="bower_components/backbone.syphon/lib/backbone.syphon.js"></script>
         <script src="bower_components/backbone.localstorage/backbone.localStorage.js"></script>
         <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
+        <script src="scripts/vendor/oauth.js"></script>
         <script src="bower_components/spin.js/spin.js"></script>
         <script src="bower_components/spin.js/jquery.spin.js"></script>
         <!-- endbuild -->

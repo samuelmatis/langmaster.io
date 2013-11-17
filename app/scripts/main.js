@@ -21,6 +21,9 @@ App.getCurrentRoute = function() {
 App.on("initialize:after", function() {
     // App.Words.List.Controller.listWords();
 
+    // Initialize OAuth
+    OAuth.initialize('fF3y7938pxJouuXVgHM-9ALKMEk');
+
     if(Backbone.history) {
         Backbone.history.start();
 
