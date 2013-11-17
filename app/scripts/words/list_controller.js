@@ -24,7 +24,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                             App.editDialog.close();
                             childView.flash("success");
                         } else {
-                            view/triggerMethod("form:data:invalid", model.validationError);
+                            view.triggerMethod("form:data:invalid", model.validationError);
                         }
                     });
 
