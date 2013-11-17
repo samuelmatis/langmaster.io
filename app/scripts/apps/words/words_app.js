@@ -24,7 +24,7 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     });
 
     App.on("word:edit", function(id) {
-        App.navigate("words/" + id + "/edit");
+        App.navigate("words/edit" + id);
         API.editWord(id);
     });
 

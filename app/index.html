@@ -52,6 +52,18 @@
             <div id="edit-dialog"></div>
         </div>
 
+        <!-- Common templates -->
+        <script type="text/template" id="loading-view">
+            <h2><%= title %></h2>
+            <h3><%= message %></h3>
+            <div id="spinner"></div>
+        </script>
+
+        <!-- Words page templates -->
+        <script type="text/template" id="words-list-layout">
+            <div class="pure-u-11-24" id="list-words"></div>
+            <div class="pure-u-11-24" id="add-new-word"></div>
+        </script>
 
         <script type="text/template" id="word-list">
             
@@ -96,20 +108,10 @@
             </td>
         </script>
 
-        <script type="text/template" id="word-view">
-            <h1><%= word %> - <%= translation %></h1>
-            <a href="#" class="js-back pure-button">Back to words list</a>
-        </script>
-
         <script type="text/template" id="missing-word-view">
             <h1>This word does not exist</h1>
         </script>
 
-        <script type="text/template" id="loading-view">
-            <h2><%= title %></h2>
-            <h3><%= message %></h3>
-            <div id="spinner"></div>
-        </script>
 
         <script type="text/template" id="word-edit">
             <form class="pure-form pure-form-aligned">
@@ -127,15 +129,8 @@
             </form>
         </script>
 
-        <script type="text/template" id="words-list-layout">
-            <div class="pure-u-11-24" id="list-words"></div>
-            <div class="pure-u-11-24" id="add-new-word"></div>
-        </script>
-
         <script type="text/template" id="words-list-newword">
-            
             <div class="l-box">
-
                 <form class="pure-form">
                     <fieldset>
                         <legend>Add a new word</legend>
@@ -147,7 +142,6 @@
 
                     <button type="submit" class="pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
                 </form>
-
             </div>
         </script>
 
@@ -180,11 +174,11 @@
         <script src="scripts/config/storage/localstorage.js"></script>
         <script src="scripts/entities/word.js"></script>
         <script src="scripts/common/views.js"></script>
-        <script src="scripts/router/words_app.js"></script>
-        <script src="scripts/words/list_view.js"></script>
-        <script src="scripts/words/list_controller.js"></script>
-        <script src="scripts/words/edit_view.js"></script>
-        <script src="scripts/words/edit_controller.js"></script>
+        <script src="scripts/apps/words/words_app.js"></script>
+        <script src="scripts/apps/words/list/list_view.js"></script>
+        <script src="scripts/apps/words/list/list_controller.js"></script>
+        <script src="scripts/apps/words/edit/edit_view.js"></script>
+        <script src="scripts/apps/words/edit/edit_controller.js"></script>
         <!-- endbuild -->
 
         <script type="text/javascript">App.start();</script>

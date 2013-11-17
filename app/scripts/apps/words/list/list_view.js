@@ -11,7 +11,17 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
     });
 
     List.NewWord = Marionette.ItemView.extend({
-        template: "#words-list-newword"
+        template: "#words-list-newword",
+
+        events: {
+            "click button.js-addnewword": "submitClicked"
+        },
+
+        submitClicked: function(e) {
+            e.preventDefault();
+            var data = Backbone.Syphon.serialize(this);
+            this.trigger("form:submit", data);
+        }
     });
 
     List.Word = Marionette.ItemView.extend({
