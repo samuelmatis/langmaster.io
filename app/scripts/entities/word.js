@@ -6,7 +6,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         defaults: {
             word: "",
             translation: "",
-            knowIndex: 0
+            strength: 0
         },
 
         validate: function(attrs, options) {
@@ -38,10 +38,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     var initializeWords = function() {
         var words = new Entities.WordCollection([
-            { "id": 1, "word": "car", "translation": "auto", "knowIndex": 4 },
-            { "id": 2, "word": "house", "translation": "dom", "knowIndex": 5 },
-            { "id": 3, "word": "computer", "translation": "pocitac", "knowIndex": 2 },
-            { "id": 4, "word": "book", "translation": "kniha", "knowIndex": 3 }
+            { "id": 1, "word": "car", "translation": "auto", "strength": 4 },
+            { "id": 2, "word": "house", "translation": "dom", "strength": 5 },
+            { "id": 3, "word": "computer", "translation": "pocitac", "strength": 2 },
+            { "id": 4, "word": "book", "translation": "kniha", "strength": 3 }
         ]);
 
         words.forEach(function(word) {

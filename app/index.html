@@ -8,15 +8,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>words</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="bower_components/pure/pure.css">
-        <link href='http://fonts.googleapis.com/css?family=Fenix|Prosto+One|Radley|Fondamento&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-        <!-- endbuild -->
+        <link href='http://fonts.googleapis.com/css?family=Radley&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
         <!-- build:css(.tmp) styles/app.css -->
-        <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="styles/jquery-ui-theme.css">
+        <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
@@ -27,30 +26,56 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="content">
+        <div id="wrap">
+            <div class="container">
 
-            <div class="header">
-                <div class="pure-menu pure-menu-open pure-menu-fixed pure-menu-horizontal" id="nav">
-                    <a class="pure-menu-heading" href="">Words</a>
-
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#test">Test</a></li>
-                        <li class="pure-menu-selected"><a href="#words">Words</a></li>
-                        <li><a href="#user">User</a></li>
-                        <li><a href="#settings">Settings</a></li>
-                    </ul>
+                <div class="header">
+                    <nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                  <span class="sr-only">Toggle navigation</span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                  <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#">Words</a>
+                              </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#home">Home</a></li>
+                                    <li><a href="#test">Test</a></li>
+                                    <li class="active"><a href="#words">Words</a></li>
+                                    <li><a href="#settings">Settings</a></li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Samuel Matis <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Profile</a></li>
+                                            <li><a href="#">Settings</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><button type="button" class="btn btn-default navbar-btn btn-logout">Log out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
+
+                <div id="words"></div>
             </div>
 
-            <div id="words"></div>
-
-            <div class="footer">
-                Made with love in Slovakia.
-            </div>
-
-            <div id="edit-dialog"></div>
         </div>
+
+
+        <div id="footer">
+          <div class="container container-footer">
+            <p class="credit">Made by <a href="http://matiss.sk">Samuel Matis</a> and <a href="http://parada.sk">Peter Parada</a>.</p>
+          </div>
+        </div>
+
+        <div id="edit-dialog"></div>
 
         <!-- Common templates -->
         <script type="text/template" id="loading-view">
@@ -61,32 +86,30 @@
 
         <!-- Words page templates -->
         <script type="text/template" id="words-list-layout">
-            <div class="pure-u-11-24" id="list-words"></div>
-            <div class="pure-u-11-24" id="add-new-word"></div>
+            <div class="row">
+                <div class="col-md-6" id="list-words"></div>
+                <div class="col-md-6" id="add-new-word"></div>
+            </div>
         </script>
 
         <script type="text/template" id="word-list">
-            
-            <div class="l-box">
-                <h4 class="content-subhead">Your words</h4>
+            <h4 class="content-subhead">Your words</h4>
 
-                <p id="words-list">
-                    <table class="pure-table">
-                        <thead>
-                            <tr>
-                                <th>Word</th>
-                                <th>Translation</th>
-                                <th>KnowIndex</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+            <p id="words-list">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Word</th>
+                            <th>Translation</th>
+                            <th>Strength</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                        </tbody>
-                    </table>
-                </p>
-            </div>
-            
+                    <tbody>
+                    </tbody>
+                </table>
+            </p>
         </script>
 
 
@@ -94,16 +117,16 @@
             <td><%= word %></td>
             <td><%= translation %></td>
             <td>
-                <% for(var i=0; i < knowIndex; i++){ %>
-                    <img src="images/star-on.png">
+                <% for(var i=0; i < strength; i++){ %>
+                    <span class="glyphicon glyphicon-star"></span>
                 <% } %>
             </td>
             <td>
-                <a href="#words/edit/<%= id %>" class="pure-button pure-button-small js-edit">
-                    <i class="icon-pencil2"></i>
+                <a href="#words/edit/<%= id %>" class="js-edit btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
                 </a>
-                <button class="pure-button pure-button-error pure-button-small js-delete">
-                    <i class="icon-remove2"></i>
+                <button class="js-delete btn btn-danger btn-xs">
+                    <i class="glyphicon glyphicon-remove"></i> Delete
                 </button>
             </td>
         </script>
@@ -114,35 +137,40 @@
 
 
         <script type="text/template" id="word-edit">
-            <form class="pure-form pure-form-aligned">
-                <fieldset>
-                    <div class="pure-control-group">
-                        <label for="edit-word">Word:</label>
-                        <input id="edit-word" type="text"  name="word" value="<%= word %>"/>
-                    </div>
-                    <div class="pure-control-group">
-                        <label for="edit-translation">Translation:</label>
-                        <input id="edit-translation" type="text"  name="translation" value="<%= translation %>"/>
-                    </div>
-                    <button class="js-submit pure-button pure-button-primary">Save</button>
-                </fieldset>
+            <form class="form" role="form">
+                <div class="form-group">
+                    <label for="edit-word">Word</label>
+                    <input type="text" class="form-control" id="edit-word" name="word" value="<%= word %>">
+                </div>
+                <div class="form-group">
+                    <label for="edit-translation">Translation</label>
+                    <input type="text" class="form-control" id="edit-translation" name="translation" value="<%= translation %>">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="js-submit btn btn-primary">Save</button>
+                </div>
             </form>
         </script>
 
         <script type="text/template" id="words-list-newword">
-            <div class="l-box">
-                <form class="pure-form">
-                    <fieldset>
-                        <legend>Add a new word</legend>
-                        <div class="pure-g-r">
-                            <input id="create-word" type="text" class="pure-input-1-4" name="word" placeholder="Word">
-                            <input id="create-translation" type="text" class="pure-input-1-4" name="translation" placeholder="Translation">
-                        </div>
-                    </fieldset>
+            <h4 class="content-subhead">Add a new word</h4>
 
-                    <button type="submit" class="js-addnewword pure-button pure-input-1-1 pure-button-primary" id="submit">Add word</button>
-                </form>
-            </div>
+            <form class="form-horizontal" role="form">
+
+                <div class="row form-group">
+                    <div class="col-xs-4 newword-left">
+                        <input type="text" class="form-control" id="create-word" name="word" placeholder="Word">
+                    </div>
+                    <div class="col-xs-4 newword-right">
+                        <input type="text" class="form-control" id="create-translation" name="translation" placeholder="Translation">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="js-addnewword btn btn-primary">Add Word</button>
+                    </div>
+                </div>
+            </form>
         </script>
 
 
@@ -159,6 +187,7 @@
         <!-- build:js scripts/vendor.js -->
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="bower_components/json2/json2.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>

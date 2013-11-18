@@ -4,7 +4,7 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
         template: "#word-edit",
 
         initialize: function() {
-            this.title = "Edit " + this.model.get('word');
+            this.title = "Edit word " + this.model.get('word');
         },
 
         events: {
