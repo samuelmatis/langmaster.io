@@ -131,16 +131,12 @@
 
         <script type="text/template" id="words-list-newword">
             <div class="l-box">
-                <button class="js-oauth-facebook">Log in with Facebook</button>
-                <button class="js-oauth-twitter">Log in with Twitter</button>
-                <button class="js-oauth-google">Log in with Google</button>
-                <button class="js-oauth-linkedin">Log in with LinkedIn</button>
                 <form class="pure-form">
                     <fieldset>
                         <legend>Add a new word</legend>
                         <div class="pure-g-r">
-                            <input type="text" class="pure-input-1-4" placeholder="Word">
-                            <input type="text" class="pure-input-1-4" placeholder="Translation">
+                            <input id="create-word" type="text" class="pure-input-1-4" name="word" placeholder="Word">
+                            <input id="create-translation" type="text" class="pure-input-1-4" name="translation" placeholder="Translation">
                         </div>
                     </fieldset>
 

@@ -3,6 +3,12 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     Entities.Word = Backbone.Model.extend({
         urlRoot: "words",
 
+        defaults: {
+            word: "",
+            translation: "",
+            knowIndex: 0
+        },
+
         validate: function(attrs, options) {
             var errors = {};
             if(!attrs.word) {
