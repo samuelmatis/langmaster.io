@@ -33,7 +33,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                 });
 
                 wordsListView.on("itemview:word:edit", function(childView, model) {
-                    // App.trigger("word:edit", model.get('id'));
+                    App.trigger("word:edit", model.get('id'));
                     var view = new App.Words.Edit.Word({
                         model: model,
                         asModal: true
