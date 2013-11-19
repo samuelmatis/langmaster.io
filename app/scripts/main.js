@@ -1,4 +1,4 @@
-/*global App, Backbone, Marionette, JST*/
+/*global App, Backbone, Marionette*/
 
 var App = new Marionette.Application();
 
@@ -19,10 +19,9 @@ App.getCurrentRoute = function() {
 
 // On start
 App.on("initialize:after", function() {
-    // App.Words.List.Controller.listWords();
 
     // Initialize OAuth
-    OAuth.initialize('fF3y7938pxJouuXVgHM-9ALKMEk');
+    // OAuth.initialize('fF3y7938pxJouuXVgHM-9ALKMEk');
 
     if(Backbone.history) {
         Backbone.history.start();
