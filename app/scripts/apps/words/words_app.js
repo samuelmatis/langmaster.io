@@ -3,14 +3,18 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     Words.Router = Marionette.AppRouter.extend({
         appRoutes: {
             "words": "listWords",
-            "words/edit/:id": "editWord"
+            "words/(?filter=:criterion)": "filterWords",
+            "words/:id/edit": "editWord"
         }
     });
 
     var API = {
         listWords: function() {
-            console.log("[route] list words");
             App.Words.List.Controller.listWords();
+        },
+
+        filterWords: function(criterion) {
+            App.Words.List.Controller.listWords(criterion);
         },
 
         editWord: function(id) {
@@ -24,7 +28,15 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     });
 
     App.on("word:edit", function(id) {
-        App.navigate("words/edit/" + id);
+        App.navigate("words/"+ id + "/edit");
+    });
+
+    App.on("words:filter", function(criterion) {
+        if(criterion) {
+            App.navigate("words?filter=" + criterion);
+        } else {
+            App.navigate("words");
+        }
     });
 
     App.addInitializer(function() {

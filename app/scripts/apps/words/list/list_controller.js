@@ -1,7 +1,7 @@
 App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     List.Controller = {
-        listWords: function() {
+        listWords: function(criterion) {
             var loadingView = new App.Common.Views.Loading();
             App.wordsRegion.show(loadingView);
 
@@ -27,8 +27,16 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                     collection: filteredWords
                 });
 
+                if(criterion) {
+                    filteredWords.filter(criterion);
+                    wordsRegionView.once("show", function(){
+                        wordsRegionView.triggerMethod("set:filter:criterion", criterion);
+                    });
+                }
+
                 wordsRegionView.on("words:filter", function(filterCriterion) {
                     filteredWords.filter(filterCriterion);
+                    App.trigger("words:filter", filterCriterion);
                 });
 
                 wordsRegionLayout.on("show", function() {
