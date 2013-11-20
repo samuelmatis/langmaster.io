@@ -80,12 +80,16 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         }
     });
 
+    var NoWordsView = Marionette.ItemView.extend({
+        template: "#word-list-none",
+        tagName: "tr",
+        className: "warning"
+    });
+
     List.Words = Marionette.CompositeView.extend({
-
         template: "#word-list",
-
+        emptyView: NoWordsView,
         itemView: List.Word,
-
         itemViewContainer: "tbody",
 
         events: {
