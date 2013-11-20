@@ -11,8 +11,24 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             var wordsRegionNewWord = new List.NewWord();
 
             $.when(words).done(function(words) {
+                var filteredWords = App.Entities.FilteredCollection({
+                    collection: words,
+                    filterFunction: function(filterCriterion) {
+                        var criterion = filterCriterion.toLowerCase();
+                        return function(word) {
+                            if(word.get('word').toLowerCase().indexOf(criterion) !== -1 || word.get('translation').toLowerCase().indexOf(criterion) !== -1) {
+                                return word;
+                            }
+                        };
+                    }
+                });
+
                 var wordsRegionView = new List.Words({
-                    collection: words
+                    collection: filteredWords
+                });
+
+                wordsRegionView.on("words:filter", function(filterCriterion) {
+                    filteredWords.filter(filterCriterion);
                 });
 
                 wordsRegionLayout.on("show", function() {

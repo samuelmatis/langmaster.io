@@ -86,7 +86,17 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
         itemView: List.Word,
 
-        itemViewContainer: "tbody"
+        itemViewContainer: "tbody",
+
+        events: {
+            "click button.js-filter": "filterClicked"
+        },
+
+        filterClicked: function(e) {
+            e.preventDefault();
+            var criterion = this.$('.js-filter-criterion').val();
+            this.trigger("words:filter", criterion);
+        }
     });
 
 });
