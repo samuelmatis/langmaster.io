@@ -4,8 +4,8 @@ var App = new Marionette.Application();
 
 // Add regions on page
 App.addRegions({
-    wordsList: '#words',
-    editDialog: '#edit-dialog'
+    wordsRegion: '#words',
+    dialogRegion: '#edit-dialog'
 });
 
 App.navigate = function(route, options) {
