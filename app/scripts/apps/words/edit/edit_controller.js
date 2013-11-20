@@ -10,7 +10,8 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
                 var view;
                 if(word !== undefined) {
                     view = new Edit.Word({
-                        model: word
+                        model: word,
+                        generateTitle: true
                     });
 
                     view.on("form:submit", function(data) {

@@ -35,14 +35,13 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                 wordsRegionView.on("itemview:word:edit", function(childView, model) {
                     App.trigger("word:edit", model.get('id'));
                     var view = new App.Words.Edit.Word({
-                        model: model,
-                        asModal: true
+                        model: model
                     });
 
                     view.on("form:submit", function(data) {
                         if(model.save(data)) {
                             childView.render();
-                            App.dialogRegion.close();
+                            view.trigger("dialog:close");
                             childView.flash("success");
                         } else {
                             view.triggerMethod("form:data:invalid", model.validationError);

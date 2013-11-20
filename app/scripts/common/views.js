@@ -12,23 +12,24 @@ App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
 
         onShow: function() {
             var opts = {
-                lines: 13, // The number of lines to draw
-                length: 26, // The length of each line
-                width: 2, // The line thickness
-                radius: 28, // The radius of the inner circle
-                corners: 1, // Corner roundness (0..1)
-                rotate: 0, // The rotation offset
-                direction: 1, // 1: clockwise, -1: counterclockwise
-                color: '#000', // #rgb or #rrggbb or array of colors
-                speed: 1, // Rounds per second
-                trail: 64, // Afterglow percentage
-                shadow: false, // Whether to render a shadow
-                hwaccel: false, // Whether to use hardware acceleration
-                className: 'spinner', // The CSS class to assign to the spinner
-                zIndex: 2e9, // The z-index (defaults to 2000000000)
-                top: 'auto', // Top position relative to parent in px
-                left: 'auto' // Left position relative to parent in px
+                lines: 13,
+                length: 26,
+                width: 2,
+                radius: 28,
+                corners: 1,
+                rotate: 0,
+                direction: 1,
+                color: '#000',
+                speed: 1,
+                trail: 64,
+                shadow: false,
+                hwaccel: false,
+                className: 'spinner',
+                zIndex: 2e9,
+                top: 'auto',
+                left: 'auto'
             };
+            
             $('#spinner').spin(opts);
         }
     })
