@@ -3,7 +3,7 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
     Edit.Controller = {
         editWord: function(id) {
             var loadingView = new App.Common.Views.Loading();
-            App.wordsRegion.show(loadingView);
+            App.appRegion.show(loadingView);
 
             var word = App.request("word:entity", id);
             $.when(word).done(function(word) {
@@ -25,7 +25,7 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
                     view = new App.Words.Show.MissingWord();
                 }
 
-                App.wordsRegion.show(view);
+                App.appRegion.show(view);
             })
         }
     }

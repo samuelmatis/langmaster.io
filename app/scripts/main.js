@@ -4,7 +4,7 @@ var App = new Marionette.Application();
 
 // Add regions on page
 App.addRegions({
-    wordsRegion: '#words',
+    appRegion: '#app',
     dialogRegion: Marionette.Region.Dialog.extend({
         el: "#dialog-region"
     })

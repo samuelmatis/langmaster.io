@@ -63,7 +63,7 @@
                     </nav>
                 </div>
 
-                <div id="words"></div>
+                <div id="app"></div>
             </div>
 
         </div>
@@ -84,8 +84,24 @@
             <div id="spinner"></div>
         </script>
 
-        <!-- Words page templates -->
-        <script type="text/template" id="words-list-layout">
+        <!-- Test region templates -->
+        <script type="text/template" id="test-region-layout">
+            <div class="row">
+                <div class="col-md-12" id="main-page"></div>
+                <div class="col-md-12" id="test-page"></div>
+            </div>
+        </script>
+
+        <script type="test/template" id="test-main">
+            <div class="row">
+                <div class="col-md-12" id="main-page">
+                    <h1>Test page</h1>
+                </div>
+            </div>
+        </script>
+
+        <!-- Words region templates -->
+        <script type="text/template" id="words-region-layout">
             <div class="row">
                 <div class="col-md-6" id="list-words"></div>
                 <div class="col-md-6" id="add-new-word"></div>
@@ -226,6 +242,9 @@
         <script src="scripts/apps/words/list/list_controller.js"></script>
         <script src="scripts/apps/words/edit/edit_view.js"></script>
         <script src="scripts/apps/words/edit/edit_controller.js"></script>
+        <script src="scripts/apps/test/test_app.js"></script>
+        <script src="scripts/apps/test/main/main_view.js"></script>
+        <script src="scripts/apps/test/main/main_controller.js"></script>
         <!-- endbuild -->
 
         <script type="text/javascript">App.start();</script>
