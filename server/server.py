@@ -9,22 +9,37 @@ import json
 from bson.json_util import loads
 from flask import Flask, redirect, url_for, session
 from flask_oauth import OAuth
+from flask.ext.mongoengine import MongoEngine
+from mongoengine import *
+import datetime
+from flask.ext.mongoengine import MongoEngine
 
 
 app = Flask(__name__, static_folder='../app', static_url_path='',
             template_folder='../app')
-
+app.config["MONGODB_DB"] = 'words'
+connect(
+    'words',
+    username='admin',
+    password='iicenajv',
+    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words',
+    port=53948
+)
+"""
 server = "ds053948.mongolab.com"
 port = 53948
 db_name = 'words'
 username = "admin"
 password = "iicenajv"
-
+connect('words', username=username, password=password)
 con = Connection(server, port)
-db = con[db_name]
-db.authenticate(username, password)
-words = db.words
-users = db.users
+app.config["MONGODB_SETTINGS"] = {'DB': "words"}
+app.config["SECRET_KEY"] = "KeepThisS3cr3t"
+db = MongoEngine(app)#con[db_name]
+#db.authenticate(username, password)
+#words =  db.words
+#users = db.users
+"""
 
 
 @app.route('/', methods=['GET'])
@@ -127,17 +142,59 @@ def delete_word(word_id):
     words.remove(item)
     return jsonify({'result': True})
 
+def mongo_to_dict(obj):
+    return_data = []
+
+    if isinstance(obj, Document):
+        return_data.append(("id",str(obj.id)))
+
+    for field_name in obj._fields:
+
+        if field_name in ("id",):
+            continue
+
+        data = obj._data[field_name]
+
+        if isinstance(obj._fields[field_name], DateTimeField):
+            return_data.append((field_name, str(data.isoformat())))
+        elif isinstance(obj._fields[field_name], StringField):
+            return_data.append((field_name, str(data)))
+        elif isinstance(obj._fields[field_name], FloatField):
+            return_data.append((field_name, float(data)))
+        elif isinstance(obj._fields[field_name], IntField):
+            return_data.append((field_name, int(data)))
+        elif isinstance(obj._fields[field_name], ListField):
+            return_data.append((field_name, data))
+        elif isinstance(obj._fields[field_name], EmbeddedDocumentField):
+            return_data.append((field_name, mongo_to_dict(data)))
+
+    return dict(return_data)
+
+
+class User(Document):
+    userid = IntField()
+    username = StringField()
+    email = EmailField()
+    password = StringField()
+    meta = {'collection': 'users'}
+
+    def to_dict(self):
+        return mongo_to_dict(self)
+
+
 
 @app.route('/api/users/', methods=['GET'])
 def get_users():
-    l_users = list(users.find())
-    Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
-    decoded = json.loads(Jsonwords)
+    users = User.objects()
+    l_users = users.to_json()
+    #Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
+    decoded = json.loads(l_users)
     return jsonify({"users": decoded})
 
 
 @app.route('/api/users/<user_name>/', methods=['GET'])
 def get_user(user_name):
+    """
     if str(json.dumps(users.find_one({"name": user_name}),
            sort_keys=True, default=json_util.default)) != "null":
         Jsonwords = json.dumps(users.find_one({"name": user_name}),
@@ -146,12 +203,17 @@ def get_user(user_name):
         Jsonwords = json.dumps(users.find_one({"username": user_name}),
                                sort_keys=True, default=json_util.default)
     Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    return Jsonpage
+    return Jsonpage"""
+    user = User.objects(username=user_name)[0]
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    return jsonify({"user":decoded})
+
 
 
 @app.route('/api/users/', methods=['POST'])
 def create_user():
-    if not request.json or not 'username' in request.json:
+    """if not request.json or not 'username' in request.json:
         abort(400)
     l_users = list(users.find())
     user = {
@@ -160,15 +222,25 @@ def create_user():
         'password': request.json["password"],
         'email': request.json["email"],
         'words': []
-    }
-    users.insert(user)
-    Jsonwords = json.dumps(user, sort_keys=True, default=json_util.default)
+    }"""
+    users = User.objects()
+    l_users = users.to_json()
+    decoded = json.loads(l_users)
+    dataset = {"users": decoded}
+    user = User(userid=(dataset["users"][-1]["userid"])+1 ,username=request.json["username"],email=request.json["email"],password=request.json["password"])
+    #users.insert(user)
+    #user.reload()
+    user.save()
+    #dataset = jsonify(users=user.to_dict())
+    return jsonify(users=user.to_dict())
+    """Jsonwords = json.dumps(user, sort_keys=True, default=json_util.default)
     decoded = json.loads(Jsonwords)
     return jsonify({'user': decoded}), 201
-
+    """
 
 @app.route('/api/users/<user_name>/', methods=['PUT'])
 def update_user(user_name):
+    """
     user = users.find_one({"username": user_name})
     if len(user) == 0:
         abort(404)
@@ -193,16 +265,28 @@ def update_user(user_name):
             n_user[data] = user[data]
     users.update({'_id': user['_id']}, {"$set": n_user}, upsert=False)
     return jsonify({'user': n_user})
-
-
+    """
+    user = User.objects(username=user_name)[0]
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    dataset = {"user": decoded}
+    user.update(**{
+    "set__username": request.json.get("username",dataset["user"]["username"]),
+    "set__password": request.json.get("password",dataset["user"]["password"]),
+    "set__email": request.json.get("email",dataset["user"]["email"])
+})
+    return "ok"
 @app.route('/api/users/<user_name>/', methods=['DELETE'])
 def delete_user(user_name):
-    user = users.find_one({"username": user_name})
+    """user = users.find_one({"username": user_name})
     if len(user) == 0:
         abort(404)
     users.remove(user)
     return jsonify({'result': True})
-
+    """
+    user = User.objects(username=user_name)[0]
+    user.delete()
+    return "deleted"
 
 SECRET_KEY = 'development key'
 DEBUG = True
@@ -246,9 +330,9 @@ def get_facebook_oauth_token():
     return session.get('oauth_token')
 
 
-GOOGLE_CLIENT_ID = '<Client-ID>'
-GOOGLE_CLIENT_SECRET = '<Client-secret>'
-REDIRECT_URI = '/authorized'  # one of the Redirect URIs from Google APIs console
+GOOGLE_CLIENT_ID = '64446003559-i2qke48amoofnrm7asg6p1ojb1vvjoc5.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '5C03wigw8xp2bCCXjLO6KVz8'
+REDIRECT_URI = '/'  # one of the Redirect URIs from Google APIs console
 DEBUG = True
 
 app.secret_key = SECRET_KEY
