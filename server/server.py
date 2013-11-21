@@ -46,14 +46,29 @@ db = MongoEngine(app)#con[db_name]
 def home():
     return render_template("index.html")
 
+class Item(Document):
+    userid = IntField()
+    username = StringField()
+    email = EmailField()
+    password = StringField()
+    meta = {'collection': 'words'}
+
+    def to_dict(self):
+        return mongo_to_dict(self)
+
 
 @app.route('/api/words/', methods=['GET'])
 def get_words():
-    l_words = list(words.find())
+    """l_words = list(words.find())
     Jsonwords = json.dumps(l_words, sort_keys=True, default=json_util.default)
     decoded = json.loads(Jsonwords)
     return jsonify({"words": decoded})
-
+    """
+    items = Item.objects()
+    l_items = items.to_json()
+    #Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
+    decoded = json.loads(l_items)
+    return jsonify({"users": decoded})
 
 @app.route('/api/words/<int:word_id>/', methods=['GET'])
 def get_id_word(word_id):
