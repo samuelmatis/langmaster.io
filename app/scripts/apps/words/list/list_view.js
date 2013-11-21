@@ -70,7 +70,10 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         deleteClicked: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            this.trigger("word:delete", this.model);
+            var c = confirm("Do you really want to remove word " + this.model.get('word'));
+            if(c) {
+                this.trigger("word:delete", this.model);
+            }
         },
 
         editClicked: function(e) {
