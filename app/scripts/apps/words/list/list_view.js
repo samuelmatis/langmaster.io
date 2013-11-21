@@ -1,7 +1,7 @@
 App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     List.Layout = Marionette.Layout.extend({
-        template: "#words-list-layout",
+        template: "#words-region-layout",
         className: "pure-g content-ribbon",
 
         regions: {
@@ -70,10 +70,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         deleteClicked: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var c = confirm("Do you really want to remove word " + this.model.get('word'));
-            if(c) {
-                this.trigger("word:delete", this.model);
-            }
+            var self = this;
+            bootbox.confirm("Do you really want to remove word " + this.model.get('word') + "?", function(result) {
+                if(result) {
+                    self.trigger("word:delete", self.model);
+                }
+            });
         },
 
         editClicked: function(e) {
