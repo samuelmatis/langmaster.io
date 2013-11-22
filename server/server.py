@@ -25,137 +25,6 @@ connect(
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words',
     port=53948
 )
-"""
-server = "ds053948.mongolab.com"
-port = 53948
-db_name = 'words'
-username = "admin"
-password = "iicenajv"
-connect('words', username=username, password=password)
-con = Connection(server, port)
-app.config["MONGODB_SETTINGS"] = {'DB': "words"}
-app.config["SECRET_KEY"] = "KeepThisS3cr3t"
-db = MongoEngine(app)#con[db_name]
-#db.authenticate(username, password)
-#words =  db.words
-#users = db.users
-"""
-
-
-@app.route('/', methods=['GET'])
-def home():
-    return render_template("index.html")
-
-class Item(Document):
-    userid = IntField()
-    username = StringField()
-    email = EmailField()
-    password = StringField()
-    meta = {'collection': 'words'}
-
-    def to_dict(self):
-        return mongo_to_dict(self)
-
-
-@app.route('/api/words/', methods=['GET'])
-def get_words():
-    """l_words = list(words.find())
-    Jsonwords = json.dumps(l_words, sort_keys=True, default=json_util.default)
-    decoded = json.loads(Jsonwords)
-    return jsonify({"words": decoded})
-    """
-    items = Item.objects()
-    l_items = items.to_json()
-    #Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
-    decoded = json.loads(l_items)
-    return jsonify({"users": decoded})
-
-@app.route('/api/words/<int:word_id>/', methods=['GET'])
-def get_id_word(word_id):
-    Jsonwords = json.dumps(words.find_one({"id": word_id}), sort_keys=True,
-                           default=json_util.default)
-    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    return Jsonpage
-
-@app.route('/api/words/<word>/', methods=['GET'])
-def get_word(word):
-    Jsonwords = json.dumps(words.find_one({"word": word}), sort_keys=True,
-                           default=json_util.default)
-    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    return Jsonpage
-
-
-
-@app.route('/api/words/', methods=['POST'])
-def create_word():
-    if not request.json or not 'word' in request.json:
-        abort(400)
-    l_words = list(words.find())
-    item = {
-        'id': l_words[-1]['id'] + 1,
-        'word': request.json["word"],
-        'translation': request.json["translation"],
-        'knowIndex': 0
-    }
-    words.insert(item)
-    Jsonwords = json.dumps(item, sort_keys=True, default=json_util.default)
-    decoded = json.loads(Jsonwords)
-    return jsonify({"item": decoded}), 201
-
-
-@app.route('/api/words/<int:word_id>/', methods=['PUT'])
-def update_word(word_id):
-    item = words.find_one({"id": word_id})
-    if len(item) == 0:
-        abort(404)
-    if not request.json:
-        abort(400)
-    if 'word' in request.json and type(request.json['word']) != unicode:
-        abort(400)
-    if 'translation' in request.json and \
-            type(request.json['translation']) is not unicode:
-        abort(400)
-    if 'knowIndex' in request.json and type(request.json['done']) is not int:
-        abort(400)
-    item['word'] = request.json.get('word', item['word'])
-    item['translation'] = request.json.get('translation', item['translation'])
-    item['knowIndex'] = request.json.get('knowIndex', item['knowIndex'])
-    n_item = {}
-    for data in item:
-        if data != "_id":
-            n_item[data] = item[data]
-    words.update({'_id': item['_id']}, {"$set": n_item}, upsert=False)
-    return jsonify({'user': n_item})
-
-    return jsonify({'item': n_item})
-
-    user = users.find_one({"username": user_name})
-    if len(user) == 0:
-        abort(404)
-    if not request.json:
-        abort(400)
-    if 'username' in request.json and \
-            type(request.json['username']) != unicode:
-        abort(400)
-    if 'password' in request.json and \
-            type(request.json['password']) != unicode:
-        abort(400)
-    if 'email' in request.json and type(request.json['email']) != unicode:
-        abort(400)
-
-    user['username'] = request.json.get('username', user['username'])
-    user['password'] = request.json.get('password', user['password'])
-    user['email'] = request.json.get('email', user['email'])
-    user['words'] = request.json.get('words', user['words'])
-
-
-@app.route('/api/words/<int:word_id>/', methods=['DELETE'])
-def delete_word(word_id):
-    item = words.find_one({"id": word_id})
-    if len(item) == 0:
-        abort(404)
-    words.remove(item)
-    return jsonify({'result': True})
 
 def mongo_to_dict(obj):
     return_data = []
@@ -185,7 +54,6 @@ def mongo_to_dict(obj):
 
     return dict(return_data)
 
-
 class User(Document):
     userid = IntField()
     username = StringField()
@@ -196,91 +64,98 @@ class User(Document):
     def to_dict(self):
         return mongo_to_dict(self)
 
+class Item(Document):
+    item_id = IntField()
+    word = StringField()
+    translation = StringField()
+    strength = IntField()
+    meta = {'collection': 'words'}
 
+    def to_dict(self):
+        return mongo_to_dict(self)
+
+@app.route('/', methods=['GET'])
+def home():
+    return render_template("index.html")
+
+
+@app.route('/api/words/', methods=['GET'])
+def get_words():
+    items = Item.objects()
+    l_items = items.to_json()
+    decoded = json.loads(l_items)
+    return jsonify({"users": decoded})
+
+@app.route('/api/words/<int:word_id>/', methods=['GET'])
+def get_id_word(word_id):
+    item = Item.objects(item_id=word_id)[0]
+    l_item = item.to_json()
+    decoded = json.loads(l_item)
+    return jsonify({"item":decoded})
+
+@app.route('/api/words/<word>/', methods=['GET'])
+def get_word(word):
+    item = Item.objects(word=word)[0]
+    l_item = item.to_json()
+    decoded = json.loads(l_item)
+    return jsonify({"item":decoded})
+
+@app.route('/api/words/', methods=['POST'])
+def create_word():
+    items = Item.objects()
+    l_items = items.to_json()
+    decoded = json.loads(l_items)
+    dataset = {"items": decoded}
+    item = Item(item_id=(dataset["items"][-1]["item_id"])+1 ,word=request.json["word"],translation=request.json["translation"],strength=0)
+    item.save()
+    return jsonify(items=item.to_dict())
+
+@app.route('/api/words/<int:word_id>/', methods=['PUT'])
+def update_word(word_id):
+    item = Item.objects(item_id=word_id)[0]
+    l_item = item.to_json()
+    decoded = json.loads(l_item)
+    dataset = {"item": decoded}
+    item.update(**{
+    "set__word": request.json.get("word",dataset["item"]["word"]),
+    "set__translation": request.json.get("translation",dataset["item"]["translation"]),
+    "set__strength": request.json.get("strength",dataset["item"]["strength"])
+})
+    return "ok"
+
+@app.route('/api/words/<int:word_id>/', methods=['DELETE'])
+def delete_word(word_id):
+    item = Item.objects(item_id=word_id)[0]
+    item.delete()
+    return "deleted"
 
 @app.route('/api/users/', methods=['GET'])
 def get_users():
     users = User.objects()
     l_users = users.to_json()
-    #Jsonwords = json.dumps(l_users, sort_keys=True, default=json_util.default)
     decoded = json.loads(l_users)
     return jsonify({"users": decoded})
 
 
 @app.route('/api/users/<user_name>/', methods=['GET'])
 def get_user(user_name):
-    """
-    if str(json.dumps(users.find_one({"name": user_name}),
-           sort_keys=True, default=json_util.default)) != "null":
-        Jsonwords = json.dumps(users.find_one({"name": user_name}),
-                               sort_keys=True, default=json_util.default)
-    else:
-        Jsonwords = json.dumps(users.find_one({"username": user_name}),
-                               sort_keys=True, default=json_util.default)
-    Jsonpage = Response(response=Jsonwords, mimetype="application/json")
-    return Jsonpage"""
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
     decoded = json.loads(l_user)
     return jsonify({"user":decoded})
 
-
-
 @app.route('/api/users/', methods=['POST'])
 def create_user():
-    """if not request.json or not 'username' in request.json:
-        abort(400)
-    l_users = list(users.find())
-    user = {
-        'id': l_users[-1]['id'] + 1,
-        'username': request.json["username"],
-        'password': request.json["password"],
-        'email': request.json["email"],
-        'words': []
-    }"""
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
     dataset = {"users": decoded}
     user = User(userid=(dataset["users"][-1]["userid"])+1 ,username=request.json["username"],email=request.json["email"],password=request.json["password"])
-    #users.insert(user)
-    #user.reload()
     user.save()
-    #dataset = jsonify(users=user.to_dict())
     return jsonify(users=user.to_dict())
-    """Jsonwords = json.dumps(user, sort_keys=True, default=json_util.default)
-    decoded = json.loads(Jsonwords)
-    return jsonify({'user': decoded}), 201
-    """
 
 @app.route('/api/users/<user_name>/', methods=['PUT'])
 def update_user(user_name):
-    """
-    user = users.find_one({"username": user_name})
-    if len(user) == 0:
-        abort(404)
-    if not request.json:
-        abort(400)
-    if 'username' in request.json and \
-            type(request.json['username']) != unicode:
-        abort(400)
-    if 'password' in request.json and \
-            type(request.json['password']) != unicode:
-        abort(400)
-    if 'email' in request.json and type(request.json['email']) != unicode:
-        abort(400)
-
-    user['username'] = request.json.get('username', user['username'])
-    user['password'] = request.json.get('password', user['password'])
-    user['email'] = request.json.get('email', user['email'])
-    user['words'] = request.json.get('words', user['words'])
-    n_user = {}
-    for data in user:
-        if data != "_id":
-            n_user[data] = user[data]
-    users.update({'_id': user['_id']}, {"$set": n_user}, upsert=False)
-    return jsonify({'user': n_user})
-    """
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
     decoded = json.loads(l_user)
@@ -291,20 +166,14 @@ def update_user(user_name):
     "set__email": request.json.get("email",dataset["user"]["email"])
 })
     return "ok"
+
 @app.route('/api/users/<user_name>/', methods=['DELETE'])
 def delete_user(user_name):
-    """user = users.find_one({"username": user_name})
-    if len(user) == 0:
-        abort(404)
-    users.remove(user)
-    return jsonify({'result': True})
-    """
     user = User.objects(username=user_name)[0]
     user.delete()
     return "deleted"
 
 SECRET_KEY = 'development key'
-DEBUG = True
 FACEBOOK_APP_ID = '188477911223606'
 FACEBOOK_APP_SECRET = '621413ddea2bcc5b2e83d42fc40495de'
 
