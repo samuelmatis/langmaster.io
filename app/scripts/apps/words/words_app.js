@@ -11,14 +11,17 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
     var API = {
         listWords: function() {
             App.Words.List.Controller.listWords();
+            App.execute("set:active:header", "words");
         },
 
         filterWords: function(criterion) {
             App.Words.List.Controller.listWords(criterion);
+            App.execute("set:active:header", "words");
         },
 
         editWord: function(id) {
             App.Words.Edit.Controller.editWord(id);
+            App.execute("set:active:header", "words");
         }
     };
 

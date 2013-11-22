@@ -12,7 +12,8 @@
     "backbone.syphon": "~0.4.1",
     "jquery-ui": "~1.10.3",
     "bootstrap": "~3.0.2",
-    "bootbox": "~4.1.0"
+    "bootbox": "~4.1.0",
+    "backbone.picky": "~0.2.0"
   },
   "devDependencies": {}
 }

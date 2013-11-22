@@ -4,12 +4,14 @@ var App = new Marionette.Application();
 
 // Add regions on page
 App.addRegions({
+    headerRegion: "#header",
     appRegion: '#app',
     dialogRegion: Marionette.Region.Dialog.extend({
         el: "#dialog-region"
     })
 });
 
+// Router helper methods
 App.navigate = function(route, options) {
     options || (options = {});
     Backbone.history.navigate(route, options);
