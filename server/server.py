@@ -254,10 +254,10 @@ def get_facebook_oauth_token():
     return session.get('oauth_token')
 
 
-GOOGLE_CLIENT_ID =
-'64446003559-i2qke48amoofnrm7asg6p1ojb1vvjoc5.apps.googleusercontent.com'
+GOOGLE_CLIENT_ID = """64446003559-i2qke48amoofnrm7a
+sg6p1ojb1vvjoc5.apps.googleusercontent.com"""
 GOOGLE_CLIENT_SECRET = '5C03wigw8xp2bCCXjLO6KVz8'
-REDIRECT_URI = '/'  # one of the Redirect URIs from Google APIs console
+REDIRECT_URI = '/'
 DEBUG = True
 
 app.secret_key = SECRET_KEY
