@@ -74,20 +74,12 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         getWordsEntities: function() {
             var words = new Entities.WordCollection();
             var defer = $.Deferred();
-            setTimeout(function() {
-                words.fetch({
-                    success: function(data) {
-                        defer.resolve(data);
-                    }
-                });
-            }, 500);
-            var promise = defer.promise();
-            $.when(promise).done(function(words) {
-                // if(words.length < 0) {
-                //     var models = initializeWords();
-                //     words.reset(models);
-                // }
+            words.fetch({
+                success: function(data) {
+                    defer.resolve(data);
+                }
             });
+            var promise = defer.promise();
             return promise;
         },
 
