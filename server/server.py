@@ -88,8 +88,8 @@ def get_words():
     items = Item.objects()
     l_items = items.to_json()
     decoded = json.loads(l_items)
-    return jsonify({"items": decoded})
-
+    #return jsonify({"items": decoded})
+    return json.dumps(decoded)
 
 @app.route('/api/words/', methods=['POST'])
 def create_word():
