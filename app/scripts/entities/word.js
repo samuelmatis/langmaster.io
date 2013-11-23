@@ -83,10 +83,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             }, 500);
             var promise = defer.promise();
             $.when(promise).done(function(words) {
-                if(words.length === 0) {
-                    var models = initializeWords();
-                    words.reset(models);
-                }
+                // if(words.length < 0) {
+                //     var models = initializeWords();
+                //     words.reset(models);
+                // }
             });
             return promise;
         },
