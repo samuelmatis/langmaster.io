@@ -46,8 +46,6 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
                 appRegionNewWord.on("form:submit", function(data) {
                     var newWord = new App.Entities.Word();
-                    var highestId = words.max(function(c){ return c.id; }).get("id");
-                    data.id = highestId + 1;
                     if(newWord.save(data)) {
                         words.add(newWord);
                         appRegionView.children.findByModel(newWord).flash("success");

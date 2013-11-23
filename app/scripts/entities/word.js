@@ -11,11 +11,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
         parse: function (response) {
             // console.log(response.items[1]._id["$oid"]);
-            var item_num = 0;
+            // var item_num = 0;
             // _.each(response.items, function(item) {
             //     // console.log(item);
             //     // console.log(item._id["$oid"]);
-            //     response.items[item_num].id = item.item_id;
+            //     response.items[item_num].id = item.id;
             //     item_num++;
             //     // response.items[item].id = item._id["$oid"];
             // });
