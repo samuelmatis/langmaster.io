@@ -13,6 +13,7 @@ from flask.ext.mongoengine import MongoEngine
 from mongoengine import *
 import datetime
 from flask.ext.mongoengine import MongoEngine
+from flask import Response
 
 
 app = Flask(__name__, static_folder='../app', static_url_path='',
@@ -88,7 +89,7 @@ def get_words():
     items = Item.objects()
     l_items = items.to_json()
     decoded = json.loads(l_items)
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/words/', methods=['POST'])
@@ -101,7 +102,8 @@ def create_word():
                 word=request.json["word"],
                 translation=request.json["translation"], strength=0)
     item.save()
-    return json.dumps(item.to_dict(), sort_keys=False, indent=4)
+    decoded = item.to_dict()
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/words/<int:word_id>/', methods=['GET'])
@@ -109,7 +111,7 @@ def get_id_word(word_id):
     item = Item.objects(item_id=word_id)[0]
     l_item = item.to_json()
     decoded = json.loads(l_item)
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/words/<word>/', methods=['GET'])
@@ -117,7 +119,7 @@ def get_word(word):
     item = Item.objects(word=word)[0]
     l_item = item.to_json()
     decoded = json.loads(l_item)
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/words/<int:word_id>/', methods=['PUT'])
@@ -140,7 +142,7 @@ def update_word(word_id):
                                                   ["item_id"])))
     l_item = item.to_json()
     decoded = json.loads(l_item)
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/words/<int:word_id>/', methods=['DELETE'])
@@ -149,7 +151,7 @@ def delete_word(word_id):
     l_item = item.to_json()
     decoded = json.loads(l_item)
     item.delete()
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/users/', methods=['GET'])
@@ -157,7 +159,7 @@ def get_users():
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/users/', methods=['POST'])
@@ -170,7 +172,8 @@ def create_user():
                 username=request.json["username"], email=request.json["email"],
                 password=request.json["password"])
     user.save()
-    return json.dumps(user.to_dict(), sort_keys=False, indent=4)
+    decoded = user.to_dict()
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/users/<user_name>/', methods=['GET'])
@@ -178,7 +181,7 @@ def get_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/users/<user_name>/', methods=['PUT'])
@@ -197,7 +200,7 @@ def update_user(user_name):
                 "set__user_id": request.json.get("user_id", dataset["user"]
                                                  ["user_id"])
                 })
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/users/<user_name>/', methods=['DELETE'])
@@ -206,7 +209,7 @@ def delete_user(user_name):
     l_user = user.to_json()
     decoded = json.loads(l_user)
     user.delete()
-    return json.dumps(decoded, sort_keys=False, indent=4)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4), mimetype='application/json')
 
 SECRET_KEY = 'development key'
 FACEBOOK_APP_ID = '188477911223606'
