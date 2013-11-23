@@ -101,7 +101,7 @@ def create_word():
     dataset = {"items": decoded}
     item = Item(item_id=(dataset["items"][-1]["item_id"])+1,
                 word=request.json["word"],
-                translation=request.json["translation"], strength=0)
+                translation=request.json["translation"], strength=1)
     item.save()
     decoded = item.to_dict()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
@@ -126,7 +126,7 @@ def get_word(word):
                     mimetype='application/json')
 
 
-@app.route('/api/words/<int:word_id>/', methods=['PUT'])
+@app.route('/api/words/<int:word_id>', methods=['PUT'])
 def update_word(word_id):
     item = Item.objects(item_id=word_id)[0]
     l_item = item.to_json()
