@@ -9,6 +9,25 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             strength: 0
         },
 
+        parse: function (response) {
+            // console.log(response.items[1]._id["$oid"]);
+            var item_num = 0;
+            // _.each(response.items, function(item) {
+            //     // console.log(item);
+            //     // console.log(item._id["$oid"]);
+            //     response.items[item_num].id = item.item_id;
+            //     item_num++;
+            //     // response.items[item].id = item._id["$oid"];
+            // });
+            // console.log(response);
+            // response['items'].id = response["_id"]["$oid"];
+            // delete response._id;
+            response.id = response.item_id;
+            console.log(response);
+            return response;
+            
+        },
+
         validate: function(attrs, options) {
             var errors = {};
             if(!attrs.word) {
@@ -27,14 +46,14 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         }
     });
 
-    Entities.configureStorage(Entities.Word);
+    // Entities.configureStorage(Entities.Word);
 
     Entities.WordCollection = Backbone.Collection.extend({
         url: "api/words",
         model: Entities.Word
     });
 
-    Entities.configureStorage(Entities.WordCollection);
+    // Entities.configureStorage(Entities.WordCollection);
 
     var initializeWords = function() {
         var words = new Entities.WordCollection([
