@@ -13,7 +13,8 @@
     "jquery-ui": "~1.10.3",
     "bootstrap": "~3.0.2",
     "bootbox": "~4.1.0",
-    "backbone.picky": "~0.1.0"
+    "backbone.picky": "~0.1.0",
+    "offline": "~0.4.6"
   },
   "devDependencies": {}
 }
