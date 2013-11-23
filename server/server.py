@@ -98,9 +98,14 @@ def create_word():
     items = Item.objects()
     l_items = items.to_json()
     decoded = json.loads(l_items)
-    item = Item(item_id=(decoded[-1]["item_id"])+1,
+    try:
+        id_item = decoded[-1]["item_id"]+1
+    except:
+        id_item = 1
+    item = Item(item_id=id_item,
                 word=request.json["word"],
-                translation=request.json["translation"], strength=1)
+                translation=request.json["translation"],
+                strength=1)
     item.save()
     decoded = item.to_dict()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
@@ -130,18 +135,17 @@ def update_word(word_id):
     item = Item.objects(item_id=word_id)[0]
     l_item = item.to_json()
     decoded = json.loads(l_item)
-    dataset = {"item": decoded}
     item.update(**{
-                "set__word": request.json.get("word", dataset["item"]["word"]),
+                "set__word": request.json.get("word", decoded["word"]),
                 "set__translation": request.json.get("translation",
-                                                     dataset["item"]
+                                                     decoded
                                                      ["translation"]),
-                "set__strength": request.json.get("strength", dataset["item"]
+                "set__strength": request.json.get("strength", decoded
                                                   ["strength"]),
-                "set__item_id": request.json.get("item_id", dataset["item"]
+                "set__item_id": request.json.get("item_id", decoded
                                                  ["item_id"])
                 })
-    item = Item.objects(item_id=(request.json.get("item_id", dataset["item"]
+    item = Item.objects(item_id=(request.json.get("item_id", decoded
                                                   ["item_id"])))
     l_item = item.to_json()
     decoded = json.loads(l_item)
