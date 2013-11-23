@@ -84,7 +84,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/api/words/', methods=['GET'])
+@app.route('/api/words', methods=['GET'])
 def get_words():
     items = Item.objects()
     l_items = items.to_json()
@@ -93,7 +93,7 @@ def get_words():
                     mimetype='application/json')
 
 
-@app.route('/api/words/', methods=['POST'])
+@app.route('/api/words', methods=['POST'])
 def create_word():
     items = Item.objects()
     l_items = items.to_json()
@@ -108,7 +108,7 @@ def create_word():
                     mimetype='application/json')
 
 
-@app.route('/api/words/<int:word_id>/', methods=['GET'])
+@app.route('/api/words/<int:word_id>', methods=['GET'])
 def get_id_word(word_id):
     item = Item.objects(item_id=word_id)[0]
     l_item = item.to_json()
@@ -117,7 +117,7 @@ def get_id_word(word_id):
                     mimetype='application/json')
 
 
-@app.route('/api/words/<word>/', methods=['GET'])
+@app.route('/api/words/<word>', methods=['GET'])
 def get_word(word):
     item = Item.objects(word=word)[0]
     l_item = item.to_json()
@@ -150,7 +150,7 @@ def update_word(word_id):
                     mimetype='application/json')
 
 
-@app.route('/api/words/<int:word_id>/', methods=['DELETE'])
+@app.route('/api/words/<int:word_id>', methods=['DELETE'])
 def delete_word(word_id):
     item = Item.objects(item_id=word_id)[0]
     l_item = item.to_json()
@@ -160,7 +160,7 @@ def delete_word(word_id):
                     mimetype='application/json')
 
 
-@app.route('/api/users/', methods=['GET'])
+@app.route('/api/users', methods=['GET'])
 def get_users():
     users = User.objects()
     l_users = users.to_json()
@@ -169,7 +169,7 @@ def get_users():
                     mimetype='application/json')
 
 
-@app.route('/api/users/', methods=['POST'])
+@app.route('/api/users', methods=['POST'])
 def create_user():
     users = User.objects()
     l_users = users.to_json()
@@ -184,7 +184,7 @@ def create_user():
                     mimetype='application/json')
 
 
-@app.route('/api/users/<user_name>/', methods=['GET'])
+@app.route('/api/users/<user_name>', methods=['GET'])
 def get_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
@@ -193,7 +193,7 @@ def get_user(user_name):
                     mimetype='application/json')
 
 
-@app.route('/api/users/<user_name>/', methods=['PUT'])
+@app.route('/api/users/<user_name>', methods=['PUT'])
 def update_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
@@ -213,7 +213,7 @@ def update_user(user_name):
                     mimetype='application/json')
 
 
-@app.route('/api/users/<user_name>/', methods=['DELETE'])
+@app.route('/api/users/<user_name>', methods=['DELETE'])
 def delete_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
