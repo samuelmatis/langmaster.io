@@ -123,7 +123,7 @@ def get_id_word(word_id):
 
 @app.route('/api/words/<word>', methods=['GET'])
 def get_word(word):
-    item = Item.objects(word=word)[0]
+    item = Item.objects(word=word)
     l_item = item.to_json()
     decoded = json.loads(l_item)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
@@ -132,7 +132,7 @@ def get_word(word):
 
 @app.route('/api/words/<int:word_id>', methods=['PUT'])
 def update_word(word_id):
-    item = Item.objects(item_id=word_id)[0]
+    item = Item.objects(item_id=word_id)
     l_item = item.to_json()
     decoded = json.loads(l_item)
     item.update(**{
@@ -155,7 +155,7 @@ def update_word(word_id):
 
 @app.route('/api/words/<int:word_id>', methods=['DELETE'])
 def delete_word(word_id):
-    item = Item.objects(item_id=word_id)[0]
+    item = Item.objects(item_id=word_id)
     l_item = item.to_json()
     decoded = json.loads(l_item)
     item.delete()
