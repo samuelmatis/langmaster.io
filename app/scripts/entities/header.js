@@ -18,10 +18,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     var initializeHeaders = function() {
         Entities.headers = new Entities.HeaderCollection([
-            { name: "Home", url: "home" },
-            { name: "Test", url: "test" },
-            { name: "Words", url: "words" },
-            { name: "Settings", url: "settings"}
+            { name: "Home", url: "home", navigationTrigger: "home:show" },
+            { name: "Test", url: "test", navigationTrigger: "test:main:show" },
+            { name: "Words", url: "words", navigationTrigger: "words:list" },
+            { name: "Settings", url: "settings", navigationTrigger: "settings:show"}
         ]);
     };
 
