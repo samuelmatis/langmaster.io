@@ -88,7 +88,6 @@ def get_words():
     items = Item.objects()
     l_items = items.to_json()
     decoded = json.loads(l_items)
-    #return jsonify({"items": decoded})
     return json.dumps(decoded)
 
 @app.route('/api/words/', methods=['POST'])
@@ -109,7 +108,7 @@ def get_id_word(word_id):
     item = Item.objects(item_id=word_id)[0]
     l_item = item.to_json()
     decoded = json.loads(l_item)
-    return jsonify({"item": decoded})
+    return json.dumps(decoded)
 
 
 @app.route('/api/words/<word>/', methods=['GET'])
@@ -117,7 +116,7 @@ def get_word(word):
     item = Item.objects(word=word)[0]
     l_item = item.to_json()
     decoded = json.loads(l_item)
-    return jsonify({"item": decoded})
+    return json.dumps(decoded)
 
 
 @app.route('/api/words/<int:word_id>/', methods=['PUT'])
@@ -157,7 +156,7 @@ def get_users():
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
-    return jsonify({"users": decoded})
+    return json.dumps(decoded)
 
 
 @app.route('/api/users/', methods=['POST'])
@@ -178,7 +177,7 @@ def get_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    return jsonify({"user": decoded})
+    return json.dumps(decoded)
 
 
 @app.route('/api/users/<user_name>/', methods=['PUT'])
