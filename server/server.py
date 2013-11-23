@@ -98,8 +98,7 @@ def create_word():
     items = Item.objects()
     l_items = items.to_json()
     decoded = json.loads(l_items)
-    dataset = {"items": decoded}
-    item = Item(item_id=(dataset["items"][-1]["item_id"])+1,
+    item = Item(item_id=(decoded[-1]["item_id"])+1,
                 word=request.json["word"],
                 translation=request.json["translation"], strength=1)
     item.save()
@@ -174,8 +173,7 @@ def create_user():
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
-    dataset = {"users": decoded}
-    user = User(user_id=(dataset["users"][-1]["user_id"])+1,
+    user = User(user_id=(decoded[-1]["user_id"])+1,
                 username=request.json["username"], email=request.json["email"],
                 password=request.json["password"])
     user.save()
