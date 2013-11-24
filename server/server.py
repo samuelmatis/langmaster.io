@@ -115,7 +115,34 @@ def create_user():
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
 
+@app.route('/api/users/<username>', methods=['PUT'])
+def update_user(username):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    user.update(**{
+                "set__username": request.json.get("username", decoded[0]["username"]),
+                "set__password": request.json.get("password",
+                                                     decoded[0]
+                                                     ["password"]),
+                "set__email": request.json.get("email", decoded[0]
+                                                  ["email"]),
+                "set__user_id": request.json.get("user_id", decoded[0]["user_id"])
+                })
+    user = User.objects(username=request.json.get("username",decoded[0]["username"]))
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                    mimetype='application/json')
 
+@app.route('/api/users/<username>', methods=['DELETE'])
+def delete_user(username):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    user.delete()
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                    mimetype='application/json')
 
 @app.route('/api/users/<username>', methods=['GET'])
 def get_user(username):
@@ -197,145 +224,7 @@ def delete_word(username, word_id):
 
 
 
-"""
-@app.route('/api/words', methods=['POST'])
-def create_word():
-    items = Item.objects()
-    l_items = items.to_json()
-    decoded = json.loads(l_items)
-    try:
-        id_item = decoded[-1]["item_id"]+1
-    except:
-        id_item = 1
-    item = Item(item_id=id_item,
-                word=request.json["word"],
-                translation=request.json["translation"],
-                strength=1)
-    item.save()
-    decoded = item.to_dict()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
 
-
-@app.route('/api/words/<int:word_id>', methods=['GET'])
-def get_id_word(word_id):
-    item = Item.objects(item_id=word_id)[0]
-    l_item = item.to_json()
-    decoded = json.loads(l_item)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/words/<word>', methods=['GET'])
-def get_word(word):
-    item = Item.objects(word=word)
-    l_item = item.to_json()
-    decoded = json.loads(l_item)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/words/<int:word_id>', methods=['PUT'])
-def update_word(word_id):
-    item = Item.objects(item_id=word_id)
-    l_item = item.to_json()
-    decoded = json.loads(l_item)
-    item.update(**{
-                "set__word": request.json.get("word", decoded["word"]),
-                "set__translation": request.json.get("translation",
-                                                     decoded
-                                                     ["translation"]),
-                "set__strength": request.json.get("strength", decoded
-                                                  ["strength"]),
-                "set__item_id": request.json.get("item_id", decoded
-                                                 ["item_id"])
-                })
-    item = Item.objects(item_id=(request.json.get("item_id", decoded
-                                                  ["item_id"])))
-    l_item = item.to_json()
-    decoded = json.loads(l_item)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/words/<int:word_id>', methods=['DELETE'])
-def delete_word(word_id):
-    item = Item.objects(item_id=word_id)
-    l_item = item.to_json()
-    decoded = json.loads(l_item)
-    item.delete()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/users', methods=['GET'])
-def get_users():
-    users = User.objects()
-    l_users = users.to_json()
-    decoded = json.loads(l_users)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/users', methods=['POST'])
-def create_user():
-    items = Item.objects()
-    l_items = items.to_json()
-    decodedi = json.loads(l_items)
-
-
-    users = User.objects()
-    l_users = users.to_json()
-    decoded = json.loads(l_users)
-    user = User(user_id=(decoded[-1]["user_id"])+1,
-                username=request.json["username"], email=request.json["email"],
-                password=request.json["password"],
-                items=[(decodedi)])
-
-    user.save()
-    decoded = user.to_dict()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/users/<user_name>', methods=['GET'])
-def get_user(user_name):
-    user = User.objects(username=user_name)[0]
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/users/<user_name>', methods=['PUT'])
-def update_user(user_name):
-    user = User.objects(username=user_name)[0]
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    dataset = {"user": decoded}
-    user.update(**{
-                "set__username": request.json.get("username", dataset["user"]
-                                                  ["username"]),
-                "set__password": request.json.get("password", dataset["user"]
-                                                  ["password"]),
-                "set__email": request.json.get("email", dataset["user"]
-                                               ["email"]),
-                "set__user_id": request.json.get("user_id", dataset["user"]
-                                                 ["user_id"])
-                })
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
-
-@app.route('/api/users/<user_name>', methods=['DELETE'])
-def delete_user(user_name):
-    user = User.objects(username=user_name)[0]
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    user.delete()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-"""
 SECRET_KEY = 'development key'
 FACEBOOK_APP_ID = '188477911223606'
 FACEBOOK_APP_SECRET = '621413ddea2bcc5b2e83d42fc40495de'
