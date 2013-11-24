@@ -5,13 +5,17 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
         className: "pure-g content-ribbon",
 
         regions: {
-            mainPage: "#main-page",
-            testPage: "#test-page"
+            startPage: "#test-start-region",
+            testPage: "#test-page-region"
         }
     });
 
     Main.Page = Marionette.ItemView.extend({
-        template: "#test-main"
+        template: "#test-start",
+
+        triggers: {
+            "click .js-start-test": "start:test" 
+        }
     });
 
 });
