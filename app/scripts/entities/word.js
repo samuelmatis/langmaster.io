@@ -22,7 +22,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             // console.log(response);
             // response['items'].id = response["_id"]["$oid"];
             // delete response._id;
-            response.id = response.item_id;
+            response.id = response.word_id;
             console.log(response);
             return response;
             
