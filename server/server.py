@@ -140,17 +140,22 @@ def create_word(username):
     l_user = user.to_json()
     decoded = json.loads(l_user)
     try:
-        u_id = decoded[0]["word_id"]+1
+        words = decoded[0]["words"]
+    except:
+        words = []
+    try:
+        u_id = words[-1]["word_id"] + 1
     except:
         u_id = 1
-    words = decoded[0]["words"]
+
     word = Word(word_id=u_id,
                 word=request.json["word"],
                 translation=request.json["translation"],
                 strength=1)
     words.append(word.to_dict())
     user.update(**{"set__words":words})
-    return str(words)
+    return Response(json.dumps(words[-1], sort_keys=False, indent=4),
+                    mimetype='application/json')
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['GET'])
 def get_word_id(username, word_id):
@@ -158,6 +163,22 @@ def get_word_id(username, word_id):
     l_user = user.to_json()
     decoded = json.loads(l_user)
     return Response(json.dumps(decoded[0]["words"][word_id-1], sort_keys=False, indent=4),
+                    mimetype='application/json')
+
+@app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
+def change_word(username, word_id):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    words = decoded[0]["words"]
+    word = Word(word_id=request.json.get("word_id",words[word_id-1]["word_id"]),
+                word=request.json.get("word",words[word_id-1]["word"]),
+                translation=request.json.get("translation",words[word_id-1]["translation"]),
+                strength=1)
+    new_word = word.to_dict()
+    words[word_id-1] = new_word
+    user.update(**{"set__words":words})
+    return Response(json.dumps(new_word, sort_keys=False, indent=4),
                     mimetype='application/json')
 
 """
@@ -259,9 +280,9 @@ def create_user():
     decoded = user.to_dict()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-    """
 
-"""@app.route('/api/users/<user_name>', methods=['GET'])
+
+@app.route('/api/users/<user_name>', methods=['GET'])
 def get_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
