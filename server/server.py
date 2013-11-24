@@ -189,7 +189,10 @@ def get_word_id(username, word_id):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    return Response(json.dumps(decoded[0]["words"][word_id-1], sort_keys=False, indent=4),
+    words = decoded[0]["words"][word_id]
+    words.pop(word_id-1)
+    user.update(**{"set__words":words})
+    return Response(json.dumps(decoded[0]["words"][word_id], sort_keys=False, indent=4),
                     mimetype='application/json')
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
