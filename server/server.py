@@ -181,6 +181,22 @@ def change_word(username, word_id):
     return Response(json.dumps(new_word, sort_keys=False, indent=4),
                     mimetype='application/json')
 
+
+@app.route('/api/users/<username>/words/<int:word_id>', methods=['DELETE'])
+def delete_word(username, word_id):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    words = decoded[0]["words"]
+    deleted = words[word_id-1]
+    words.pop(word_id-1)
+    user.update(**{"set__words":words})
+    return Response(json.dumps(deleted, sort_keys=False, indent=4),
+                    mimetype='application/json')
+
+
+
+
 """
 @app.route('/api/words', methods=['POST'])
 def create_word():
