@@ -85,8 +85,8 @@
         <!-- Test region templates -->
         <script type="text/template" id="test-region-layout">
             <div class="row">
-                <div class="col-md-12" id="test-start-region"></div>
-                <div class="col-md-12" id="test-page-region"></div>
+                <div class="col-md-4 col-md-offset-4" id="test-start-region"></div>
+                <div class="col-md-6 col-md-offset-3" id="test-page-region"></div>
             </div>
         </script>
 
@@ -95,7 +95,7 @@
                 <h1>Welcome to test</h1>
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Weakest Words</h4>
+                        <h4>Weak words</h4>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -104,18 +104,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Auto</td>
-                                    <td><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Dievca</td>
-                                    <td><span class="glyphicon glyphicon-star"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Kniha</td>
-                                    <td><span class="glyphicon glyphicon-star"></span></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -124,6 +112,15 @@
                     <button type="button" class="js-start-test btn btn-success btn-lg btn-block">Start test</button>
                 </div>
             </div>
+        </script>
+
+        <script type="text/template" id="test-weakest-words">
+            <td><%= word %></td>
+            <td>
+                <% for(var i=0; i < strength; i++){ %>
+                    <span class="glyphicon glyphicon-star"></span>
+                <% } %>
+            </td>
         </script>
 
         <script type="text/template" id="test-page">

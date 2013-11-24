@@ -10,12 +10,19 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
         }
     });
 
-    Main.Page = Marionette.ItemView.extend({
-        template: "#test-start",
+    Main.StartPageWords = Marionette.ItemView.extend({
+        tagName: "tr",
+        template: "#test-weakest-words"
+    });
 
-        triggers: {
-            "click .js-start-test": "start:test" 
-        }
+    Main.StartPage = Marionette.CompositeView.extend({
+        template: "#test-start",
+        itemView: Main.StartPageWords,
+        itemViewContainer: "tbody",
+
+        // triggers: {
+        //     "click .js-start-test": "start:test" 
+        // }
     });
 
 });
