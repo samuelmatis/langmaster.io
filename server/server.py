@@ -56,27 +56,30 @@ def mongo_to_dict(obj):
 
     return dict(return_data)
 
+class Word(EmbeddedDocument):
+    word_id = IntField()
+    word = StringField()
+    translation = StringField()
+    strength = IntField()
+    meta = {'collection': 'users'}
+
+    def to_dict(self):
+        return mongo_to_dict(self)
 
 class User(Document):
     user_id = IntField()
     username = StringField()
     email = EmailField()
     password = StringField()
-    meta = {'collection': 'users'}
+    words = ListField(EmbeddedDocumentField(Word))
+    meta = {'collection': 'users',
+    'ordering': ['-user_id']
+}
 
     def to_dict(self):
         return mongo_to_dict(self)
 
 
-class Item(Document):
-    item_id = IntField()
-    word = StringField()
-    translation = StringField()
-    strength = IntField()
-    meta = {'collection': 'words'}
-
-    def to_dict(self):
-        return mongo_to_dict(self)
 
 
 @app.route('/', methods=['GET'])
@@ -84,15 +87,80 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/api/words', methods=['GET'])
-def get_words():
-    items = Item.objects()
-    l_items = items.to_json()
-    decoded = json.loads(l_items)
+@app.route('/api/users', methods=['GET'])
+def get_users():
+    users = User.objects()
+    l_users = users.to_json()
+    decoded = json.loads(l_users)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                    mimetype='application/json')
+
+@app.route('/api/users', methods=['POST'])
+def create_user():
+    users = User.objects()
+    l_users = users.to_json()
+    decoded = json.loads(l_users)
+    try:
+        u_id = decoded[0]["user_id"]+1
+    except:
+        u_id = 1
+    user = User(user_id=u_id,
+                username=request.json["username"],
+                email=request.json["email"],
+                password=request.json["password"],
+                words=[])
+
+    user.save()
+    decoded = user.to_dict()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
 
 
+
+@app.route('/api/users/<username>', methods=['GET'])
+def get_user(username):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                    mimetype='application/json')
+
+
+@app.route('/api/users/<username>/words', methods=['GET'])
+def get_words(username):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    return Response(json.dumps(decoded[0]["words"], sort_keys=False, indent=4),
+                    mimetype='application/json')
+
+@app.route('/api/users/<username>/words', methods=['POST'])
+def create_word(username):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    try:
+        u_id = decoded[0]["word_id"]+1
+    except:
+        u_id = 1
+    words = decoded[0]["words"]
+    word = Word(word_id=u_id,
+                word=request.json["word"],
+                translation=request.json["translation"],
+                strength=1)
+    words.append(word.to_dict())
+    user.update(**{"set__words":words})
+    return str(words)
+
+@app.route('/api/users/<username>/words/<int:word_id>', methods=['GET'])
+def get_word_id(username, word_id):
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    return Response(json.dumps(decoded[0]["words"][word_id-1], sort_keys=False, indent=4),
+                    mimetype='application/json')
+
+"""
 @app.route('/api/words', methods=['POST'])
 def create_word():
     items = Item.objects()
@@ -174,19 +242,26 @@ def get_users():
 
 @app.route('/api/users', methods=['POST'])
 def create_user():
+    items = Item.objects()
+    l_items = items.to_json()
+    decodedi = json.loads(l_items)
+
+
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
     user = User(user_id=(decoded[-1]["user_id"])+1,
                 username=request.json["username"], email=request.json["email"],
-                password=request.json["password"])
+                password=request.json["password"],
+                items=[(decodedi)])
+
     user.save()
     decoded = user.to_dict()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
+    """
 
-
-@app.route('/api/users/<user_name>', methods=['GET'])
+"""@app.route('/api/users/<user_name>', methods=['GET'])
 def get_user(user_name):
     user = User.objects(username=user_name)[0]
     l_user = user.to_json()
@@ -223,7 +298,7 @@ def delete_user(user_name):
     user.delete()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-
+"""
 SECRET_KEY = 'development key'
 FACEBOOK_APP_ID = '188477911223606'
 FACEBOOK_APP_SECRET = '621413ddea2bcc5b2e83d42fc40495de'
