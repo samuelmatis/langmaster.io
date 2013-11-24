@@ -19,10 +19,21 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 var startView = new Main.StartPage({
                     collection: weakestWords
                 });
-                
+
                 startView.on("start:test", function() {
                     console.log("test started");
                     console.log(words);
+
+                    var testLayout = new Main.TestLayout();
+                    var testLayoutHeader = new Main.HeaderRegion();
+                    var testLayoutMain = new Main.TestRegion();
+
+                    testLayout.on("show", function() {
+                        testLayout.testHeader.show(testLayoutHeader);
+                        testLayout.testMain.show(testLayoutMain);
+                    });
+
+                    App.appRegion.show(testLayout);
                 });
 
                 App.appRegion.show(startView);
