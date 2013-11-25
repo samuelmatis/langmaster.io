@@ -57,7 +57,7 @@ def mongo_to_dict(obj):
     return dict(return_data)
 
 class Word(EmbeddedDocument):
-    word_id = IntField()
+    word_id = IntField(primary_key=True)
     word = StringField()
     translation = StringField()
     strength = IntField()
