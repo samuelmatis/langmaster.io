@@ -17,6 +17,7 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
+    // grunt.loadNpmTasks('grunt-ucss');
 
     // configurable paths
     var yeomanConfig = {
@@ -57,6 +58,14 @@ module.exports = function (grunt) {
                 tasks: ['jst']
             }
         },
+        // ucss: {
+        //     target: {
+        //       pages: {
+        //         crawl: 'http://localhost:5000'
+        //       },
+        //       css: ['<%= yeoman.app %>/dist/styles/{,*/}*.css']
+        //     }
+        //   },
         connect: {
             options: {
                 port: 9000,
@@ -120,7 +129,7 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
+                    urls: ['http://localhost:<%= connect.test.options.port %>/index.html']
                 }
             }
         },
@@ -220,6 +229,16 @@ module.exports = function (grunt) {
                         'styles/fonts/{,*/}*.*'
                     ]
                 }]
+            },
+
+            styles: {
+                expand: true,
+                cwd: '<%= yeoman.app %>',
+                dest: '.tmp/',
+                src: [
+                  'styles/{,*/}*.css',
+                  'bower_components/**/*.css'
+                ]
             }
         },
         bower: {
@@ -299,6 +318,7 @@ module.exports = function (grunt) {
         'copy',
         'rev',
         'usemin'
+        // 'ucss'
     ]);
 
     grunt.registerTask('default', [
