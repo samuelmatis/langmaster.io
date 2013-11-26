@@ -10,15 +10,19 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="styles/jquery-ui-theme.css">
+        <!-- build:css(.tmp) styles/vendor.css -->
+        <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/minified/jquery.ui.dialog.min.css">
         <link rel="stylesheet" href="bower_components/offline/themes/offline-theme-default.css">
+        <link rel="stylesheet" href="styles/jquery-ui-theme.css">
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/bootstrap.css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
-        <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="bower_components/modernizr/modernizr.min.js"></script>
         <!-- endbuild -->
     </head>
     <body>
@@ -122,12 +126,12 @@
         <script type="text/template" id="test-main-region">
             <div class="row" style="margin-top: 30px;">
                 <div class="col-md-4 col-md-offset-1">
-                    <p class="lead" class="margin-top: 4px;">House</p>
+                    <p class="lead" class="margin-top: 4px;">{{ word }}</p>
                 </div>
                 <div class="col-md-5">
                     <form class="form" role="form">
-                        <input type="text" class="form-control col-md-12">
-                        <button class="btn btn-success" style="margin-top: 40px;">Submit</button>
+                        <input type="text" name="answer" class="form-control col-md-12">
+                        <button class="js-submit-answer btn btn-success" style="margin-top: 40px;">Submit</button>
                     </form>
                 </div>
             </div>
@@ -268,19 +272,19 @@
         </script>
 
         <!-- build:js scripts/vendor.js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/jquery/jquery.min.js"></script>
+        <script src="scripts/vendor/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="bower_components/json2/json2.js"></script>
-        <script src="bower_components/underscore/underscore.js"></script>
-        <script src="bower_components/backbone/backbone.js"></script>
-        <script src="bower_components/backbone.picky/lib/backbone.picky.js"></script>
-        <script src="bower_components/backbone.syphon/lib/backbone.syphon.js"></script>
-        <script src="bower_components/backbone.localstorage/backbone.localStorage.js"></script>
-        <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
-        <script src="bower_components/bootbox/bootbox.js"></script>
+        <script src="bower_components/underscore/underscore-min.js"></script>
+        <script src="bower_components/backbone/backbone-min.js"></script>
+        <script src="bower_components/backbone.picky/lib/backbone.picky.min.js"></script>
+        <script src="bower_components/backbone.syphon/lib/backbone.syphon.min.js"></script>
+        <script src="bower_components/backbone.localstorage/backbone.localStorage-min.js"></script>
+        <script src="bower_components/marionette/lib/backbone.marionette.min.js"></script>
+        <script src="bower_components/bootbox/bootbox.min.js"></script>
         <script src="scripts/vendor/oauth.js"></script>
-        <script src="bower_components/spin.js/spin.js"></script>
+        <script src="bower_components/spin.js/dist/spin.min.js"></script>
         <script src="bower_components/spin.js/jquery.spin.js"></script>
         <script src="bower_components/offline/offline.min.js"></script>
         <!-- endbuild -->
