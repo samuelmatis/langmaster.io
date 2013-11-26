@@ -26,7 +26,17 @@ connect(
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words',
     port=53948
 )
+server = "ds053948.mongolab.com"
+port = 53948
+db_name = 'words'
+username = "admin"
+password = "iicenajv"
 
+con = Connection(server, port)
+db = con[db_name]
+db.authenticate(username, password)
+words = db.words
+users = db.users
 
 def mongo_to_dict(obj):
     return_data = []
@@ -189,10 +199,7 @@ def get_word_id(username, word_id):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    words = decoded[0]["words"][word_id]
-    words.pop(word_id-1)
-    user.update(**{"set__words":words})
-    return Response(json.dumps(decoded[0]["words"][word_id], sort_keys=False, indent=4),
+    return Response(json.dumps(decoded[0]["words"][word_id-1], sort_keys=False, indent=4),
                     mimetype='application/json')
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
@@ -218,10 +225,10 @@ def delete_word(username, word_id):
     l_user = user.to_json()
     decoded = json.loads(l_user)
     words = decoded[0]["words"]
-    deleted = words[word_id-1]
-    words.pop(word_id-1)
+    word = str(words[word_id-1])[:]
+    words[word_id-1] = {}
     user.update(**{"set__words":words})
-    return Response(json.dumps(deleted, sort_keys=False, indent=4),
+    return Response(json.dumps(decoded[word_id-1], sort_keys=False, indent=4),
                     mimetype='application/json')
 
 
