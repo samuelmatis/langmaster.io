@@ -32,7 +32,22 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
     });
 
     Main.TestRegion = Marionette.ItemView.extend({
-        template: "#test-main-region"
+        template: function() {
+            return _.template($("#test-main-region").html(), {
+                word: this.options.word
+            });
+        },
+
+        events: {
+            "click .js-submit-answer": "submitAnswer"
+        },
+
+        submitAnswer: function(e) {
+            e.preventDefault();
+            var data = Backbone.Syphon.serialize(this);
+            console.log("submitted answer", data);
+            this.trigger("submit:answer", data);
+        }
     });
 
 });
