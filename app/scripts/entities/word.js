@@ -1,7 +1,7 @@
 App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     Entities.Word = Backbone.Model.extend({
-        urlRoot: "api/users/petoparada/words",
+        urlRoot: "http://localhost:5000/api/users/petoparada/words",
 
         defaults: {
             word: "",
@@ -51,7 +51,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     // Entities.configureStorage(Entities.Word);
 
     Entities.WordCollection = Backbone.Collection.extend({
-        url: "api/users/petoparada/words",
+        url: "http://localhost:5000/api/users/petoparada/words",
         model: Entities.Word
     });
 
