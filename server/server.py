@@ -227,11 +227,10 @@ def delete_word(username, word_id):
     l_user = user.to_json()
     decoded = json.loads(l_user)
     words = decoded[0]["words"]
-    word = str(words[word_id-1])[:]
-
-    words[word_id-1] = {}
+    word = [word for word in words if word["word_id"] == word_id]
+    words.pop(words.index(word[0]))
     user.update(**{"set__words":words})
-    return Response(json.dumps(decoded[word_id-1], sort_keys=False, indent=4),
+    return Response(json.dumps(words, sort_keys=False, indent=4),
                     mimetype='application/json')
 
 
