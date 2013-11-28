@@ -7,13 +7,9 @@ from mongoengine import *
 
 app = Flask(__name__, static_folder='../app', static_url_path='',
             template_folder='../app')
-app.config["MONGODB_DB"] = 'words'
 connect(
     'words',
-    username='admin',
-    password='iicenajv',
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words',
-    port=53948
 )
 
 
