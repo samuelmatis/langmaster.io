@@ -1,15 +1,6 @@
 #!flask/bin/python
-<<<<<<< HEAD
-from flask import Flask, abort, request, redirect, render_template, Response
-=======
-from flask import Flask, jsonify, abort, request, redirect, make_response, \
-    url_for, render_template, Response, session
-import datetime
-import pymongo
-from pymongo import Connection
->>>>>>> e13fb04951c16c3e4ef2f69c62104ce3d095cbb5
+from flask import Flask, abort, request, render_template, Response
 import json
-from flask_oauth import OAuth
 from flask.ext.mongoengine import MongoEngine
 from mongoengine import *
 
