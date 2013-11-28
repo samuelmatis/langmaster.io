@@ -195,13 +195,14 @@ def create_word(username):
                     mimetype='application/json')
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['GET'])
-def get_words(username):
+def get_word(username, word_id):
      user = User.objects(username=username)
-     word = [word for word user.words if word.word_id == word_id]
-     if not word:
-        return abort(404)
-     return Response(word[0].to_json(sort_keys=False, indent=4),
-                     mimetype='application/json')
+     l_word = user.to_json()
+     decoded = json.loads(l_word)
+     words = decoded[0]["words"]
+     word = [word for word in words if word["word_id"] == word_id]
+     return Response(json.dumps(word[0], sort_keys=False, indent=4),
+                    mimetype='application/json')
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
 def change_word(username, word_id):
