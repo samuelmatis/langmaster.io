@@ -32,10 +32,10 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
     });
 
     Main.TestRegion = Marionette.ItemView.extend({
-        template: function() {
-            return _.template($("#test-main-region").html(), {
-                word: this.options.word
-            });
+        template: "#test-main-region",
+
+        modelEvents: {
+            "change:closed": "render"
         },
 
         events: {
