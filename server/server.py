@@ -3,13 +3,14 @@ from flask import Flask, abort, request, render_template, Response
 import json
 from flask.ext.mongoengine import MongoEngine
 from mongoengine import *
+from difflib import SequenceMatcher
 
 
 app = Flask(__name__, static_folder='../app', static_url_path='',
             template_folder='../app')
 connect(
     'words',
-    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words',
+    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
 )
 
 
@@ -202,6 +203,19 @@ def delete_word(username, word_id):
     user.update(**{"set__words":words})
     return Response(json.dumps(words, sort_keys=False, indent=4),
                     mimetype='application/json')
+
+def rate_words(word_get,word_post):
+    current_ratio = SequenceMatcher(None,word_get,word_post).ratio()
+    return "word_get: "+ word_get +" word_post: "+word_post +" current_ratio: "+str(current_ratio)
+
+
+
+@app.route('/api/users/<username>/compare/<a>/<b>', methods=['GET'])
+def compare(username,a,b):
+    return rate_words(a,b)
+
+
+
 
 
 if __name__ == '__main__':
