@@ -1,12 +1,9 @@
 from flask import Flask, abort, request, render_template, Response
 import json
 from app import app
-from models import *
+from db import *
+from difflib import SequenceMatcher
 
-
-@app.route('/', methods=['GET'])
-def home():
-    return render_template("index.html")
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
@@ -149,3 +146,27 @@ def delete_word(username, word_id):
     user.update(**{"set__words":words})
     return Response(json.dumps(words, sort_keys=False, indent=4),
                     mimetype='application/json')
+
+def rate_words(word_get,word_post):
+    current_ratio = SequenceMatcher(None,word_get,word_post).ratio()
+    return str(current_ratio)
+
+def rate_alg(l):
+    if "1, 1, 1, 1" in str(l):
+        return 1
+    elif l.count(1) > l.count(0):
+        return 0
+    else:
+        return -1
+
+
+@app.route('/api/users/<username>/compare/<original>/<winput>', methods=['GET'])
+def compare(username,original,winput):
+    word = original
+    user = User.objects(username=username)
+    l_word = user.to_json()
+    words = json.loads(l_word)[0]["words"]
+    translation= [word["translation"] for word in words if word["word"]==original]
+
+    return rate_words(translation[0],winput)
+
