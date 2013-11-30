@@ -1,12 +1,12 @@
 #!flask/bin/python
-from flask import Flask, abort, request, render_template, Response
 import os
 from users import *
+from flask import render_template
+
 
 @app.route('/', methods=['GET'])
 def home():
     return render_template("index.html")
-
 
 
 if __name__ == "__main__":

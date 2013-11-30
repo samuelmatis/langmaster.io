@@ -35,6 +35,7 @@ def make_dict(obj):
 
     return dict(return_data)
 
+
 class Word(EmbeddedDocument):
     word_id = IntField(primary_key=True)
     word = StringField()
@@ -44,6 +45,7 @@ class Word(EmbeddedDocument):
 
     def to_dict(self):
         return make_dict(self)
+
 
 class User(Document):
     user_id = IntField()
