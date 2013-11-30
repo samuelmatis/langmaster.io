@@ -49,7 +49,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         randomWord = function() {
                             var randomNumber = Math.floor(Math.random() * (words.size() - 1 + 1)) + 1;
                             var selectedWord = words.get(randomNumber);
-                            console.log(selectedWord);
+                            // console.log(selectedWord);
                             return selectedWord;
                         };
 
@@ -60,14 +60,13 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                         // On submit answer
                         testLayoutMain.on("submit:answer", function(data) {
-                            answer = this.model.get("word");
-                            if(data.answer === answer) {
-                                console.log("ok");
+                            answer = this.model.get("translation");
+                            if(data.answer !== answer) {
+                                console.log("nie!");
                             } else {
-                                console.log("tak nie");
+                                testLayoutMain.model = randomWord();
+                                testLayout.testMain.show(testLayoutMain);
                             }
-
-                            testLayoutMain.model = randomWord();
                         });
 
                         // Show new view in test
