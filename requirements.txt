@@ -1,5 +1,7 @@
 Flask==0.10.1
-Flask-BasicAuth==0.2.0
-Flask-HTTPAuth==2.1.0
-Flask-PyMongo==0.3.0
--e git+https://github.com/twilio/flask-restful.git@9b2baf52940b1083cabba9b7183da22f3486c2c0#egg=Flask_RESTful-master
+Jinja2==2.7.1
+MarkupSafe==0.18
+Werkzeug==0.9.4
+gunicorn==18.0
+itsdangerous==0.23
+wsgiref==0.1.2
