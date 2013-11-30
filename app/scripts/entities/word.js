@@ -1,5 +1,10 @@
 App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
+    /**
+     * Word item model
+     * 
+     * @entity Word
+     */
     Entities.Word = Backbone.Model.extend({
         urlRoot: "http://localhost:5000/api/users/petoparada/words",
 
@@ -10,24 +15,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         },
 
         parse: function (response) {
-            // console.log(response.items[1]._id["$oid"]);
-            // var item_num = 0;
-            // _.each(response.items, function(item) {
-            //     // console.log(item);
-            //     // console.log(item._id["$oid"]);
-            //     response.items[item_num].id = item.id;
-            //     item_num++;
-            //     // response.items[item].id = item._id["$oid"];
-            // });
-            // console.log(response);
-            // response['items'].id = response["_id"]["$oid"];
-            // delete response._id;
             response.id = response.word_id;
-            console.log(response);
             delete response.word_id;
             delete response._id;
+            console.log(response);
             return response;
-            
         },
 
         validate: function(attrs, options) {
@@ -50,6 +42,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     // Entities.configureStorage(Entities.Word);
 
+    /**
+     * Word items collection
+     * 
+     * @entity Word
+     */
     Entities.WordCollection = Backbone.Collection.extend({
         url: "http://localhost:5000/api/users/petoparada/words",
         model: Entities.Word
@@ -57,6 +54,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     // Entities.configureStorage(Entities.WordCollection);
 
+    /**
+     * Initialize word items
+     * 
+     * @entity Word
+     */
     var initializeWords = function() {
         var words = new Entities.WordCollection([
             { "id": 1, "word": "car", "translation": "auto", "strength": 4 },
@@ -72,6 +74,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         return words.models;
     };
 
+    /**
+     * API
+     * Main API methods for word entity
+     */
     var API = {
         getWordsEntities: function() {
             var words = new Entities.WordCollection();
@@ -102,6 +108,9 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         }
     };
 
+    /**
+     * Events
+     */
     App.reqres.setHandler("words:entities", function() {
         return API.getWordsEntities();
     });

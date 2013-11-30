@@ -1,5 +1,11 @@
 App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
+    /**
+     * Words layout
+     * 
+     * @region Words-List
+     * @template #words-region-layout
+     */
     List.Layout = Marionette.Layout.extend({
         template: "#words-region-layout",
         className: "pure-g content-ribbon",
@@ -10,6 +16,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         }
     });
 
+    /**
+     * New word view
+     * 
+     * @region Words-List
+     * @template #words-list-newword
+     */
     List.NewWord = Marionette.ItemView.extend({
         template: "#words-list-newword",
 
@@ -49,6 +61,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         }
     });
 
+    /**
+     * Word item view
+     * 
+     * @region Words-List
+     * @template #words-list-item
+     */
     List.Word = Marionette.ItemView.extend({
         tagName: "tr",
         template: "#word-list-item",
@@ -85,12 +103,24 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         }
     });
 
+    /**
+     * Empty word view
+     * 
+     * @region Words-List
+     * @template #words-list-none
+     */
     var NoWordsView = Marionette.ItemView.extend({
         template: "#word-list-none",
         tagName: "tr",
         className: "warning"
     });
 
+    /**
+     * Words list view
+     * 
+     * @region Words-List
+     * @template #words-list
+     */
     List.Words = Marionette.CompositeView.extend({
         template: "#word-list",
         emptyView: NoWordsView,

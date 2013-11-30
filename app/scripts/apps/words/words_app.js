@@ -1,5 +1,9 @@
 App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
 
+    /**
+     * Router
+     * Define routers for words sub-app
+     */
     Words.Router = Marionette.AppRouter.extend({
         appRoutes: {
             "words": "listWords",
@@ -8,6 +12,10 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
         }
     });
 
+    /**
+     * API
+     * Main API methods for words sub-app
+     */
     var API = {
         listWords: function() {
             App.Words.List.Controller.listWords();
@@ -25,6 +33,9 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
         }
     };
 
+    /**
+     * Events
+     */
     App.on("words:list", function() {
         App.navigate("words");
         API.listWords();
@@ -42,6 +53,9 @@ App.module("Words", function(Words, App, Backbone, Marionette, $, _) {
         }
     });
 
+    /**
+     * Initialize words sub-app
+     */
     App.addInitializer(function() {
         new Words.Router({
             controller: API

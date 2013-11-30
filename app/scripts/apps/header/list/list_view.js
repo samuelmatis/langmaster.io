@@ -1,43 +1,55 @@
 App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
-  List.Header = Marionette.ItemView.extend({
-    template: "#header-link",
-    tagName: "li",
 
-    events: {
-      "click a": "navigate"
-    },
+    /**
+     * Header items
+     * 
+     * @region Header
+     * @template #header-link
+     */
+    List.Header = Marionette.ItemView.extend({
+        template: "#header-link",
+        tagName: "li",
 
-    navigate: function(e){
-      e.preventDefault();
-      this.trigger("navigate", this.model);
-    },
+        events: {
+            "click a": "navigate"
+        },
 
-    onRender: function(){
-      if(this.model.selected){
-        // add class so Bootstrap will highlight the active entry in the navbar
-        this.$el.addClass("active");
-      };
-    }
-  });
+        navigate: function(e){
+            e.preventDefault();
+            this.trigger("navigate", this.model);
+        },
 
-  List.Headers = Marionette.CompositeView.extend({
-    template: "#header-template",
-    tagName: "nav",
-    className: "navbar-wrapper navbar-default navbar-fixed-top",
-    itemView: List.Header,
-    itemViewContainer: "ul.nav-main",
+        onRender: function(){
+            if(this.model.selected){
+                this.$el.addClass("active");
+            };
+        }
+    });
 
-    events: {
-      "click a.brand": "brandClicked"
-    },
+    /**
+     * Header view
+     * 
+     * @region Header
+     * @template #header-template
+     */
+    List.Headers = Marionette.CompositeView.extend({
+        template: "#header-template",
+        tagName: "nav",
+        className: "navbar-wrapper navbar-default navbar-fixed-top",
+        itemView: List.Header,
+        itemViewContainer: "ul.nav-main",
 
-    brandClicked: function(e){
-      e.preventDefault();
-      this.trigger("brand:clicked");
-    },
+        events: {
+            "click a.brand": "brandClicked"
+        },
 
-    initialize: function() {
+        brandClicked: function(e){
+            e.preventDefault();
+            this.trigger("brand:clicked");
+        },
+
+        initialize: function() {
             this.$el.attr('role', 'navigation');
         }
-  });
+    });
 });

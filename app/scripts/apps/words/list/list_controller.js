@@ -1,12 +1,22 @@
 App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     List.Controller = {
+
+        /**
+         * List words method
+         * It shows words list view with optional filter criterion
+         *
+         * @param {string} criterion
+         */
         listWords: function(criterion) {
+
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
+            // Fetch words
             var words = App.request("words:entities");
 
+            // Initialize views
             var appRegionLayout = new List.Layout();
             var appRegionNewWord = new List.NewWord();
 
@@ -23,10 +33,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                     }
                 });
 
+                // Initialize list view
                 var appRegionView = new List.Words({
                     collection: filteredWords
                 });
 
+                // Filter words if criterion is defined
                 if(criterion) {
                     filteredWords.filter(criterion);
                     appRegionView.once("show", function(){
@@ -34,16 +46,19 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                     });
                 }
 
+                // On words filter
                 appRegionView.on("words:filter", function(filterCriterion) {
                     filteredWords.filter(filterCriterion);
                     App.trigger("words:filter", filterCriterion);
                 });
 
+                // On words layout show
                 appRegionLayout.on("show", function() {
                     appRegionLayout.listRegion.show(appRegionView);
                     appRegionLayout.addRegion.show(appRegionNewWord);
                 });
 
+                // On submit new word form
                 appRegionNewWord.on("form:submit", function(data) {
                     var newWord = new App.Entities.Word();
                     if(newWord.save(data)) {
@@ -54,6 +69,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                     }
                 });
 
+                // On word edit
                 appRegionView.on("itemview:word:edit", function(childView, model) {
                     App.trigger("word:edit", model.get('id'));
                     var view = new App.Words.Edit.Word({
@@ -73,6 +89,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                     App.dialogRegion.show(view);
                 });
 
+                // On word delete
                 appRegionView.on("itemview:word:delete", function(childView, model) {
                     model.destroy();
                 });

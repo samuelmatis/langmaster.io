@@ -1,5 +1,8 @@
 App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
 
+    /**
+     * Filtered word collection
+     */
     Entities.FilteredCollection = function(options){
         var original = options.collection;
         var filtered = new original.constructor();

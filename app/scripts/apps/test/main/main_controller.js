@@ -1,13 +1,13 @@
 App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
     Main.Controller = {
+        
         /**
          * Test main method
-         * shows test page with all components
+         * It shows test view with all components
          */
         showMain: function() {
 
-            // Initialize and show loading view
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
@@ -20,10 +20,8 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 words.comparator = function(model) {
                     return model.get("strength");
                 }
-
                 words.sort();
 
-                // Create collection with weakest words
                 var weakestWords = new Backbone.Collection(words.first(4));
 
                 // Initialize Start Page view
@@ -31,25 +29,21 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     collection: weakestWords
                 });
 
-                // After click on "start test" button
+                // On start test
                 startView.on("start:test", function() {
-                    // Initialize test layout
-                    var testLayout = new Main.TestLayout();
 
-                    // Initialize test header
+                    var testLayout = new Main.TestLayout();
                     var testLayoutHeader = new Main.HeaderRegion();
 
-                    // On layout show
+                    // On test layout show
                     testLayout.on("show", function() {
 
-                        // Initialize main views for test
                         testLayout.testHeader.show(testLayoutHeader);
 
-                        // Method for finding random word from words collection
+                        // Find a random word from words collection
                         randomWord = function() {
                             var randomNumber = Math.floor(Math.random() * (words.size() - 1 + 1)) + 1;
                             var selectedWord = words.get(randomNumber);
-                            // console.log(selectedWord);
                             return selectedWord;
                         };
 
@@ -60,24 +54,23 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                         // On submit answer
                         testLayoutMain.on("submit:answer", function(data) {
+
                             answer = this.model.get("translation");
                             if(data.answer !== answer) {
                                 console.log("nie!");
                             } else {
+                                // Change word and show updated view
                                 testLayoutMain.model = randomWord();
                                 testLayout.testMain.show(testLayoutMain);
                             }
                         });
 
-                        // Show new view in test
                         testLayout.testMain.show(testLayoutMain);
                     });
 
-                    // Show test in region
                     App.appRegion.show(testLayout);
                 });
 
-                // Show start test view in region
                 App.appRegion.show(startView);
             });
         }
