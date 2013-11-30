@@ -165,8 +165,18 @@ def create_word(username):
     return Response(json.dumps(words[-1], sort_keys=False, indent=4),
                     mimetype='application/json')
 
+@app.route('/api/users/<username>/words/<wordname>', methods=['GET'])
+def get_word(username, wordname):
+     user = User.objects(username=username)
+     l_word = user.to_json()
+     decoded = json.loads(l_word)
+     words = decoded[0]["words"]
+     word= [word for word in words if word["word"]==wordname]
+     return Response(json.dumps(word[0], sort_keys=False, indent=4),
+                    mimetype='application/json')
+
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['GET'])
-def get_word(username, word_id):
+def get_word_id(username, word_id):
      user = User.objects(username=username)
      l_word = user.to_json()
      decoded = json.loads(l_word)
@@ -206,13 +216,20 @@ def delete_word(username, word_id):
 
 def rate_words(word_get,word_post):
     current_ratio = SequenceMatcher(None,word_get,word_post).ratio()
-    return "word_get: "+ word_get +" word_post: "+word_post +" current_ratio: "+str(current_ratio)
+    return "original: "+ word_get +" input: "+word_post +" current_ratio: "+str(current_ratio)
 
 
 
-@app.route('/api/users/<username>/compare/<a>/<b>', methods=['GET'])
-def compare(username,a,b):
-    return rate_words(a,b)
+@app.route('/api/users/<username>/compare/<original>/<winput>', methods=['GET'])
+def compare(username,original,winput):
+    word = original
+    user = User.objects(username=username)
+    l_word = user.to_json()
+    words = json.loads(l_word)[0]["words"]
+    translation= [word["translation"] for word in words if word["word"]==original]
+
+    return rate_words(winput,translation[0])
+
 
 
 
