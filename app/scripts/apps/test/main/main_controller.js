@@ -54,15 +54,22 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                         // On submit answer
                         testLayoutMain.on("submit:answer", function(data) {
+                            var origin_word = this.model.get("word");
+                            var input_word = data.answer;
 
-                            answer = this.model.get("translation");
-                            if(data.answer !== answer) {
-                                console.log("nie!");
-                            } else {
-                                // Change word and show updated view
-                                testLayoutMain.model = randomWord();
-                                testLayout.testMain.show(testLayoutMain);
-                            }
+                            $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
+                                console.log(data);
+                                if(data == 1.0) {
+                                    console.log("ano");
+                                    testLayoutMain.model = randomWord();
+                                    testLayout.testMain.show(testLayoutMain);
+                                } else if (data < 1.0 && data > 0.5) {
+                                    console.log("skoro");
+                                } else if (data < 0.5) {
+                                    console.log("nie");
+                                }
+                            });
+                                
                         });
 
                         testLayout.testMain.show(testLayoutMain);
