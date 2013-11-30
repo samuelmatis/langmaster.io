@@ -219,6 +219,13 @@ def rate_words(word_get,word_post):
     current_ratio = SequenceMatcher(None,word_get,word_post).ratio()
     return str(current_ratio)
 
+def rate_alg(l):
+    if "1, 1, 1, 1" in str(l):
+        return 1
+    elif l.count(1) > l.count(0):
+        return 0
+    else:
+        return -1
 
 
 @app.route('/api/users/<username>/compare/<original>/<winput>', methods=['GET'])
