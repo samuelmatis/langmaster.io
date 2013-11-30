@@ -160,7 +160,7 @@ def create_word(username):
     word = Word(word_id=u_id,
                 word=request.json["word"],
                 translation=request.json["translation"],
-                strength=1)
+                strength=0)
     words.append(word.to_dict())
     user.update(**{"set__words":words})
     return Response(json.dumps(words[-1], sort_keys=False, indent=4),
