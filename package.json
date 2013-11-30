@@ -1,6 +1,6 @@
 {
   "name": "words",
-  "dependencies": {
+  "peerDependencies": {
     "bower": "0.6.x"
 },
 "scripts": {
