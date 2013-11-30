@@ -228,7 +228,7 @@ def compare(username,original,winput):
     words = json.loads(l_word)[0]["words"]
     translation= [word["translation"] for word in words if word["word"]==original]
 
-    return rate_words(winput,translation[0])
+    return rate_words(translation[0],winput)
 
 
 
