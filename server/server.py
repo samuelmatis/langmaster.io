@@ -216,7 +216,7 @@ def delete_word(username, word_id):
 
 def rate_words(word_get,word_post):
     current_ratio = SequenceMatcher(None,word_get,word_post).ratio()
-    return "original: "+ word_get +" input: "+word_post +" current_ratio: "+str(current_ratio)
+    return str(current_ratio)
 
 
 
