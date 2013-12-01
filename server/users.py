@@ -1,10 +1,11 @@
+from db import *
+from app import app
 from flask import request, abort, Response
 import json
-from app import app
-from db import *
 from difflib import SequenceMatcher
 
 
+# Flask views for user API
 @app.route('/api/users', methods=['GET'])
 def get_users():
     users = User.objects()
@@ -193,6 +194,7 @@ def rate_alg(l):
         return -1
 
 
+# Flask view for comparing two words
 @app.route('/api/users/<username>/compare/<original>/<want>', methods=['GET'])
 def compare(username, original, want):
     word = original

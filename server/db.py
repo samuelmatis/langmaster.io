@@ -1,13 +1,13 @@
 #!flask/bin/python
 from mongoengine import *
 
-
+# Connection to MongoDB
 connect(
     'words',
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
 )
 
-
+# Make dict from MongoDB collection
 def make_dict(obj):
     return_data = []
 
@@ -36,7 +36,7 @@ def make_dict(obj):
 
     return dict(return_data)
 
-
+# Define mongoengine documents
 class Word(EmbeddedDocument):
     word_id = IntField()
     word = StringField()
@@ -50,9 +50,9 @@ class Word(EmbeddedDocument):
 
 class User(Document):
     user_id = IntField(unique=True)
-    username = StringField(unique=True)
+    username = StringField(max_length=20, unique=True)
     email = EmailField(unique=True)
-    password = StringField()
+    password = StringField(max_length=15)
     words = ListField(EmbeddedDocumentField(Word))
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 
