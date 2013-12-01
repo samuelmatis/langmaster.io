@@ -214,8 +214,8 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     word = request.json["word"]
-    know = request.json["know"].split()
-    return str(reta_alg(know))
+    know = map(int,list(request.json["know"]))
+    return str(rate_alg(know))
 
 
 
