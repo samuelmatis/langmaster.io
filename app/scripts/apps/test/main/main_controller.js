@@ -63,18 +63,23 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         // On submit answer
                         testLayoutMain.on("submit:answer", function(data) {
                             this.$(".js-submit-answer").hide();
+
                             var origin_word = this.model.get("word");
                             var input_word = data.answer;
                             var self = this;
 
                             $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
+
                                 console.log(data);
 
                                 var send = function(text, number) {
                                     localStorage["test_word_" + origin_word] += number;
+
                                     var result = new Main.TestResult({ result: text });
                                     testLayout.testResult.show(result);
+
                                     this.$(".js-next").focus();
+
                                     result.on("test:next", function() {
                                         testLayoutMain.model = randomWord();
                                         testLayout.testResult.close();
@@ -87,7 +92,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     send("good", 1);
                                 } else if (data < 1.0 && data > 0.9) {
                                     send("ok", 1);
-                                } else if (data < 0.5) {
+                                } else if (data < 0.9) {
                                     send("bad", 0);
                                 }
                             });
