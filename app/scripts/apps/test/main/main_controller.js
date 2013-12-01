@@ -52,6 +52,13 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             model: randomWord()
                         });
 
+                        // On testing page show
+                        testLayoutMain.on("show", function() {
+                            if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
+                                localStorage.setItem("test_word_" + this.model.get("word"), "");
+                            }
+                        });
+
                         // On submit answer
                         testLayoutMain.on("submit:answer", function(data) {
                             var origin_word = this.model.get("word");
@@ -60,12 +67,14 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
                                 console.log(data);
                                 if(data == 1.0) {
-                                    console.log("ano");
+                                    localStorage["test_word_" + origin_word] += "1";
                                     testLayoutMain.model = randomWord();
                                     testLayout.testMain.show(testLayoutMain);
-                                } else if (data < 1.0 && data > 0.5) {
+                                } else if (data < 1.0 && data > 0.9) {
+                                    localStorage["test_word_" + origin_word] += "1";
                                     console.log("skoro");
                                 } else if (data < 0.5) {
+                                    localStorage["test_word_" + origin_word] += "0";
                                     console.log("nie");
                                 }
                             });
