@@ -41,7 +41,8 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
         regions: {
             testHeader: "#test-header",
-            testMain: "#test-main"
+            testMain: "#test-main",
+            testResult: "#test-result"
         }
     });
 
@@ -74,5 +75,38 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
             this.trigger("submit:answer", data);
         }
     });
+
+    /**
+     * Test result view
+     * 
+     * @region Test-TestPage
+     * @template #test-result-region
+     */
+     Main.TestResult = Marionette.ItemView.extend({
+        template: "#test-result-region",
+
+        serializeData: function() {
+            if(this.options.result === "good") {
+                return {
+                    "result": "success",
+                    "result_text": "Good! :)"
+                }
+            } else if (this.options.result === "ok") {
+                return {
+                    "result": "warning",
+                    "result_text": "You have a small typo in your answer."
+                }
+            } else {
+                return {
+                    "result": "danger",
+                    "result_text": "No No No!"
+                }
+            }
+        },
+
+        triggers: {
+            "click .js-next": "test:next"
+        }
+     });
 
 });

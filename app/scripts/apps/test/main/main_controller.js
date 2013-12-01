@@ -38,6 +38,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     // On test layout show
                     testLayout.on("show", function() {
 
+
                         testLayout.testHeader.show(testLayoutHeader);
 
                         // Find a random word from words collection
@@ -61,24 +62,41 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                         // On submit answer
                         testLayoutMain.on("submit:answer", function(data) {
+                            this.$(".js-submit-answer").hide();
                             var origin_word = this.model.get("word");
                             var input_word = data.answer;
+                            var self = this;
 
                             $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
                                 console.log(data);
+
+                                var send = function(text, number) {
+                                    localStorage["test_word_" + origin_word] += number;
+                                    var result = new Main.TestResult({ result: text });
+                                    testLayout.testResult.show(result);
+                                    this.$(".js-next").focus();
+                                    result.on("test:next", function() {
+                                        testLayoutMain.model = randomWord();
+                                        testLayout.testResult.close();
+                                        testLayout.testMain.show(testLayoutMain);
+                                        self.$("#js-submit-answer").focus();
+                                    });
+                                }
+
                                 if(data == 1.0) {
-                                    localStorage["test_word_" + origin_word] += "1";
-                                    testLayoutMain.model = randomWord();
-                                    testLayout.testMain.show(testLayoutMain);
+                                    send("good", 1);
                                 } else if (data < 1.0 && data > 0.9) {
-                                    localStorage["test_word_" + origin_word] += "1";
-                                    console.log("skoro");
+                                    send("ok", 1);
                                 } else if (data < 0.5) {
-                                    localStorage["test_word_" + origin_word] += "0";
-                                    console.log("nie");
+                                    send("bad", 0);
                                 }
                             });
                                 
+                        });
+
+                        testLayoutMain.on("test:next", function() {
+                            
+                            console.log("clicked");
                         });
 
                         testLayout.testMain.show(testLayoutMain);

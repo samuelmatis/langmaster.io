@@ -89,6 +89,7 @@
             <div class="col-md-6 col-md-offset-3" id="test-page-region" style="margin-top: 20px;">
                 <div id="test-header" style="pagging-bottom: 5px; border-bottom: 1px solid #ccc;"></div>
                 <div id="test-main"></div>
+                <div id="test-result"></div>
             </div>
         </script>
 
@@ -114,27 +115,6 @@
             </div>
         </script>
 
-        <script type="text/template" id="test-header-region">
-            <div class="row">
-                <div class="col-md-6" id="test-header-giveup"><a class="btn btn-default">Give up</a></div>
-                <div class="col-md-6" id="test-header-timer">Time: 2:04</div>
-                </div>
-        </script>
-
-        <script type="text/template" id="test-main-region">
-            <div class="row" id="test-main-row">
-                <div class="col-md-4 col-md-offset-1">
-                    <p class="lead" class="margin-top: 4px;"><%= word %></p>
-                </div>
-                <div class="col-md-5">
-                    <form class="form" role="form">
-                        <input type="text" name="answer" class="form-control col-md-12" autofocus="autofocus">
-                        <button class="js-submit-answer btn btn-success" style="margin-top: 40px;">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </script>
-
         <script type="text/template" id="test-weakest-words">
             <td><%= word %></td>
             <td>
@@ -154,6 +134,31 @@
                     <h1>Test page</h1>
                 </div>
             </div>
+        </script>
+
+        <script type="text/template" id="test-header-region">
+            <div class="row">
+                <div class="col-md-6" id="test-header-giveup"><a class="btn btn-default">Give up</a></div>
+                <div class="col-md-6" id="test-header-timer">Time: 2:04</div>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-main-region">
+            <div class="row" id="test-main-row">
+                <div class="col-md-4 col-md-offset-1">
+                    <p class="lead" class="margin-top: 4px;"><%= word %></p>
+                </div>
+                <div class="col-md-5">
+                    <form class="form" id="test-form" role="form">
+                        <input type="text" name="answer" class="form-control col-md-12" autofocus="autofocus">
+                        <button class="js-submit-answer btn btn-success" form="test-form" style="margin-top: 40px;">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </script>
+
+        <script type="test/template" id="test-result-region">
+            <div class="alert alert-<%= result %>" style="margin-top: 40px;"><%= result_text %><button class="js-next btn btn-<%= result %> pull-right">Next</button></div>
         </script>
 
         <!-- Words region templates -->
