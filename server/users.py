@@ -6,6 +6,7 @@ from difflib import SequenceMatcher
 
 
 # Flask views for user API
+"""
 @app.route('/api/users', methods=['GET'])
 def get_users():
     users = User.objects()
@@ -13,7 +14,7 @@ def get_users():
     decoded = json.loads(l_users)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-
+"""
 
 @app.route('/api/users', methods=['POST'])
 def create_user():
@@ -136,7 +137,7 @@ def get_word_id(username, word_id):
     word = [word for word in words if word["word_id"] == word_id]
     if word == []:
         abort(404)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+    return Response(json.dumps(word[0], sort_keys=False, indent=4),
                     mimetype='application/json')
 
 
