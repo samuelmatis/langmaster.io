@@ -216,5 +216,18 @@ def test(username):
     rates = {}
     for data in json.loads(request.data):
         rates[data["word"]] = rate_alg(map(int,list(data["know"])))
-    return Response(json.dumps(rates, sort_keys=False, indent=4),
-                    mimetype='application/json')
+    user = User.objects(username=username)
+    l_user = user.to_json()
+    decoded = json.loads(l_user)
+    for item in rates:
+        words = decoded[0]["words"]
+        word = [word for word in words if word["word"] == item]
+        if (word[0]["strength"])+rates[item] == -1 or (word[0]["strength"])+rates[item] == 6:
+            pass
+        else:
+            word[0]["strength"]= (word[0]["strength"])+rates[item]
+        wordid_index = [k for k in range(len(words)) if words[k]["word_id"] == word[0]["word_id"]]
+        words[wordid_index[0]] = word[0]
+        user.update(**{"set__words": words})
+        return Response(json.dumps(words, sort_keys=False, indent=4),
+                        mimetype='application/json')
