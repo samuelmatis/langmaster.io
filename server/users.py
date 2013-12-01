@@ -1,6 +1,6 @@
 from db import *
 from app import app
-from flask import request, abort, Response
+from flask import request, abort, Response, jsonify
 import json
 from difflib import SequenceMatcher
 
@@ -186,13 +186,7 @@ def rate_words(word_get, word_post):
     return str(current_ratio)
 
 
-def rate_alg(l):
-    if "1, 1, 1, 1" in str(l):
-        return 1
-    elif l.count(1) > l.count(0):
-        return 0
-    else:
-        return -1
+
 
 
 # Flask view for comparing two words
@@ -207,3 +201,20 @@ def compare(username, original, want):
     if translation == []:
         abort(404)
     return rate_words(translation[0], want)
+
+def rate_alg(l):
+    if "1, 1, 1, 1" in str(l):
+        return 1
+    elif l.count(1) > l.count(0):
+        return 0
+    else:
+        return -1
+
+
+@app.route('/api/users/<username>/test', methods=['POST'])
+def test(username):
+    rates = {}
+    for data in json.loads(request.data):
+        rates[data["word"]] = rate_alg(map(int,list(data["know"])))
+    return Response(json.dumps(rates, sort_keys=False, indent=4),
+                    mimetype='application/json')
