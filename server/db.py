@@ -7,7 +7,7 @@ connect(
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
 )
 
-# Make dict from MongoDB collection
+# Make dict from MongoDB collec
 def make_dict(obj):
     return_data = []
 

@@ -136,7 +136,7 @@ def get_word_id(username, word_id):
     word = [word for word in words if word["word_id"] == word_id]
     if word == []:
         abort(404)
-    return Response(json.dumps(word[0], sort_keys=False, indent=4),
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
 
 
