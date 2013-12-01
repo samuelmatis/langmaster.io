@@ -1,6 +1,6 @@
 from db import *
 from app import app
-from flask import request, abort, Response
+from flask import request, abort, Response, jsonify
 import json
 from difflib import SequenceMatcher
 
@@ -213,9 +213,11 @@ def rate_alg(l):
 
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
-    word = request.json["word"]
-    know = map(int,list(request.json["know"]))
-    return str(rate_alg(know))
-
-
-
+    lista = []
+    rates = {}
+    for data in json.loads(request.data):
+        lista.append(data)
+    for word in lista:
+        rates[word["word"]] = rate_alg(map(int,list(word["know"])))
+    return Response(json.dumps(rates, sort_keys=False, indent=4),
+                    mimetype='application/json')
