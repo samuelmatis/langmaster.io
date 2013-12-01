@@ -35,7 +35,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
                 // Initialize list view
                 var appRegionView = new List.Words({
-                    collection: filteredWords
+                    collection: words
                 });
 
                 // Filter words if criterion is defined
@@ -62,7 +62,15 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                 appRegionNewWord.on("form:submit", function(data) {
                     var newWord = new App.Entities.Word();
                     if(newWord.save(data)) {
-                        words.add(newWord);
+                        this.$("#create-word").focus();
+                        words.add({
+                            id: newWord.get("id"),
+                            word: newWord.get("word"),
+                            translation: newWord.get("translation")
+                        });
+                        console.log(words);
+                        console.log("------------------------");
+                        console.log(appRegionView);
                         appRegionView.children.findByModel(newWord).flash("success");
                     } else {
                         appRegionNewWord.triggerMethod("form:data:invalid", newWord.validationError);
