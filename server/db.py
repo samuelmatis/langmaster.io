@@ -1,3 +1,4 @@
+#!flask/bin/python
 from mongoengine import *
 
 
@@ -37,7 +38,7 @@ def make_dict(obj):
 
 
 class Word(EmbeddedDocument):
-    word_id = IntField(primary_key=True)
+    word_id = IntField()
     word = StringField()
     translation = StringField()
     strength = IntField()
@@ -48,9 +49,9 @@ class Word(EmbeddedDocument):
 
 
 class User(Document):
-    user_id = IntField()
-    username = StringField()
-    email = EmailField()
+    user_id = IntField(unique=True)
+    username = StringField(unique=True)
+    email = EmailField(unique=True)
     password = StringField()
     words = ListField(EmbeddedDocumentField(Word))
     meta = {'collection': 'users', 'ordering': ['-user_id']}

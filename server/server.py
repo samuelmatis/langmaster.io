@@ -1,7 +1,6 @@
-#!flask/bin/python
-import os
 from users import *
 from flask import render_template
+import os
 
 
 @app.route('/', methods=['GET'])
