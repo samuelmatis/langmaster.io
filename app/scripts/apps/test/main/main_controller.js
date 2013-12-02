@@ -99,11 +99,12 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                 
                         });
 
-                        testLayout.testMain.show(testLayoutMain);
-                    });
+                        testLayoutMain.on("test:next", function() {
+                            
+                            console.log("clicked");
+                        });
 
-                    testLayoutHeader.on("test:giveup", function() {
-                        App.trigger("test:main:show");
+                        testLayout.testMain.show(testLayoutMain);
                     });
 
                     App.appRegion.show(testLayout);
