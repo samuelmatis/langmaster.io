@@ -53,10 +53,23 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             model: randomWord()
                         });
 
+                        // Test steps
+                        var steps = 10;
+
                         // On testing page show
                         testLayoutMain.on("show", function() {
+                            // Check if localStorage word test item exist
                             if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
                                 localStorage.setItem("test_word_" + this.model.get("word"), "");
+                            }
+
+                            // Count down steps and close test after it will exceed steps
+                            steps--;
+                            if(steps < 0) {
+                                // Close test layout and show test final view
+                                testLayout.close();
+                                var finalView = new Main.FinalView();
+                                App.appRegion.show(finalView);
                             }
                         });
 
@@ -68,10 +81,12 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             var input_word = data.answer;
                             var self = this;
 
+                            // Check word correctness from API
                             $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
 
                                 console.log(data);
 
+                                // Save progress to localStorage and show result view
                                 var send = function(text, number) {
                                     localStorage["test_word_" + origin_word] += number;
 
