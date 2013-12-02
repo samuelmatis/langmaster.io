@@ -54,7 +54,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         });
 
                         // Test steps
-                        var steps = 10;
+                        var steps = 1;
 
                         // On testing page show
                         testLayoutMain.on("show", function() {
@@ -66,7 +66,28 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             // Count down steps and close test after it will exceed steps
                             steps--;
                             if(steps < 0) {
-                                // Close test layout and show test final view
+                                // Create send object with words and know indexes
+                                var sendText = [];
+                                for (var key in localStorage) {
+                                    var splitnute = key.split("_");
+                                    var slovo = splitnute[2];
+                                    var celeslovo = localStorage.getItem(key);
+
+                                    sendText.push({"word": slovo, "know": celeslovo});
+
+                                }
+
+                                console.log(JSON.stringify(sendText));
+
+                                $.ajax({
+                                    url: "api/users/petoparada/test",
+                                    type: "POST",
+                                    data: JSON.stringify(sendText),
+                                    success: function() {
+                                        // localStorage.clear();
+                                    }
+                                });
+
                                 testLayout.close();
                                 var finalView = new Main.FinalView();
                                 App.appRegion.show(finalView);
