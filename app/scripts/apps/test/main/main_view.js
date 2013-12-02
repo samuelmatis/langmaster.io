@@ -53,7 +53,11 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-header-region
      */
     Main.HeaderRegion = Marionette.ItemView.extend({
-        template: "#test-header-region"
+        template: "#test-header-region",
+
+        triggers: {
+            "click .js-giveup": "test:giveup"
+        }
     });
 
     /**
