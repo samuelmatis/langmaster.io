@@ -118,9 +118,11 @@
         <script type="text/template" id="test-weakest-words">
             <td><%= word %></td>
             <td>
-                <% for(var i=0; i < strength; i++){ %>
+                <% if(strength == 0) { %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                <% } else { for(var i=0; i < strength; i++){ %>
                     <span class="glyphicon glyphicon-star"></span>
-                <% } %>
+                <% } } %>
             </td>
         </script>
 
@@ -162,7 +164,7 @@
         </script>
 
         <script type="text/template" id="test-final">
-            End test! :)
+            End test! :) <%= result %>
         </script>
 
         <!-- Words region templates -->
@@ -207,9 +209,11 @@
             <td><%= word %></td>
             <td><%= translation %></td>
             <td>
-                <% for(var i=0; i < strength; i++){ %>
+                <% if(strength == 0) { %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                <% } else { for(var i=0; i < strength; i++){ %>
                     <span class="glyphicon glyphicon-star"></span>
-                <% } %>
+                <% } } %>
             </td>
             <td>
                 <a href="#words/<%= id %>/edit" class="js-edit btn btn-default btn-xs">

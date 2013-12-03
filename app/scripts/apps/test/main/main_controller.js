@@ -7,6 +7,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
          * It shows test view with all components
          */
         showMain: function() {
+            App.headerRegion.close();
 
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
@@ -54,7 +55,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         });
 
                         // Test steps
-                        var steps = 1;
+                        var steps = 5;
 
                         // On testing page show
                         testLayoutMain.on("show", function() {
@@ -79,17 +80,24 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                                 console.log(JSON.stringify(sendText));
 
-                                $.ajax({
-                                    url: "api/users/petoparada/test",
-                                    type: "POST",
-                                    data: JSON.stringify(sendText),
-                                    success: function() {
-                                        // localStorage.clear();
-                                    }
-                                });
+                                // $.ajax({
+                                //     url: "api/users/petoparada/test",
+                                //     type: "POST",
+                                //     data: JSON.stringify(sendText),
+                                //     success: function() {
+                                //         // localStorage.clear();
+                                //     }
+                                // });
+
+                                var response_data = [{
+                                    "translation": "book",
+                                    "strength": 1,
+                                    "word": "kniha",
+                                    "word_id": 1
+                                }];
 
                                 testLayout.close();
-                                var finalView = new Main.FinalView();
+                                var finalView = new Main.FinalView({data: data});
                                 App.appRegion.show(finalView);
                             }
                         });

@@ -109,10 +109,22 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
         }
      });
 
+     /**
+      * Final test view
+      * 
+      * @region Test-TestPage
+      * @template #test-final
+      */
      Main.FinalView = Marionette.ItemView.extend({
         template: "#test-final",
         className: "col-md-4 col-md-offset-4",
-        id: "test"
+        id: "test",
+
+        serializeData: function() {
+            return {
+                "result": this.options.data
+            }
+        }
      });
 
 });
