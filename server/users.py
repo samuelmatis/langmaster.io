@@ -186,9 +186,6 @@ def rate_words(word_get, word_post):
     return str(current_ratio)
 
 
-
-
-
 # Flask view for comparing two words
 @app.route('/api/users/<username>/compare/<original>/<want>', methods=['GET'])
 def compare(username, original, want):
