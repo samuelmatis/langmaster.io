@@ -55,7 +55,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         });
 
                         // Test steps
-                        var steps = 10;
+                        var steps = 1;
 
                         // On test page show
                         testLayoutMain.on("show", function() {
@@ -67,6 +67,10 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             // Count down steps and close test after it will exceed steps
                             steps--;
                             if(steps < 0) {
+                                testLayout.close();
+                                var loadingView = new App.Common.Views.Loading();
+                                App.appRegion.show(loadingView);
+
                                 var ouputWords = new Backbone.Collection();
                                 // Create send object with words and know indexes
                                 var sendText = [];
@@ -76,13 +80,12 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                                     // Send (demo) test results to the API and add results to collection
                                     $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
-                                        // ouputWords.add({word: "samo", strength: 4, increase: true});
-                                        console.log(data);
+                                        ouputWords.add({word: data.word, strength: data.strength, increase: data.increase});
+                                        localStorage.removeItem(data.word);
                                     });
 
                                 }
 
-                                testLayout.close();
                                 var finalView = new Main.FinalView({collection: ouputWords});
                                 App.appRegion.show(finalView);
                             }
