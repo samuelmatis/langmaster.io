@@ -212,25 +212,22 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    for i in range(len(request.form)):
-        word = request.json[i]["word"]
-        know = request.json[i]["know"]
-        rates[word] = rate_alg(map(int,know))
+    word = request.json["word"]
+    know = request.json["know"]
+    rates[word] = rate_alg(map(int,know))
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
     words = decoded[0]["words"]
-    for item in rates:
-        words = decoded[0]["words"]
-        word = [word for word in words if word["word"] == item]
-        if word == []:
-            abort(404)
-        if (word[0]["strength"])+rates[item] == -1 or (word[0]["strength"])+rates[item] == 6:
-            pass
-        else:
-            word[0]["strength"]= (word[0]["strength"])+rates[item]
-        wordid_index = [k for k in range(len(words)) if words[k]["word_id"] == word[0]["word_id"]]
-        words[wordid_index[0]] = word[0]
+    word = [words[item] for item in range(len(words)) if words[item]["word"] == word][0]
+    if word == []:
+        abort(404)
+    if (word["strength"])+rates[word["word"]]== -1 or (word["strength"])+rates[word["word"]]== 6:
+        pass
+    else:
+        word["strength"]= (word["strength"])+rates[word["word"]]
+        wordid_index = [k for k in range(len(words)) if words[k]["word_id"] == word["word_id"]]
+        words[wordid_index[0]] = word
     user.update(**{"set__words": words})
     return Response(json.dumps(words, sort_keys=False, indent=4),
                     mimetype='application/json')
