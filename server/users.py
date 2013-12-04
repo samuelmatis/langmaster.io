@@ -212,7 +212,7 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    for i in range(len(request.json)):
+    for i in range(len(request.form)):
         word = request.json[i]["word"]
         know = request.json[i]["know"]
         rates[word] = rate_alg(map(int,know))
