@@ -23,7 +23,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 }
                 words.sort();
 
-                var weakestWords = new Backbone.Collection(words.first(4));
+                var weakestWords = new Backbone.Collection(words.first(5));
 
                 // Initialize Start Page view
                 var startView = new Main.StartPage({
@@ -55,9 +55,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         });
 
                         // Test steps
-                        var steps = 5;
+                        var steps = 1;
 
-                        // On testing page show
+                        // On test page show
                         testLayoutMain.on("show", function() {
                             // Check if localStorage word test item exist
                             if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
@@ -67,37 +67,22 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             // Count down steps and close test after it will exceed steps
                             steps--;
                             if(steps < 0) {
+                                var ouputWords = new Backbone.Collection();
                                 // Create send object with words and know indexes
                                 var sendText = [];
                                 for (var key in localStorage) {
-                                    var splitnute = key.split("_");
-                                    var slovo = splitnute[2];
-                                    var celeslovo = localStorage.getItem(key);
+                                    var word = key.split("_")[2];
+                                    var know = localStorage.getItem(key);
 
-                                    sendText.push({"word": slovo, "know": celeslovo});
+                                    // Send (demo) test results to the API and add results to collection
+                                    $.post("api/users/petoparada/test", {"word": slovo, "know": 1111000}, function(data) {
+                                        ouputWords.add({word: "samo", strength: 4, increase: true});
+                                    });
 
                                 }
 
-                                console.log(JSON.stringify(sendText));
-
-                                // $.ajax({
-                                //     url: "api/users/petoparada/test",
-                                //     type: "POST",
-                                //     data: JSON.stringify(sendText),
-                                //     success: function() {
-                                //         // localStorage.clear();
-                                //     }
-                                // });
-
-                                var response_data = [{
-                                    "translation": "book",
-                                    "strength": 1,
-                                    "word": "kniha",
-                                    "word_id": 1
-                                }];
-
                                 testLayout.close();
-                                var finalView = new Main.FinalView({data: data});
+                                var finalView = new Main.FinalView({collection: ouputWords});
                                 App.appRegion.show(finalView);
                             }
                         });

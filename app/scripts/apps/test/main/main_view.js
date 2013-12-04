@@ -109,16 +109,29 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
         }
      });
 
-     /**
-      * Final test view
-      * 
-      * @region Test-TestPage
-      * @template #test-final
-      */
-     Main.FinalView = Marionette.ItemView.extend({
+    /**
+     * Final test table view
+     * 
+     * @region Test-TestPage
+     * @template #test-final-table
+     */
+    Main.FinalTableView = Marionette.ItemView.extend({
+        tagName: "tr",
+        template: "#test-final-table"
+    });
+
+    /**
+     * Final test view
+     * 
+     * @region Test-TestPage
+     * @template #test-final
+     */
+    Main.FinalView = Marionette.CompositeView.extend({
         template: "#test-final",
         className: "col-md-4 col-md-offset-4",
         id: "test",
+        itemView: Main.FinalTableView,
+        itemViewContainer: "tbody",
 
         serializeData: function() {
             return {
