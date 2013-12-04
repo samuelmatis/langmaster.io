@@ -140,4 +140,16 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
         }
      });
 
+    /**
+     * No words for test view
+     * 
+     * @region Test-TestPage
+     * @template #test-no-words
+     */
+     Main.TestNoWords = Marionette.ItemView.extend({
+        template: "#test-no-words",
+        className: "col-md-6 col-md-offset-3",
+        id: "test"
+     });
+
 });

@@ -13,6 +13,7 @@ body { margin: 0 auto; line-height: 1.7em; padding-top: 70px; }
 #spinner { height: 200px; }
 .offline-ui { margin-top: 40px; }
 #test h1 { font-family: 'Radley', serif; }
+#test h4 { font-family: 'Radley', serif; }
 #test-header-giveup { margin-bottom: 5px; }
 #test-header-timer { text-align: right; margin-top: 5px; }
 #test-main-row { margin-top: 30px; }
