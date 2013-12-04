@@ -212,6 +212,7 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
+    increase = True
     word = request.form["word"]
     know = request.form["know"]
     rates[word] = rate_alg(map(int,know))
@@ -223,11 +224,14 @@ def test(username):
     if word == []:
         abort(404)
     if (word["strength"])+rates[word["word"]]== -1 or (word["strength"])+rates[word["word"]]== 6:
-        pass
+        increase = False
+
     else:
         word["strength"]= (word["strength"])+rates[word["word"]]
         wordid_index = [k for k in range(len(words)) if words[k]["word_id"] == word["word_id"]]
         words[wordid_index[0]] = word
     user.update(**{"set__words": words})
-    return Response(json.dumps(words, sort_keys=False, indent=4),
+    if increase == True:
+        word["increase"] = True
+    return Response(json.dumps(word, sort_keys=False, indent=4),
                     mimetype='application/json')
