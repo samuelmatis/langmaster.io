@@ -203,6 +203,7 @@ def compare(username, original, want):
     return rate_words(translation[0], want)
 
 def rate_alg(l):
+    l = list(l)
     if "1, 1, 1, 1" in str(l):
         return 1
     elif l.count(1) > l.count(0):
@@ -214,8 +215,10 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    for data in request.json:
-        rates[data["word"]] = rate_alg(map(int,list(data["know"])))
+    for i in range(len(request.json)):
+        word = request.json[i]["word"]
+        know = request.json[i]["know"]
+        rates[word] = rate_alg(map(int,know))
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
