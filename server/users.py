@@ -219,7 +219,7 @@ def test(username):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-
+    words = decoded[0]["words"]
     for item in rates:
         words = decoded[0]["words"]
         word = [word for word in words if word["word"] == item]
