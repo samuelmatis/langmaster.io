@@ -55,7 +55,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         });
 
                         // Test steps
-                        var steps = 1;
+                        var steps = 10;
 
                         // On test page show
                         testLayoutMain.on("show", function() {
@@ -75,8 +75,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     var know = localStorage.getItem(key);
 
                                     // Send (demo) test results to the API and add results to collection
-                                    $.post("api/users/petoparada/test", {"word": slovo, "know": 1111000}, function(data) {
-                                        ouputWords.add({word: "samo", strength: 4, increase: true});
+                                    $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
+                                        // ouputWords.add({word: "samo", strength: 4, increase: true});
+                                        console.log(data);
                                     });
 
                                 }
