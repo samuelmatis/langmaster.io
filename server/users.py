@@ -212,12 +212,13 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    increase = True
-    word = request.json["word"]
-    know = request.json["know"]
+    word = request.form["word"]
+    know = request.form["know"]
     rates[word] = rate_alg(map(int,know))
     if rate_alg(map(int,know)) <= 0:
         increase = False
+    else:
+        increase = True
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
@@ -228,16 +229,12 @@ def test(username):
     except:
         abort(404)
     if (word["strength"])+rates[word["word"]]== -1 or (word["strength"])+rates[word["word"]]== 6:
-        increase = False
-
+        pass
     else:
         word["strength"]= (word["strength"])+rates[word["word"]]
         wordid_index = [k for k in range(len(words)) if words[k]["word_id"] == word["word_id"]]
         words[wordid_index[0]] = word
     user.update(**{"set__words": words})
-    if increase == True:
-        word["increase"] = True
-    else:
-        word["increase"] = False
+    word["increase"] = increase
     return Response(json.dumps(word, sort_keys=False, indent=4),
                     mimetype='application/json')
