@@ -8,6 +8,8 @@ test/bower_components/
 *.sublime-project
 *.sublime-workspace
 *.py[cod]
+newrelic.ini
+npm-debug.log
 
 # C extensions
 *.so
