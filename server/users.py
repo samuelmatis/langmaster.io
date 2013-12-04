@@ -215,6 +215,7 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
+    return "prababka"
     for i in range(len(request.json)):
         word = request.json[i]["word"]
         know = request.json[i]["know"]
@@ -222,9 +223,9 @@ def test(username):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    words = decoded[0]["words"]
-    for item in rates:
 
+    for item in rates:
+        words = decoded[0]["words"]
         word = [word for word in words if word["word"] == item]
         if word == []:
             abort(404)
