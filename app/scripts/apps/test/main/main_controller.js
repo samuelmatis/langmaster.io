@@ -55,7 +55,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         });
 
                         // Test steps
-                        var steps = 1;
+                        var steps = 10;
 
                         // On test page show
                         testLayoutMain.on("show", function() {
