@@ -164,7 +164,37 @@
         </script>
 
         <script type="text/template" id="test-final">
-            End test! :) <%= result %>
+            <h1>Test results</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Weak words</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Strength</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-final-table">
+            <td><%= word %></td>
+            <td>
+                <% if(strength == 0) { %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                <% } else { if(increase === true) { %>
+                    <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                <% } else { %>
+                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                <% } for(var i=0; i < strength; i++){ %>
+                    <span class="glyphicon glyphicon-star"></span>
+                <% }} %>
+            </td>
         </script>
 
         <!-- Words region templates -->
