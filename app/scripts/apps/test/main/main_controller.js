@@ -16,7 +16,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
             var words = App.request("words:entities");
 
             $.when(words).done(function(words) {
-                if(words.size > 0) {
+                if(words.size() !== 0) {
                     // Sort words with strength attribute
                     words.comparator = function(model) {
                         return model.get("strength");
@@ -142,13 +142,13 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                         App.appRegion.show(testLayout);
                     });
+
+                    App.appRegion.show(startView);
                 } else {
                     // If there are no words
                     var noWords = new Main.TestNoWords();
                     App.appRegion.show(noWords);
                 }
-
-                App.appRegion.show(startView);
             });
         }
     }
