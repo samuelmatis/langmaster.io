@@ -74,6 +74,10 @@
     letter-spacing: -1px;
 }
 
+.feature-second {
+    margin-top: 90px !important;
+}
+
 @media (min-width: 768px) {
     .features {
     padding-left: 0;
