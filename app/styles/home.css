@@ -4,7 +4,14 @@
     color: #fff;
     color: rgba(255,255,255,0.75);
     text-align: center;
-    background-color: #6c71c4;
+    background-image: url(../images/homepage-bg.png);
+    background-position: top center;
+    
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     border-radius: 0;
 }
 
@@ -76,6 +83,10 @@
 
 .feature-second {
     margin-top: 90px !important;
+}
+
+footer {
+    text-align: center;
 }
 
 @media (min-width: 768px) {
