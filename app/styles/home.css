@@ -54,3 +54,40 @@
 .jumbotron-links li+li {
     margin-left: 20px;
 }
+
+.feature-divider {
+    margin: 80px 0;
+}
+
+.features {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.features h2 {
+    font-weight: normal;
+}
+
+.feature-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+@media (min-width: 768px) {
+    .features {
+    padding-left: 0;
+    padding-right: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .feature-heading {
+        margin-top: 120px;
+    }
+}
+@media (min-width: 768px) {
+    .feature-heading {
+        font-size: 50px;
+    }
+}
