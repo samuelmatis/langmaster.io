@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/bootstrap-social.css">
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 </head>
 <body>
     <div class="jumbotron">
@@ -12,7 +15,19 @@
             <p>
                 Learning foreign words from anywhere with mobile optimized app
             </p>
-            <a href="#" class="btn btn-outline btn-large">Sign in / Log in</a>
+            <a href="#" class="js-signin btn btn-outline btn-large">Sign in / Log in</a>
+            <ul class="login-buttons">
+                    <li><a class="js-login-facebook btn btn-social btn-facebook">
+                        <i class="fa fa-facebook"></i> Sign in with Facebook
+                    </a>
+                </li>
+                <li><a class="js-login-twitter btn btn-social btn-twitter">
+                    <i class="fa fa-twitter"></i> Sign in with Twitter
+                </a></li>
+                <li><a class="js-login-google btn btn-social btn-google-plus">
+                    <i class="fa fa-google-plus"></i> Sign in with Google
+                </a></li>
+            </ul>
             <ul class="jumbotron-links">
                 <li><a href="https://github.com/samuelmatis/words">Available as open source</a></li>
                 <li>Version 0.8.5</li>
@@ -62,6 +77,7 @@
         <p>Made by <a href="#">Samuel Matis</a> and <a href="">Peter Parada</a></p>
     </footer>
 
-    <script type="text/javascript" src="scripts/vendor/holder.js"></script>
+    <script src="scripts/home.js"></script>
+    <script src="scripts/vendor/holder.js"></script>
 </body>
 </html>
