@@ -106,10 +106,26 @@ footer {
     text-align: center;
 }
 
+@media (max-width: 400px) {
+    #version {
+        display: none;
+    }
+}
+
+@media (max-width: 720) {
+    .login-buttons li {
+        display: block;
+    }
+
+    .login-buttons li {
+        margin-top: 20px;
+    }
+}
+
 @media (min-width: 768px) {
     .features {
-    padding-left: 0;
-    padding-right: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
