@@ -8,12 +8,17 @@ from difflib import SequenceMatcher
 # Flask views for user API
 @app.route('/')
 def index():
+    users = User.objects(username="samuelicek", token="123")
+    l_users = users.to_json()
+    decoded = json.loads(l_users)
+    return str(decoded)
     if "Authentication" in request.headers:
-      if request.headers["Authentication"] in User.objects():
+      if request.headers["Authentication"] in str(decoded):
         return render_template("index.html")
+      else:
+        return "token isn't"
     else:
         return render_template("home.html")
-
 
 
 @app.route('/api/users', methods=['GET'])
@@ -37,7 +42,7 @@ def create_user():
     user = User(user_id=u_id,
                 username=request.json["username"],
                 email=request.json["email"],
-                token=request.headers["token"],
+                token=request.headers["Autentication"],
                 words=[])
 
     user.save()
@@ -48,13 +53,17 @@ def create_user():
 
 @app.route('/api/users/<username>', methods=['GET'])
 def get_user(username):
-    user = User.objects(username=username)
+    user = User.objects(username="samuelicek", token="123")
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    if decoded == []:
-        abort(404)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
+      else:
+        return "Permission denied"
+    else:
+        return render_template("home.html")
 
 
 @app.route('/api/users/<username>', methods=['PUT'])
@@ -62,7 +71,9 @@ def update_user(username):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    user.update(**{
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        user.update(**{
                 "set__username": request.json.get("username",
                                                   decoded[0]["username"]),
                 "set__password": request.json.get("password",
@@ -71,12 +82,17 @@ def update_user(username):
                                                decoded[0]["email"]),
                 "set__user_id": decoded[0]["user_id"]})
 
-    user = User.objects(username=request.json.get("username",
-                                                  decoded[0]["username"]))
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
+        user = User.objects(username=request.json.get("username",
+                            decoded[0]["username"]))
+        l_user = user.to_json()
+        decoded = json.loads(l_user)
+        return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                        mimetype='application/json')
+      else:
+        return "Permission denied"
+    else:
+        return render_template("home.html")
+
 
 
 @app.route('/api/users/<username>', methods=['DELETE'])
@@ -84,11 +100,19 @@ def delete_user(username):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    if decoded == []:
-        abort(404)
-    user.delete()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        if decoded == []:
+            abort(404)
+        user.delete()
+        return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                        mimetype='application/json')
+      else:
+        return "Permission denied"
+    else:
+        return render_template("home.html")
+
+
 
 
 @app.route('/api/users/<username>/words', methods=['GET'])
@@ -96,8 +120,15 @@ def get_words(username):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    return Response(json.dumps(decoded[0]["words"], sort_keys=False, indent=4),
-                    mimetype='application/json')
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        return Response(json.dumps(decoded[0]["words"], sort_keys=False, indent=4),
+                        mimetype='application/json')
+      else:
+        return "Permission denied"
+    else:
+        return render_template("home.html")
+
 
 
 @app.route('/api/users/<username>/words', methods=['POST'])
@@ -105,23 +136,30 @@ def create_word(username):
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    try:
-        words = decoded[0]["words"]
-    except:
-        words = []
-    try:
-        u_id = words[-1]["word_id"] + 1
-    except:
-        u_id = 1
-    return request.json["word"]
-    word = Word(word_id=u_id,
-                word=request.json["word"],
-                translation=request.json["translation"],
-                strength=0)
-    words.append(word.to_dict())
-    user.update(**{"set__words": words})
-    return Response(json.dumps(words[-1], sort_keys=False, indent=4),
-                    mimetype='application/json')
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        try:
+            words = decoded[0]["words"]
+        except:
+            words = []
+        try:
+            u_id = words[-1]["word_id"] + 1
+        except:
+            u_id = 1
+        return request.json["word"]
+        word = Word(word_id=u_id,
+                    word=request.json["word"],
+                    translation=request.json["translation"],
+                    strength=0)
+        words.append(word.to_dict())
+        user.update(**{"set__words": words})
+        return Response(json.dumps(words[-1], sort_keys=False, indent=4),
+                        mimetype='application/json')
+      else:
+        return "Permission denied"
+    else:
+        return render_template("home.html")
+
 
 
 @app.route('/api/users/<username>/words/<wordname>', methods=['GET'])
@@ -129,12 +167,18 @@ def get_word(username, wordname):
     user = User.objects(username=username)
     l_word = user.to_json()
     decoded = json.loads(l_word)
-    words = decoded[0]["words"]
-    word = [word for word in words if word["word"] == wordname]
-    if word == []:
-        abort(404)
-    return Response(json.dumps(word[0], sort_keys=False, indent=4),
-                    mimetype='application/json')
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        words = decoded[0]["words"]
+        word = [word for word in words if word["word"] == wordname]
+        if word == []:
+            abort(404)
+        return Response(json.dumps(word[0], sort_keys=False, indent=4),
+                        mimetype='application/json')
+        else:
+            return "Permission denied"
+    else:
+        return render_template("home.html")
 
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['GET'])
@@ -142,12 +186,19 @@ def get_word_id(username, word_id):
     user = User.objects(username=username)
     l_word = user.to_json()
     decoded = json.loads(l_word)
-    words = decoded[0]["words"]
-    word = [word for word in words if word["word_id"] == word_id]
-    if word == []:
-        abort(404)
-    return Response(json.dumps(word[0], sort_keys=False, indent=4),
-                    mimetype='application/json')
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in decoded["Authentication"]:
+        words = decoded[0]["words"]
+        word = [word for word in words if word["word_id"] == word_id]
+        if word == []:
+            abort(404)
+        return Response(json.dumps(word[0], sort_keys=False, indent=4),
+                        mimetype='application/json')
+        else:
+            return "Permission denied"
+    else:
+        return render_template("home.html")
+
 
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
@@ -250,7 +301,7 @@ def test(username):
 
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login')
 def session_login():
-    create_user()
+    return request.headers["Authentication"]
 
