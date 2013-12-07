@@ -11,7 +11,6 @@ def index():
     users = User.objects(username="samuelicek", token="123")
     l_users = users.to_json()
     decoded = json.loads(l_users)
-    return str(decoded)
     if "Authentication" in request.headers:
       if request.headers["Authentication"] in str(decoded):
         return render_template("index.html")
