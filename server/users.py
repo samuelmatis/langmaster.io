@@ -3,21 +3,18 @@ from app import app
 from flask import request, abort, Response, jsonify
 import json
 from difflib import SequenceMatcher
-from flask.ext.login import *
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LX/,?RT'
-login_manager = LoginManager()
-login_manager.init_app(app)
-# Flask views for user API
 
+
+# Flask views for user API
+"""
 @app.route('/api/users', methods=['GET'])
-@login_required
 def get_users():
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-
+"""
 
 @app.route('/api/users', methods=['POST'])
 def create_user():
@@ -31,6 +28,7 @@ def create_user():
     user = User(user_id=u_id,
                 username=request.json["username"],
                 email=request.json["email"],
+                password=request.json["password"],
                 words=[])
 
     user.save()
@@ -106,6 +104,7 @@ def create_word(username):
         u_id = words[-1]["word_id"] + 1
     except:
         u_id = 1
+    return request.json["word"]
     word = Word(word_id=u_id,
                 word=request.json["word"],
                 translation=request.json["translation"],
