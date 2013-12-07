@@ -1,5 +1,10 @@
 #!flask/bin/python
 from mongoengine import *
+from flask import Flask, render_template
+from flask.ext.mongoengine import MongoEngine
+from flask.ext.security import MongoEngineUserDatastore, \
+    UserMixin, RoleMixin, login_required
+from flask.ext.login import *
 
 # Connection to MongoDB
 connect(
@@ -24,7 +29,7 @@ def make_dict(obj):
         if isinstance(obj._fields[field_name], DateTimeField):
             return_data.append((field_name, str(data.isoformat())))
         elif isinstance(obj._fields[field_name], StringField):
-            return_data.append((field_name, str(data)))
+            return_data.append((field_name, data))
         elif isinstance(obj._fields[field_name], FloatField):
             return_data.append((field_name, float(data)))
         elif isinstance(obj._fields[field_name], IntField):
@@ -48,12 +53,12 @@ class Word(EmbeddedDocument):
         return make_dict(self)
 
 
-class User(Document):
+class User(Document, UserMixin):
     user_id = IntField(unique=True)
     username = StringField(max_length=20, unique=True)
     email = EmailField(unique=True)
-    password = StringField(max_length=15)
     words = ListField(EmbeddedDocumentField(Word))
+    active = BooleanField(default=True)
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 
     def to_dict(self):
