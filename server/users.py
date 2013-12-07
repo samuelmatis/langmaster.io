@@ -168,13 +168,13 @@ def get_word(username, wordname):
     l_word = user.to_json()
     decoded = json.loads(l_word)
     if "Authentication" in request.headers:
-      if request.headers["Authentication"] in decoded["Authentication"]:
-        words = decoded[0]["words"]
-        word = [word for word in words if word["word"] == wordname]
-        if word == []:
-            abort(404)
-        return Response(json.dumps(word[0], sort_keys=False, indent=4),
-                        mimetype='application/json')
+        if request.headers["Authentication"] in decoded["Authentication"]:
+            words = decoded[0]["words"]
+            word = [word for word in words if word["word"] == wordname]
+            if word == []:
+                abort(404)
+            return Response(json.dumps(word[0], sort_keys=False, indent=4),
+                            mimetype='application/json')
         else:
             return "Permission denied"
     else:
@@ -187,13 +187,13 @@ def get_word_id(username, word_id):
     l_word = user.to_json()
     decoded = json.loads(l_word)
     if "Authentication" in request.headers:
-      if request.headers["Authentication"] in decoded["Authentication"]:
-        words = decoded[0]["words"]
-        word = [word for word in words if word["word_id"] == word_id]
-        if word == []:
-            abort(404)
-        return Response(json.dumps(word[0], sort_keys=False, indent=4),
-                        mimetype='application/json')
+        if request.headers["Authentication"] in decoded["Authentication"]:
+            words = decoded[0]["words"]
+            word = [word for word in words if word["word_id"] == word_id]
+            if word == []:
+                abort(404)
+            return Response(json.dumps(word[0], sort_keys=False, indent=4),
+                            mimetype='application/json')
         else:
             return "Permission denied"
     else:
