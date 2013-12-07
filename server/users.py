@@ -1,12 +1,21 @@
 from db import *
 from app import app
-from flask import request, abort, Response, jsonify
+from flask import request, abort, Response, jsonify, render_template
 import json
 from difflib import SequenceMatcher
 
 
 # Flask views for user API
-"""
+@app.route('/')
+def index():
+    if "Authentication" in request.headers:
+      if request.headers["Authentication"] in User.objects():
+        return render_template("index.html")
+    else:
+        return render_template("home.html")
+
+
+
 @app.route('/api/users', methods=['GET'])
 def get_users():
     users = User.objects()
@@ -14,7 +23,7 @@ def get_users():
     decoded = json.loads(l_users)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-"""
+
 
 @app.route('/api/users', methods=['POST'])
 def create_user():
@@ -28,7 +37,7 @@ def create_user():
     user = User(user_id=u_id,
                 username=request.json["username"],
                 email=request.json["email"],
-                password=request.json["password"],
+                token=request.headers["token"],
                 words=[])
 
     user.save()
@@ -238,3 +247,10 @@ def test(username):
     word["increase"] = increase
     return Response(json.dumps(word, sort_keys=False, indent=4),
                     mimetype='application/json')
+
+
+
+@app.route('/login', methods=['POST'])
+def session_login():
+    create_user()
+
