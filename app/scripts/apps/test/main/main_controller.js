@@ -7,7 +7,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
          * It shows test view with all components
          */
         showMain: function() {
-            App.headerRegion.close();
+            App.module("Header").stop();
 
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);

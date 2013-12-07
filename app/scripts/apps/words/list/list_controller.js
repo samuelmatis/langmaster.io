@@ -17,6 +17,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             var words = App.request("words:entities");
 
             // Initialize views
+            App.module("Header").start();
             var appRegionLayout = new List.Layout();
             var appRegionNewWord = new List.NewWord();
 

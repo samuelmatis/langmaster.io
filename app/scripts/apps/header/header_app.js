@@ -18,9 +18,13 @@ App.module("Header", function(Header, App, Backbone, Marionette, $, _){
     });
 
     /**
-     * Initialize header sub-app
+     * On start and stop header sub-app
      */
     Header.on("start", function(){
         API.listHeader();
+    });
+
+    Header.on("stop", function() {
+        App.headerRegion.close();
     });
 });
