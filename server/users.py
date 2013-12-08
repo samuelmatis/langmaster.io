@@ -8,16 +8,7 @@ from difflib import SequenceMatcher
 # Flask views for user API
 @app.route('/')
 def index():
-    users = User.objects(username="samuelicek", token="123")
-    l_users = users.to_json()
-    decoded = json.loads(l_users)
-    if "Authentication" in request.headers:
-      if request.headers["Authentication"] in str(decoded):
-        return render_template("index.html")
-      else:
-        return "token isn't"
-    else:
-        return render_template("home.html")
+    return render_template("home.html")
 
 
 @app.route('/api/users', methods=['GET'])
