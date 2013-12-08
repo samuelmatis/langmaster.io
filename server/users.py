@@ -300,7 +300,13 @@ def test(username):
 
 
 
-@app.route('/login')
-def session_login():
-    return request.headers["Authentication"]
+@app.route('/api/login/facebook', methods=['POST'])
+def login_fb():
+    pass
 
+@app.route('/api/login/twitter', methods=['POST'])
+def login_tw():
+    pass
+@app.route('/api/login/google', methods=['POST'])
+def login_plus():
+    pass
