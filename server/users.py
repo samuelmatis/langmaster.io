@@ -298,6 +298,21 @@ def login_fb():
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():
     pass
-@app.route('/api/login/google', methods=['POST'])
+
+
+@app.route('/api/login/google', methods=['GET'])
+@login_manager.user_loader
 def login_plus():
-    pass
+    return User.get(userid)
+
+@app.route("/logincek", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # login and validate the user...
+        login_user(user)
+        flash("Logged in successfully.")
+        return redirect(request.args.get("next") or url_for("index"))
+    return render_template("login.html", form=form)
+
+

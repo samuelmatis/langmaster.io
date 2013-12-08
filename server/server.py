@@ -2,7 +2,6 @@ from users import *
 from flask import render_template
 import os
 
-# Flask view for index
 @app.route('/app', methods=['GET'])
 def home():
     return render_template("index.html")
