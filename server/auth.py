@@ -1,7 +1,7 @@
 from app import app
 from flask.ext.login import *
 
-app.secret_key = 'FVc5 Y0v0918667775'
+app.secret_key = 'FVc5Y0v0918667775'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
