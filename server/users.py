@@ -1,5 +1,5 @@
 from db import *
-from app import app
+from auth import *
 from flask import request, abort, Response, jsonify, render_template
 import json
 from difflib import SequenceMatcher
