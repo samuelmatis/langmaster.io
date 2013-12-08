@@ -1,6 +1,25 @@
 App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
+     * Test header panel
+     *
+     */
+     Main.TestHeaderPanel = Marionette.ItemView.extend({
+        template: "#test-header-panel",
+        tagName: "nav",
+        className: "navbar-wrapper navbar-test navbar-default",
+
+        events: {
+            "click .js-back-to-words": "backToWords"
+        },
+
+        backToWords: function(e) {
+            e.preventDefault();
+            App.trigger("words:list");
+        }
+     });
+
+    /**
      * Weakest words table ItemView
      * 
      * @region Test-StartPage
