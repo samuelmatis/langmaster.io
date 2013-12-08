@@ -17,3 +17,4 @@ body { margin: 0 auto; line-height: 1.7em; padding-top: 70px; }
 #test-header-giveup { margin-bottom: 5px; }
 #test-header-timer { text-align: right; margin-top: 5px; }
 #test-main-row { margin-top: 30px; }
+.navbar-test {background-color: white; border-color: white; margin-top: -70px;}

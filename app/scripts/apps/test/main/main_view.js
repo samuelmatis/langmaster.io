@@ -1,6 +1,27 @@
 App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
+     * Test header panel
+     *
+     * @region Test-StartPage
+     * @template #test-header-panel
+     */
+     Main.TestHeaderPanel = Marionette.ItemView.extend({
+        template: "#test-header-panel",
+        tagName: "nav",
+        className: "navbar-wrapper navbar-test navbar-default",
+
+        events: {
+            "click .js-back-to-words": "backToWords"
+        },
+
+        backToWords: function(e) {
+            e.preventDefault();
+            App.trigger("words:list");
+        }
+     });
+
+    /**
      * Weakest words table ItemView
      * 
      * @region Test-StartPage
@@ -53,7 +74,16 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-header-region
      */
     Main.HeaderRegion = Marionette.ItemView.extend({
-        template: "#test-header-region"
+        template: "#test-header-region",
+
+        events: {
+            "click .js-giveup": "giveUp"
+        },
+
+        giveUp: function(e) {
+            e.preventDefault();
+            App.trigger("test:main:show");
+        }
     });
 
     /**
