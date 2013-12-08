@@ -3,6 +3,8 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
     /**
      * Test header panel
      *
+     * @region Test-StartPage
+     * @template #test-header-panel
      */
      Main.TestHeaderPanel = Marionette.ItemView.extend({
         template: "#test-header-panel",
