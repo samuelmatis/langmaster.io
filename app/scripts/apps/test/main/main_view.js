@@ -76,13 +76,8 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
     Main.HeaderRegion = Marionette.ItemView.extend({
         template: "#test-header-region",
 
-        events: {
-            "click .js-giveup": "giveUp"
-        },
-
-        giveUp: function(e) {
-            e.preventDefault();
-            App.trigger("test:main:show");
+        triggers: {
+            "click .js-giveup": "test:giveup"
         }
     });
 

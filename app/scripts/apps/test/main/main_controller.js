@@ -8,6 +8,8 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
          */
         showMain: function() {
             App.module("Header").stop();
+            var HeaderPanel = new Main.TestHeaderPanel();
+            App.headerRegion.show(HeaderPanel);
 
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
@@ -33,6 +35,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     // On start test
                     startView.on("start:test", function() {
 
+                        App.headerRegion.close();
                         var testLayout = new Main.TestLayout();
                         var testLayoutHeader = new Main.HeaderRegion();
 
@@ -132,9 +135,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     
                             });
 
-                            testLayoutMain.on("test:next", function() {
-                                
-                                console.log("clicked");
+                            testLayoutHeader.on("test:giveup", function() {
+                                App.headerRegion.show(HeaderPanel);
+                                App.trigger("test:main:show");
                             });
 
                             testLayout.testMain.show(testLayoutMain);
