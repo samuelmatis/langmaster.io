@@ -11,6 +11,9 @@ test/bower_components/
 newrelic.ini
 npm-debug.log
 
+jscompile.py
+compiler.jar
+
 # C extensions
 *.so
 
