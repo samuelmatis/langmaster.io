@@ -10,14 +10,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css(.tmp/) styles/all.css -->
-        <link rel="stylesheet" href="bower_components/jquery-ui/themes/base/minified/jquery.ui.dialog.min.css">
-        <link rel="stylesheet" href="bower_components/offline/themes/offline-theme-default.css">
+        <!-- build:css(.tmp/) styles/main.css -->
+        <link rel="stylesheet" href="styles/jquery.ui.dialog.min.css">
+        <link rel="stylesheet" href="styles/offline-theme-default.css">
         <link rel="stylesheet" href="styles/jquery-ui-theme.css">
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <!-- endbuild -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/app.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
@@ -310,6 +308,13 @@
             </form>
         </script>
 
+        <!-- Test region templates' -->
+        <script type="text/template" id="profile-template">
+            <div class="row">
+                <div class="col-md-6" id="list-words">l;l;l;l;l;ll</div>
+                <div class="col-md-6" id="add-new-word">kjkjjkjkjkjkjk</div>
+            </div>
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -359,6 +364,9 @@
         <script src="scripts/apps/test/test_app.js"></script>
         <script src="scripts/apps/test/main/main_view.js"></script>
         <script src="scripts/apps/test/main/main_controller.js"></script>
+        <script src="scripts/apps/profile/profile_app.js"></script>
+        <script src="scripts/apps/profile/show/show_view.js"></script>
+        <script src="scripts/apps/profile/show/show_controller.js"></script>
         <!-- endbuild -->
 
         <script type="text/javascript">App.start();</script>

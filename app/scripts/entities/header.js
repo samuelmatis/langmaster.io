@@ -36,7 +36,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
             { name: "Home", url: "home", navigationTrigger: "home:show" },
             { name: "Test", url: "test", navigationTrigger: "test:main:show" },
             { name: "Words", url: "words", navigationTrigger: "words:list" },
-            { name: "Settings", url: "settings", navigationTrigger: "settings:show"}
+            { name: "Profile", url: "profile", navigationTrigger: "profile:show"}
         ]);
     };
 
