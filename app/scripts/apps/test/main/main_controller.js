@@ -67,8 +67,23 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     localStorage.setItem("test_word_" + this.model.get("word"), "");
                                 }
 
-                                // Count down steps and close test after it will exceed steps
+                                // Check if word is not repeating
+                                if(steps == 10) {
+                                    localStorage.setItem("last_word", this.model.get("word"));
+                                } else {
+                                    if(this.model.get("word") === localStorage.getItem("last_word")) {
+                                        testLayoutMain.model = randomWord();
+                                        testLayout.testResult.close();
+                                        testLayout.testMain.show(testLayoutMain);
+                                        self.$("#js-submit-answer").focus();
+                                    }
+                                    localStorage.setItem("last_word", this.model.get("word"));
+                                }
+
+                                // Count down steps
                                 steps--;
+
+                                // Close test after it will exceed steps
                                 if(steps < 0) {
                                     testLayout.close();
                                     var loadingView = new App.Common.Views.Loading();
