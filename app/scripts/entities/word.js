@@ -6,7 +6,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Word
      */
     Entities.Word = Backbone.Model.extend({
-        // urlRoot: "api/users/petoparada/words",
+        urlRoot: "api/users/petoparada/words",
 
         defaults: {
             word: "",
@@ -14,13 +14,13 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             strength: 0
         },
 
-        // parse: function (response) {
-        //     response.id = response.word_id;
-        //     delete response.word_id;
-        //     delete response._id;
-        //     console.log(response);
-        //     return response;
-        // },
+        parse: function (response) {
+            response.id = response.word_id;
+            delete response.word_id;
+            delete response._id;
+            console.log(response);
+            return response;
+        },
 
         validate: function(attrs, options) {
             var errors = {};
@@ -48,7 +48,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Word
      */
     Entities.WordCollection = Backbone.Collection.extend({
-        // url: "api/users/petoparada/words",
+        url: "api/users/petoparada/words",
         model: Entities.Word
     });
 
@@ -78,13 +78,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         getWordsEntities: function() {
             var words = new Entities.WordCollection();
             var defer = $.Deferred();
-            words.push([
-                { "id": 1, "word": "car", "translation": "auto", "strength": 4 },
-                { "id": 2, "word": "house", "translation": "dom", "strength": 5 },
-                { "id": 3, "word": "computer", "translation": "pocitac", "strength": 2 },
-                { "id": 4, "word": "book", "translation": "kniha", "strength": 3 }
-            ]);
-            defer.resolve(words);
+            words.fetch({
+                success: function(data) {
+                    defer.resolve(data);
+                }
+            });
             var promise = defer.promise();
             return promise;
         },
