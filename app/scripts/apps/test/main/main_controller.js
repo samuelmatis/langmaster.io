@@ -39,6 +39,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         var testLayout = new Main.TestLayout();
                         var testLayoutHeader = new Main.HeaderRegion();
 
+
+                        
+
                         // On test layout show
                         testLayout.on("show", function() {
 
@@ -60,6 +63,10 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             // Test steps
                             var steps = 10;
 
+                            testLayoutMain.once("show", function() {
+                                localStorage.setItem("last_word", "");
+                            });
+
                             // On test page show
                             testLayoutMain.on("show", function() {
                                 // Check if localStorage word test item exist
@@ -68,7 +75,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                 }
 
                                 // Check if word is not repeating
-                                if(steps == 10) {
+                                if(steps < 10) {
                                     localStorage.setItem("last_word", this.model.get("word"));
                                 } else {
                                     if(this.model.get("word") === localStorage.getItem("last_word")) {
