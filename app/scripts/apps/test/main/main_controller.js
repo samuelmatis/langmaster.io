@@ -61,7 +61,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             });
 
                             // Test steps
-                            var steps = 10;
+                            var steps = 3;
 
                             testLayoutMain.once("show", function() {
                                 localStorage.setItem("last_word", "");
@@ -102,7 +102,8 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                         // Send (demo) test results to the API and add results to collection
                                         $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
                                             ouputWords.add({word: data.word, strength: data.strength, increase: data.increase});
-                                            localStorage.removeItem(data.word);
+                                            localStorage.removeItem("test_word_" + data.word);
+                                            localStorage.removeItem("last_word");
                                         });
 
                                     }
