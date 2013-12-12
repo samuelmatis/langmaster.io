@@ -69,6 +69,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                             // On test page show
                             testLayoutMain.on("show", function() {
+                                console.log(steps);
                                 // Check if localStorage word test item exist
                                 if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
                                     localStorage.setItem("test_word_" + this.model.get("word"), "");
@@ -76,8 +77,6 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                                 // Check if word is not repeating
                                 if(steps < 10) {
-                                    localStorage.setItem("last_word", this.model.get("word"));
-                                } else {
                                     if(this.model.get("word") === localStorage.getItem("last_word")) {
                                         testLayoutMain.model = randomWord();
                                         testLayout.testResult.close();
@@ -86,9 +85,6 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     }
                                     localStorage.setItem("last_word", this.model.get("word"));
                                 }
-
-                                // Count down steps
-                                steps--;
 
                                 // Close test after it will exceed steps
                                 if(steps < 0) {
@@ -119,6 +115,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             // On submit answer
                             testLayoutMain.on("submit:answer", function(data) {
                                 this.$(".js-submit-answer").hide();
+
+                                // Count down steps
+                                steps--;
 
                                 var origin_word = this.model.get("word");
                                 var input_word = data.answer;
