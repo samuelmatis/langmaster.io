@@ -61,7 +61,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             });
 
                             // Test steps
-                            var steps = 3;
+                            var steps = 1;
 
                             testLayoutMain.once("show", function() {
                                 localStorage.setItem("last_word", "");

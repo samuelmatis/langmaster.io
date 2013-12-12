@@ -162,7 +162,23 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
             return {
                 "result": this.options.data
             }
+        },
+
+        events: {
+            "click .js-start-again": "startAgain",
+            "click .js-end-test": "testEnd"
+        },
+
+        startAgain: function(e) {
+            e.preventDefault();
+            App.trigger("test:main:show");
+        },
+
+        testEnd: function(e) {
+            e.preventDefault();
+            App.trigger("words:list");
         }
+
      });
 
     /**
