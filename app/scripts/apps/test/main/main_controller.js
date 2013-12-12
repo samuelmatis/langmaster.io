@@ -61,7 +61,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             });
 
                             // Test steps
-                            var steps = 10;
+                            var steps = 10g;
 
                             testLayoutMain.once("show", function() {
                                 localStorage.setItem("last_word", "");
@@ -93,6 +93,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     App.appRegion.show(loadingView);
 
                                     var ouputWords = new Backbone.Collection();
+                                    
                                     // Create send object with words and know indexes
                                     var sendText = [];
                                     for (var key in localStorage) {
@@ -103,10 +104,10 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                         $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
                                             ouputWords.add({word: data.word, strength: data.strength, increase: data.increase});
                                             localStorage.removeItem("test_word_" + data.word);
-                                            localStorage.removeItem("last_word");
                                         });
 
                                     }
+                                    localStorage.removeItem("last_word");
 
                                     var finalView = new Main.FinalView({collection: ouputWords});
                                     App.appRegion.show(finalView);
