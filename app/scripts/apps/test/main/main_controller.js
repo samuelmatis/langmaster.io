@@ -61,7 +61,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             });
 
                             // Test steps
-                            var steps = 10g;
+                            var steps = 10;
 
                             testLayoutMain.once("show", function() {
                                 localStorage.setItem("last_word", "");
@@ -93,7 +93,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     App.appRegion.show(loadingView);
 
                                     var ouputWords = new Backbone.Collection();
-                                    
+
                                     // Create send object with words and know indexes
                                     var sendText = [];
                                     for (var key in localStorage) {
