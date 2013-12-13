@@ -11,6 +11,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
             var HeaderPanel = new Main.TestHeaderPanel();
             App.headerRegion.show(HeaderPanel);
 
+            // Show loading view
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
@@ -34,18 +35,12 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                     // On start test
                     startView.on("start:test", function() {
-
                         App.headerRegion.close();
                         var testLayout = new Main.TestLayout();
                         var testLayoutHeader = new Main.HeaderRegion();
 
-
-                        
-
                         // On test layout show
                         testLayout.on("show", function() {
-
-
                             testLayout.testHeader.show(testLayoutHeader);
 
                             // Find a random word from words collection
@@ -69,7 +64,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                             // On test page show
                             testLayoutMain.on("show", function() {
-                                
+
                                 // Check if localStorage word test item exist
                                 if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
                                     localStorage.setItem("test_word_" + this.model.get("word"), "");
@@ -128,10 +123,10 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                 // Check word correctness from API
                                 $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
 
-                                    console.log(data);
+                                    console.log(data); 
 
                                     // Save progress to localStorage and show result view
-                                    var send = function(text, number) {
+                                    var showResult = function(text, number) {
                                         localStorage["test_word_" + origin_word] += number;
 
                                         var result = new Main.TestResult({ result: text });
@@ -148,14 +143,14 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                     }
 
                                     if(data == 1.0) {
-                                        send("good", 1);
+                                        showResult("good", 1);
                                     } else if (data < 1.0 && data > 0.9) {
-                                        send("ok", 1);
+                                        showResult("ok", 1);
                                     } else if (data < 0.9) {
-                                        send("bad", 0);
+                                        showResult("bad", 0);
                                     }
                                 });
-                                    
+
                             });
 
                             testLayoutHeader.on("test:giveup", function() {
@@ -171,6 +166,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                     App.appRegion.show(startView);
                 } else {
+                    
                     // If there are no words
                     var noWords = new Main.TestNoWords();
                     App.appRegion.show(noWords);
