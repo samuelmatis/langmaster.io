@@ -69,7 +69,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                             // On test page show
                             testLayoutMain.on("show", function() {
-                                console.log(steps);
+                                
                                 // Check if localStorage word test item exist
                                 if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
                                     localStorage.setItem("test_word_" + this.model.get("word"), "");
