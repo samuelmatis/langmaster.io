@@ -84,27 +84,27 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                 // Close test after it will exceed steps
                                 if(steps < 0) {
                                     testLayout.close();
-                                    var loadingView = new App.Common.Views.Loading();
-                                    App.appRegion.show(loadingView);
 
-                                    var ouputWords = new Backbone.Collection();
+                                    // Create backbone collection of output words
+                                    var outputWords = new Backbone.Collection();
 
-                                    // Create send object with words and know indexes
-                                    var sendText = [];
-                                    for (var key in localStorage) {
-                                        var word = key.split("_")[2];
-                                        var know = localStorage.getItem(key);
+                                    // Send test words
+                                    Object.keys(localStorage).forEach(function(key) {
+                                        if(/^test_word_.*$/.test(key)) {
+                                            console.log(key);
+                                            var word = key.split("_")[2];
+                                            var know = localStorage.getItem(key);
 
-                                        // Send (demo) test results to the API and add results to collection
-                                        $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
-                                            ouputWords.add({word: data.word, strength: data.strength, increase: data.increase});
-                                            localStorage.removeItem("test_word_" + data.word);
-                                        });
-
-                                    }
+                                            // Send (demo) test results to the API and add results to collection
+                                            $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
+                                                outputWords.add({word: data.word, strength: data.strength, increase: data.increase});
+                                                localStorage.removeItem("test_word_" + data.word);
+                                            });
+                                        }
+                                    });
                                     localStorage.removeItem("last_word");
 
-                                    var finalView = new Main.FinalView({collection: ouputWords});
+                                    var finalView = new Main.FinalView({collection: outputWords});
                                     App.appRegion.show(finalView);
                                 }
                             });
