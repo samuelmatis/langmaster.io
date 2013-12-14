@@ -221,11 +221,13 @@ def test(username):
     rates = {}
     word = request.form["word"]
     know = request.form["know"]
+
     rates[word] = rate_alg(map(int,know))
     if rate_alg(map(int,know)) <= 0:
         increase = False
     else:
         increase = True
+
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
