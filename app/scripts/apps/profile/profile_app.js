@@ -17,6 +17,7 @@ App.module("Profile", function(Profile, App, Backbone, Marionette, $, _) {
     var API = {
         showProfile: function() {
             App.Profile.Show.Controller.showProfile();
+            App.execute("set:active:header", "profile");
         }
     };
 
