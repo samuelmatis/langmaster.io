@@ -43,13 +43,11 @@ def create_user():
 
 @app.route('/api/users/<username>', methods=['GET'])
 def get_user(username):
-    user = User.objects(username=username)
+    user = User.objects(username="samuelicek", token="123")
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    if decoded == []:
-        abort(404)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
+                mimetype='application/json')
 
 
 @app.route('/api/users/<username>', methods=['PUT'])
@@ -58,21 +56,20 @@ def update_user(username):
     l_user = user.to_json()
     decoded = json.loads(l_user)
     user.update(**{
-                "set__username": request.json.get("username",
-                                                  decoded[0]["username"]),
-                "set__password": request.json.get("password",
-                                                  decoded[0]["password"]),
-                "set__email": request.json.get("email",
-                                               decoded[0]["email"]),
-                "set__user_id": decoded[0]["user_id"]})
+            "set__username": request.json.get("username",
+                                              decoded[0]["username"]),
+            "set__password": request.json.get("password",
+                                              decoded[0]["password"]),
+            "set__email": request.json.get("email",
+                                           decoded[0]["email"]),
+            "set__user_id": decoded[0]["user_id"]})
 
     user = User.objects(username=request.json.get("username",
-                                                  decoded[0]["username"]))
+                        decoded[0]["username"]))
     l_user = user.to_json()
     decoded = json.loads(l_user)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-
 
 
 
@@ -112,15 +109,16 @@ def create_word(username):
         u_id = words[-1]["word_id"] + 1
     except:
         u_id = 1
-
+    return request.json["word"]
     word = Word(word_id=u_id,
                 word=request.json["word"],
                 translation=request.json["translation"],
                 strength=0)
-    words.append(word.encode("utf-8").to_dict())
+    words.append(word.to_dict())
     user.update(**{"set__words": words})
     return Response(json.dumps(words[-1], sort_keys=False, indent=4),
                     mimetype='application/json')
+
 
 
 @app.route('/api/users/<username>/words/<wordname>', methods=['GET'])
@@ -147,6 +145,7 @@ def get_word_id(username, word_id):
         abort(404)
     return Response(json.dumps(word[0], sort_keys=False, indent=4),
                     mimetype='application/json')
+
 
 
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
@@ -188,6 +187,7 @@ def delete_word(username, word_id):
     return Response(json.dumps(words, sort_keys=False, indent=4),
                     mimetype='application/json')
 
+
 def rate_words(word_get, word_post):
     current_ratio = SequenceMatcher(None, word_get, word_post).ratio()
     return str(current_ratio)
@@ -219,15 +219,13 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    word = request.json["word"]
-    know = request.json["know"]
-
+    word = request.form["word"]
+    know = request.form["know"]
     rates[word] = rate_alg(map(int,know))
     if rate_alg(map(int,know)) <= 0:
         increase = False
     else:
         increase = True
-
     user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
@@ -249,7 +247,7 @@ def test(username):
                     mimetype='application/json')
 
 
-#auth
+
 @app.route('/api/login/facebook', methods=['POST'])
 def login_fb():
     pass
