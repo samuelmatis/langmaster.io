@@ -114,7 +114,7 @@ def create_word(username):
                 word=request.json["word"],
                 translation=request.json["translation"],
                 strength=0)
-    words.append(word.to_dict())
+    words.append(word.encode("utf-8").to_dict())
     user.update(**{"set__words": words})
     return Response(json.dumps(words[-1], sort_keys=False, indent=4),
                     mimetype='application/json')
