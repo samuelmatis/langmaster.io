@@ -109,12 +109,11 @@ def create_word(username):
         u_id = words[-1]["word_id"] + 1
     except:
         u_id = 1
-    return request.json["word"]
     word = Word(word_id=u_id,
                 word=request.json["word"],
                 translation=request.json["translation"],
                 strength=0)
-    #words.append(word.encode("utf-8").to_dict())
+    words.append(word.to_dict())
     user.update(**{"set__words": words})
     return Response(json.dumps(words[-1], sort_keys=False, indent=4),
                     mimetype='application/json')
@@ -221,10 +220,6 @@ def test(username):
     rates = {}
     word = request.form["word"]
     know = request.form["know"]
-<<<<<<< HEAD
-
-=======
->>>>>>> f0967665e608002292d17296201ecfc0d267701b
     rates[word] = rate_alg(map(int,know))
     if rate_alg(map(int,know)) <= 0:
         increase = False
