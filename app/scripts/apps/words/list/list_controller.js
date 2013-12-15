@@ -63,6 +63,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                 appRegionNewWord.on("form:submit", function(data) {
                     var newWord = new App.Entities.Word();
                     if(newWord.save(data)) {
+                        this.$("#create-word, #create-translation").val("");
                         this.$("#create-word").focus();
                         words.add({
                             id: newWord.get("id"),
