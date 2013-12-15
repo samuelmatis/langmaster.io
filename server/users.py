@@ -207,7 +207,7 @@ def compare(username, original, want):
 
 def rate_alg(l):
     l = list(l)
-    if "1, 1, 1, 1" in str(l):
+    if "1, 1, 1" in str(l):
         return 1
     elif l.count(1) > l.count(0):
         return 0
@@ -218,8 +218,8 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    word = request.form["word"]
-    know = request.form["know"]
+    word = request.json["word"]
+    know = request.json["know"]
     rates[word] = rate_alg(map(int,know))
     if rate_alg(map(int,know)) < 0:
         increase = -1
