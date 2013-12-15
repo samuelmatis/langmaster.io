@@ -117,7 +117,7 @@ def create_word(username):
                 word=request.json["word"],
                 translation=request.json["translation"],
                 strength=0)
-    words.append(word.encode("utf-8").to_dict())
+    #words.append(word.encode("utf-8").to_dict())
     user.update(**{"set__words": words})
     return Response(json.dumps(words[-1], sort_keys=False, indent=4),
                     mimetype='application/json')
@@ -219,8 +219,8 @@ def rate_alg(l):
 @app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
-    word = request.json["word"]
-    know = request.json["know"]
+    word = request.form["word"]
+    know = request.form["know"]
 
     rates[word] = rate_alg(map(int,know))
     if rate_alg(map(int,know)) <= 0:
