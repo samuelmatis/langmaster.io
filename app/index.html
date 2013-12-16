@@ -185,9 +185,9 @@
             <td>
                 <% if(strength == 0) { %>
                     <span class="glyphicon glyphicon-star-empty"></span>
-                <% } else { if(increase === true) { %>
+                <% } else { if(increase === 1) { %>
                     <span class="glyphicon glyphicon-circle-arrow-up"></span>
-                <% } else { %>
+                <% } else if(increase === -1) { %>
                     <span class="glyphicon glyphicon-circle-arrow-down"></span>
                 <% } for(var i=0; i < strength; i++){ %>
                     <span class="glyphicon glyphicon-star"></span>
@@ -196,7 +196,7 @@
         </script>
 
         <script type="text/template" id="test-no-words">
-            <h1>You don't have any words</h1>
+            <h1>You do not have any words</h1>
             <h4>Go to words page and add some.</h4>
         </script>
 
@@ -304,7 +304,7 @@
             </form>
         </script>
 
-        <!-- Test region templates' -->
+        <!-- Test region templates -->
         <script type="text/template" id="profile-template">
             <div class="row">
                 <div class="col-md-6" id="list-words">l;l;l;l;l;ll</div>
