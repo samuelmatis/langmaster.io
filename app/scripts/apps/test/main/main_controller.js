@@ -43,9 +43,17 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         testLayout.on("show", function() {
                             testLayout.testHeader.show(testLayoutHeader);
 
+                            // newWords = _.shuffle(words);
+                            // testWords = new Backbone.Collection(newWords.first(4));
+                            // console.log(testWords);
+                            words.reset(words.shuffle(), {silent: true});
+                            words.reset(words.first(4), {silent: true});
+                            console.log(words);
+
                             // Find a random word from words collection
                             randomWord = function() {
-                                var randomNumber = Math.floor(Math.random() * (words.size() - 1 + 1)) + 1;
+                                // var randomNumber = Math.floor(Math.random() * (testWords.size() - 1 + 1)) + 1;
+                                var randomNumber = _.random(0, words.size());
                                 var selectedWord = words.get(randomNumber);
                                 return selectedWord;
                             };
@@ -56,7 +64,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             });
 
                             // Test steps
-                            var steps = 10;
+                            var steps = 15;
 
                             testLayoutMain.once("show", function() {
                                 localStorage.setItem("last_word", "");
