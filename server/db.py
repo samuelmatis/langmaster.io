@@ -53,7 +53,6 @@ class User(Document):
     email = EmailField(unique=True)
     words = ListField(EmbeddedDocumentField(Word))
     active = BooleanField(default=True)
-    token = StringField(default="")
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 
     def to_dict(self):

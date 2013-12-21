@@ -14,12 +14,11 @@ def index():
 
 @app.route('/api/login/facebook', methods=['POST'])
 def login_fb():
-    decoded = request.form
-    return str(decoded)
+    name = create_user(request.form['name'],request.form['email'])
+    return name
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    return login_fb()
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
@@ -30,8 +29,12 @@ def get_users():
 #git test
 
 @app.route('/api/users', methods=['POST'])
-def create_user():
-    return str(login_fb())
+def create_user(username, email):
+    if username and email:
+        uname, emil = username, email
+    else:
+        uname, emil = request.json["username"], request.json["email"]
+    kokti =str({"username": uname, "email":email})
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
@@ -40,15 +43,15 @@ def create_user():
     except:
         u_id = 1
     user = User(user_id=u_id,
-                username=request.json["username"],
-                email=request.json["email"],
-                token=request.headers["Autentication"],
+                username=uname,
+                email=emil,
                 words=[])
 
     user.save()
     decoded = user.to_dict()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
+
 
 
 @app.route('/api/users/<username>', methods=['GET'])
