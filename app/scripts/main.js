@@ -30,4 +30,8 @@ App.on("initialize:after", function() {
             App.trigger("words:list");
         }
     }
+
+    App.vent.on("app:logout", function() {
+        window.location.replace("/api/logout");
+    });
 });

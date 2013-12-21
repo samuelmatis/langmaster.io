@@ -40,12 +40,17 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
         itemViewContainer: "ul.nav-main",
 
         events: {
-            "click a.brand": "brandClicked"
+            "click a.brand": "brandClicked",
+            "click .js-logout": "logout"
         },
 
-        brandClicked: function(e){
+        brandClicked: function(e) {
             e.preventDefault();
             this.trigger("brand:clicked");
+        },
+
+        logout: function() {
+            App.vent.trigger("app:logout");
         },
 
         initialize: function() {
