@@ -2,7 +2,6 @@ from app import *
 from users import *
 from flask import session, redirect, url_for
 from flask.sessions import *
-import requests
 
 @app.route('/api/login/facebook', methods=['POST'])
 def login_fb():
