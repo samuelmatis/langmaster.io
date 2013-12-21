@@ -1,6 +1,6 @@
 #!flask/bin/python
 from mongoengine import *
-# Connection to MongoDB
+# Connectionry to MongoDB
 connect(
     'words',
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'

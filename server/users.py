@@ -12,23 +12,26 @@ def index():
 
 
 
+@app.route('/api/login/facebook', methods=['POST'])
+def login_fb():
+    decoded = request.form
+    return str(decoded)
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
+    return login_fb()
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
 
-@app.route('/api/login/facebook', methods=['POST'])
-def login_fb():
-    name = request.json["name"]
-    return name
+
 #git test
 
 @app.route('/api/users', methods=['POST'])
 def create_user():
+    return str(login_fb())
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
