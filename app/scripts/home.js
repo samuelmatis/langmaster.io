@@ -3,6 +3,11 @@ $(".js-signin").on("click",function(e){e.preventDefault();$(this).fadeOut(1,func
         h.preventDefault();
         o.popup("facebook", function (h, n) {
             console.log(n.access_token);
+            $.get('https://graph.facebook.com/me?fields=id,name,email,picture.type(large)&access_token=' + n.access_token, function(data) {
+                $.post('api/login/facebook', data, function() {
+                    window.location.replace("/app");
+                });
+            });
         })
     });
     $(".js-login-twitter").on("click", function (h) {
