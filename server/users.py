@@ -208,8 +208,8 @@ def rate_words(word_get, word_post):
 # Flask view for comparing two words
 @app.route('/api/users/<username>/compare', methods=['POST'])
 def compare(username):
-    original = request.json["origin"]
-    want = request.json["input"]
+    original = request.form["origin"]
+    want = request.form["input"]
     user = User.objects(username=username)
     l_word = user.to_json()
     words = json.loads(l_word)[0]["words"]
