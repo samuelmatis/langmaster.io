@@ -38,11 +38,10 @@ def create_user(username, email):
 
 @app.route('/api/users/<username>', methods=['GET'])
 def get_user(username):
-    user = User.objects(username="samuelicek", token="123")
+    user = User.objects(username=username)
     l_user = user.to_json()
     decoded = json.loads(l_user)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                mimetype='application/json')
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')
 
 
 @app.route('/api/users/<username>', methods=['PUT'])
