@@ -149,6 +149,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 testLayoutHeader.on("test:giveup", function() {
+                    var HeaderPanel = new Main.TestHeaderPanel();
                     App.headerRegion.show(HeaderPanel);
                     App.trigger("test:main:show");
                 });
