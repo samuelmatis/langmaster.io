@@ -1,6 +1,6 @@
 from db import *
 from auth import *
-from flask import request, abort, Response, jsonify, render_template
+from flask import request, abort, Response, jsonify, render_template, session
 import json
 from difflib import SequenceMatcher
 
@@ -215,7 +215,7 @@ def rate_alg(l):
         return -1
 
 
-@app.route('/api/users/<username>/test', methods=['POST'])
+@app.route('/api/users/<username>/test', methods=['GET'])
 def test(username):
     rates = {}
     word = request.json["word"]
@@ -255,7 +255,8 @@ def login_fb():
 
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():
-    pass
+    # session['token'] = request.form['oauth_token']
+    return session['token']
 
 
 @app.route('/api/login/google', methods=['GET'])
