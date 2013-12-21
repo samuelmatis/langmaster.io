@@ -59,7 +59,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                 // Find a random word from words collection
                 randomWord = function() {
-                    var randomNumber = _.random(0, words.size());
+                    var randomNumber = _.random(1, words.size());
                     var selectedWord = words.at(randomNumber);
                     return selectedWord;
                 };
@@ -70,7 +70,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 // Test steps
-                var steps = 15;
+                var steps = 5;
 
                 testLayoutMain.once("show", function() {
                     localStorage.setItem("last_word", "");
@@ -86,7 +86,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     }
 
                     // Check if word is not repeating
-                    if(steps < 16) {
+                    if(steps < 5) {
                         if(this.model.get("word") === localStorage.getItem("last_word")) {
                             testLayoutMain.model = randomWord();
                             testLayout.testResult.close();
@@ -116,7 +116,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     var self = this;
 
                     // Check word correctness from API
-                    $.get("api/users/petoparada/compare/" + origin_word + "/" + input_word, function(data) {
+                    $.post("api/users/petoparada/compare", {"origin": origin_word, "input": input_word}, function(data) {
 
                         console.log(data); 
 
@@ -137,9 +137,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                             });
                         }
 
-                        if(data == 1.0) {
+                        if(data == 1) {
                             showResult("good", 1);
-                        } else if (data < 1.0 && data > 0.9) {
+                        } else if (data < 1.0 && data >= 0.9) {
                             showResult("ok", 1);
                         } else if (data < 0.9) {
                             showResult("bad", 0);
