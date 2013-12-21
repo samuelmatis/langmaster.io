@@ -8,6 +8,7 @@ $(".js-signin").on("click",function(e){e.preventDefault();$(this).fadeOut(1,func
                     type: "POST",
                     url: "api/login/facebook",
                     data: data,
+                    beforeSend: function (request) { request.setRequestHeader("access_token", n.access_token); },
                     dataType: "json"
                 });
             });

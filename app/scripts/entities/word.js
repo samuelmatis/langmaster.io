@@ -6,7 +6,17 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Word
      */
     Entities.Word = Backbone.Model.extend({
-        urlRoot: "/api/users/petoparada/words",
+        initialize: function() {
+            var output = $.ajax({
+                url: '/api/users/name',
+                async: false
+            });
+            this.dat = output.responseText;
+        },
+
+        urlRoot: function() {
+            return "/api/users/" + this.dat + "/words";
+        },
 
         defaults: {
             word: "",
@@ -48,7 +58,18 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Word
      */
     Entities.WordCollection = Backbone.Collection.extend({
-        url: "/api/users/petoparada/words",
+        initialize: function() {
+            var output = $.ajax({
+                url: '/api/users/name',
+                async: false
+            });
+            this.dat = output.responseText;
+        },
+
+        url: function() {
+            return "/api/users/" + this.dat + "/words";
+        },
+
         model: Entities.Word
     });
 
