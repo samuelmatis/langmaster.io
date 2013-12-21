@@ -7,7 +7,7 @@ import os
 @app.route('/')
 def index():
     if 'access_token' in session:
-        return render_template("index.html")
+        return render_template("index.html", token=session['access_token'])
     else:
         return render_template("home.html")
 

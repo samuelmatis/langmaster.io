@@ -5,12 +5,8 @@ from flask.sessions import *
 
 @app.route('/api/login/facebook', methods=['POST'])
 def login_fb():
-    if 'session' in session:
-        return redirect(url_for('index'))
-    else:
-        # name = create_user(request.form['name'],request.form['email'])
-        session['access_token'] = request.form['name']
-        return redirect(url_for('index'))  
+    session['access_token'] = request.form['name']
+    return redirect(url_for('index'))
    
 
 
