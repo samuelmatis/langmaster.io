@@ -1,6 +1,6 @@
 from db import *
 from auth import *
-from flask import request, abort, Response, jsonify, render_template, session
+from flask import request, abort, Response, jsonify, render_template
 import json
 from difflib import SequenceMatcher
 
@@ -11,6 +11,8 @@ def index():
     return render_template("home.html")
 
 
+
+
 @app.route('/api/users', methods=['GET'])
 def get_users():
     users = User.objects()
@@ -19,6 +21,11 @@ def get_users():
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
 
+@app.route('/api/login/facebook', methods=['POST'])
+def login_fb():
+    name = request.json["name"]
+    return name
+#git test
 
 @app.route('/api/users', methods=['POST'])
 def create_user():
@@ -171,7 +178,7 @@ def change_word(username, word_id):
     return Response(json.dumps(new_word, sort_keys=False, indent=4),
                     mimetype='application/json')
 
-
+#hello
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['DELETE'])
 def delete_word(username, word_id):
     user = User.objects(username=username)
@@ -215,7 +222,7 @@ def rate_alg(l):
         return -1
 
 
-@app.route('/api/users/<username>/test', methods=['GET'])
+@app.route('/api/users/<username>/test', methods=['POST'])
 def test(username):
     rates = {}
     word = request.json["word"]
@@ -249,14 +256,11 @@ def test(username):
 
 
 
-@app.route('/api/login/facebook', methods=['POST'])
-def login_fb():
-    pass
+
 
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():
-    # session['token'] = request.form['oauth_token']
-    return session['token']
+    pass
 
 
 @app.route('/api/login/google', methods=['GET'])
