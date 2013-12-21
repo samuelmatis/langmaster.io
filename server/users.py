@@ -1,21 +1,9 @@
 from db import *
-from auth import *
+from app import *
 from flask import request, abort, Response, jsonify, render_template
 import json
 from difflib import SequenceMatcher
 
-
-# Flask views for user API
-@app.route('/')
-def index():
-    return render_template("home.html")
-
-
-
-@app.route('/api/login/facebook', methods=['POST'])
-def login_fb():
-    name = create_user(request.form['name'],request.form['email'])
-    return name
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
@@ -25,8 +13,6 @@ def get_users():
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
 
-
-#git test
 
 @app.route('/api/users', methods=['POST'])
 def create_user(username, email):
@@ -48,10 +34,6 @@ def create_user(username, email):
                 words=[])
 
     user.save()
-    decoded = user.to_dict()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
-
 
 
 @app.route('/api/users/<username>', methods=['GET'])
@@ -85,7 +67,6 @@ def update_user(username):
                     mimetype='application/json')
 
 
-
 @app.route('/api/users/<username>', methods=['DELETE'])
 def delete_user(username):
     user = User.objects(username=username)
@@ -96,8 +77,6 @@ def delete_user(username):
     user.delete()
     return Response(json.dumps(decoded, sort_keys=False, indent=4),
                     mimetype='application/json')
-
-
 
 
 @app.route('/api/users/<username>/words', methods=['GET'])
@@ -132,7 +111,6 @@ def create_word(username):
                     mimetype='application/json')
 
 
-
 @app.route('/api/users/<username>/words/<wordname>', methods=['GET'])
 def get_word(username, wordname):
     user = User.objects(username=username)
@@ -159,7 +137,6 @@ def get_word_id(username, word_id):
                     mimetype='application/json')
 
 
-
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['PUT'])
 def change_word(username, word_id):
     user = User.objects(username=username)
@@ -184,7 +161,7 @@ def change_word(username, word_id):
     return Response(json.dumps(new_word, sort_keys=False, indent=4),
                     mimetype='application/json')
 
-#hello
+
 @app.route('/api/users/<username>/words/<int:word_id>', methods=['DELETE'])
 def delete_word(username, word_id):
     user = User.objects(username=username)
@@ -205,7 +182,6 @@ def rate_words(word_get, word_post):
     return str(current_ratio)
 
 
-# Flask view for comparing two words
 @app.route('/api/users/<username>/compare', methods=['POST'])
 def compare(username):
     original = request.form["origin"]
@@ -260,29 +236,3 @@ def test(username):
     word["increase"] = increase
     return Response(json.dumps(word, sort_keys=False, indent=4),
                     mimetype='application/json')
-
-
-
-
-
-@app.route('/api/login/twitter', methods=['POST'])
-def login_tw():
-    pass
-
-
-@app.route('/api/login/google', methods=['GET'])
-@login_manager.user_loader
-def login_plus():
-    return User.get(userid)
-
-@app.route("/logincek", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        # login and validate the user...
-        login_user(user)
-        flash("Logged in successfully.")
-        return redirect(request.args.get("next") or url_for("index"))
-    return render_template("login.html", form=form)
-
-

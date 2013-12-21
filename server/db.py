@@ -1,5 +1,6 @@
-#!flask/bin/python
 from mongoengine import *
+from flask.ext.mongoengine import MongoEngine
+
 # Connectionry to MongoDB
 connect(
     'words',

@@ -1,29 +1,29 @@
-from app import app
-from flask.ext.login import *
-from db import *
-from flask.ext.mongoengine import MongoEngine
-from flask.ext.security import Security, UserMixin, RoleMixin ,MongoEngineUserDatastore
+from app import *
+from users import *
+from flask import session, redirect, url_for
+from flask.sessions import *
+
+@app.route('/api/login/facebook', methods=['POST'])
+def login_fb():
+    if 'session' in session:
+        return redirect(url_for('index'))
+    else:
+        # name = create_user(request.form['name'],request.form['email'])
+        session['access_token'] = request.form['name']
+        return redirect(url_for('index'))  
+   
 
 
-app.secret_key = 'O&aT4Yi1lRx89H7#PL8erhuBr&3$hV'
+@app.route('/api/login/twitter', methods=['POST'])
+def login_tw():
+    pass
 
-login_manager = LoginManager()
-login_manager.init_app(app)
 
-class CustomLoginManager(LoginManager):
-    def reload_user(self):
-        if request.headers.has_key('Authorization'):
-            ctx = _request_ctx_stack.top
-            ctx.user = User.get(token=request.headers['Authorization'])
-            return
-        super(CustomLoginManager,self).reload_user()
+@app.route('/api/login/google', methods=['POST'])
+def login_plus():
+    pass
 
- # Setup Flask-Security
-user_datastore = MongoEngineUserDatastore(User, Word, Word)
-security = Security(app, user_datastore)
-
-# Create a user to test with
-@app.before_first_request
-def create_user():
-    user_datastore.create_user(email='matt@nobien.net', password='password')
-# Flask view for index
+@app.route('/api/logout', methods=['GET'])
+def logout():
+    session.pop('access_token', None)
+    return redirect(url_for('index'))

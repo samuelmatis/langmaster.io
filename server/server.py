@@ -1,11 +1,18 @@
 from users import *
-from flask import render_template
+from auth import *
+from flask import session
 import os
 
-@app.route('/app', methods=['GET'])
-def home():
-    return render_template("index.html")
+# Route for homepage
+@app.route('/')
+def index():
+    if 'access_token' in session:
+        return render_template("index.html")
+    else:
+        return render_template("home.html")
 
+# secret key for sessions
+app.secret_key = os.urandom(24)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
