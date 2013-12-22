@@ -10,6 +10,8 @@ test/bower_components/
 *.py[cod]
 newrelic.ini
 npm-debug.log
+*.sublime-project
+*.sublime-workspace
 
 jscompile.py
 compiler.jar
