@@ -6,18 +6,6 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Word
      */
     Entities.Word = Backbone.Model.extend({
-        initialize: function() {
-            var output = $.ajax({
-                url: '/api/users/name',
-                async: false
-            });
-            this.dat = output.responseText;
-        },
-
-        urlRoot: function() {
-            return "/api/users/" + this.dat + "/words";
-        },
-
         defaults: {
             word: "",
             translation: "",
