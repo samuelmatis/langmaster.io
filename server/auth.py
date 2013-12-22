@@ -8,8 +8,7 @@ def login_fb():
     session['access_token'] = request.headers['access_token']
     session['name'] = request.form['name']
     session['username'] = request.form['username']
-
-    return redirect(url_for('index'))
+    return "ok"
 
 @app.route('/api/users/name', methods=['GET'])
 def name():
