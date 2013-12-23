@@ -1,0 +1,313 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>words</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="styles/5f1fd8f7.main.css">
+        <script src="scripts/vendor/d7100892.modernizr.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="wrap">
+            <div class="container">
+
+                <div id="header"></div>
+                <div id="app"></div>
+            </div>
+
+        </div>
+
+
+        <div id="footer">
+          <div class="container container-footer">
+            <p class="credit">Made by <a href="http://matiss.sk">Samuel Matis</a> and <a href="http://parada.sk">Peter Parada</a>.</p>
+          </div>
+        </div>
+
+        <div id="dialog-region"></div>
+
+        <!-- Common templates -->
+        <script type="text/template" id="header-template">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" style="border: none" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Words</a>
+                  </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav nav-main"></ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <p class="navbar-text" style="margin-bottom: 10px;">{{ name }}</p>
+                        <li><button type="button" class="js-logout btn btn-default navbar-btn btn-logout">Log out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="header-link">
+            <a href="#<%= url %>"><%= name %></a>
+        </script>
+
+        <script type="text/template" id="loading-view">
+            <h2><%= title %></h2>
+            <h3><%= message %></h3>
+            <div id="spinner"></div>
+        </script>
+
+        <!-- Test region templates -->
+        <script type="text/template" id="test-header-panel">
+            <div class="container">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><button type="button" class="js-back-to-words btn btn-default navbar-btn btn-logout">Back to words <i class="glyphicon glyphicon-chevron-right"></i></a></li>
+                    </ul>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-region-layout">
+            <div class="col-md-6 col-md-offset-3" id="test-page-region" style="margin-top: 20px;">
+                <div id="test-header" style="pagging-bottom: 5px; border-bottom: 1px solid #ccc;"></div>
+                <div id="test-main"></div>
+                <div id="test-result"></div>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-start">
+            <h1>Welcome to test</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Weak words</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Strength</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <button type="button" class="js-start-test btn btn-success btn-lg btn-block">Start test</button>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-weakest-words">
+            <td><%= word %></td>
+            <td>
+                <% if(strength == 0) { %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                <% } else { for(var i=0; i < strength; i++){ %>
+                    <span class="glyphicon glyphicon-star"></span>
+                <% } } %>
+            </td>
+        </script>
+
+        <script type="test/template" id="test-main">
+            <div class="row">
+                <div class="col-md-12" id="main-page">
+                    <h1>Test page</h1>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-header-region">
+            <div class="row">
+                <div class="col-md-6" id="test-header-giveup"><a class="js-giveup btn btn-default">Give up</a></div>
+                <div class="col-md-6" id="test-header-timer">Time: 2:04</div>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-main-region">
+            <div class="row" id="test-main-row">
+                <div class="col-md-4 col-md-offset-1">
+                    <p class="lead" class="margin-top: 4px;"><%= word %></p>
+                </div>
+                <div class="col-md-5">
+                    <form class="form" id="test-form" role="form">
+                        <input type="text" name="answer" class="form-control col-md-12" autofocus="autofocus">
+                        <button class="js-submit-answer btn btn-success" form="test-form" style="margin-top: 40px;">Check</button>
+                    </form>
+                </div>
+            </div>
+        </script>
+
+        <script type="test/template" id="test-result-region">
+            <div class="alert alert-<%= result %>" style="margin-top: 40px;"><%= result_text %><button class="js-next btn btn-<%= result %> pull-right">Next</button></div>
+        </script>
+
+        <script type="text/template" id="test-final">
+            <h1>Test results</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Weak words</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Strength</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <button class="js-start-again btn btn-success pull-left">Start again</button>
+                    <button class="js-end-test btn btn-primary pull-right">End test</button>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/template" id="test-final-table">
+            <td><%= word %></td>
+            <td>
+                <% if(strength == 0) { %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                <% } else { if(increase === 1) { %>
+                    <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                <% } else if(increase === -1) { %>
+                    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                <% } for(var i=0; i < strength; i++){ %>
+                    <span class="glyphicon glyphicon-star"></span>
+                <% }} %>
+            </td>
+        </script>
+
+        <script type="text/template" id="test-no-words">
+            <h1>You do not have any words</h1>
+            <h4>Go to words page and add some.</h4>
+        </script>
+
+        <!-- Words region templates -->
+        <script type="text/template" id="words-region-layout">
+            <div class="row">
+                <div class="col-md-6" id="list-words"></div>
+                <div class="col-md-6" id="add-new-word"></div>
+            </div>
+        </script>
+
+        <script type="text/template" id="word-list">
+            <h4 class="content-subhead">Your words</h4>
+
+            <form class="form-search" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control js-filter-criterion" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default js-filter" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+
+            <p id="words-list">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Word</th>
+                            <th>Translation</th>
+                            <th>Strength</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+                </table>
+            </p>
+        </script>
+
+
+        <script type="text/template" id="word-list-item">
+            <td><%= word %></td>
+            <td><%= translation %></td>
+            <td>
+                <% if(strength == 0) { %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                <% } else { for(var i=0; i < strength; i++){ %>
+                    <span class="glyphicon glyphicon-star"></span>
+                <% } } %>
+            </td>
+            <td>
+                <a href="#words/<%= id %>/edit" class="js-edit btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </a>
+                <button class="js-delete btn btn-danger btn-xs">
+                    <i class="glyphicon glyphicon-remove"></i> Delete
+                </button>
+            </td>
+        </script>
+
+        <script type="text/template" id="missing-word-view">
+            <h1>This word does not exist</h1>
+        </script>
+
+        <script type="text/template" id="word-list-none">
+            <td colspan="4">No words to display</td>
+        </script>
+
+
+        <script type="text/template" id="words-form">
+            <form class="form" role="form">
+                <div class="form-group">
+                    <label for="edit-word">Word</label>
+                    <input type="text" class="form-control" id="edit-word" name="word" value="<%= word %>">
+                </div>
+                <div class="form-group">
+                    <label for="edit-translation">Translation</label>
+                    <input type="text" class="form-control" id="edit-translation" name="translation" value="<%= translation %>">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="js-submit btn btn-primary">Save</button>
+                </div>
+            </form>
+        </script>
+
+        <script type="text/template" id="words-list-newword">
+            <h4 class="content-subhead">Add a new word</h4>
+
+            <form class="form-horizontal" role="form">
+
+                <div class="row form-group">
+                    <div class="col-xs-4 newword-left">
+                        <input type="text" class="form-control" id="create-word" name="word" placeholder="Word">
+                    </div>
+                    <div class="col-xs-4 newword-right">
+                        <input type="text" class="form-control" id="create-translation" name="translation" placeholder="Translation">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="js-addnewword btn btn-primary">Add Word</button>
+                    </div>
+                </div>
+            </form>
+        </script>
+
+        <!-- Test region templates -->
+        <script type="text/template" id="profile-template">
+            <div class="row">
+                <div class="col-md-6" id="list-words">l;l;l;l;l;ll</div>
+                <div class="col-md-6" id="add-new-word">kjkjjkjkjkjkjk</div>
+            </div>
+        </script>
+
+        <script src="scripts/8a9238d5.vendor.js"></script>
+
+        <script src="scripts/272f7ef9.main.js"></script>
+
+        <script type="text/javascript">App.start();</script>
+</body>
+</html>
