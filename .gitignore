@@ -21,7 +21,6 @@ compiler.jar
 # Packages
 *.egg
 *.egg-info
-dist
 build
 eggs
 parts
