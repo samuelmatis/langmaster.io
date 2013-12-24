@@ -1,7 +1,7 @@
 App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
     Main.Controller = {
-        
+
         /**
          * Test main method
          * It shows test view with all components
@@ -40,7 +40,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                     App.appRegion.show(startView);
                 } else {
-                    
+
                     // If there are no words
                     var noWords = new Main.TestNoWords();
                     App.appRegion.show(noWords);
@@ -116,9 +116,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     var self = this;
 
                     // Check word correctness from API
-                    $.post("api/users/petoparada/compare", {"origin": origin_word, "input": input_word}, function(data) {
+                    $.post("api/users/"+ App.userName +"/compare", {"origin": origin_word, "input": input_word}, function(data) {
 
-                        console.log(data); 
+                        console.log(data);
 
                         // Save progress to localStorage and show result view
                         var showResult = function(text, number) {
@@ -172,7 +172,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     var know = localStorage.getItem(key);
 
                     // Send (demo) test results to the API and add results to collection
-                    $.post("api/users/petoparada/test", {"word": word, "know": know}, function(data) {
+                    $.post("api/users/"+ App.userName +"/test", {"word": word, "know": know}, function(data) {
                         outputWords.add({word: data.word, strength: data.strength, increase: data.increase});
                         localStorage.removeItem("test_word_" + data.word);
                     });
