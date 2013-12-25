@@ -2,7 +2,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     /**
      * Word item model
-     * 
+     *
      * @entity Word
      */
     Entities.Word = Backbone.Model.extend({
@@ -42,20 +42,12 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     /**
      * Word items collection
-     * 
+     *
      * @entity Word
      */
     Entities.WordCollection = Backbone.Collection.extend({
-        initialize: function() {
-            var output = $.ajax({
-                url: '/api/users/name',
-                async: false
-            });
-            this.dat = output.responseText;
-        },
-
         url: function() {
-            return "/api/users/" + this.dat + "/words";
+            return "/api/users/" + App.userName + "/words";
         },
 
         model: Entities.Word
@@ -65,7 +57,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     /**
      * Initialize word items
-     * 
+     *
      * @entity Word
      */
     var initializeWords = function() {

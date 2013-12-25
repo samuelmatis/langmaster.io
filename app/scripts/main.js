@@ -24,13 +24,15 @@ App.getCurrentRoute = function() {
 // On start
 App.on("initialize:after", function() {
 
-    var self = App;
-    $.get("/api/session", function(res) {
-        Cookies.set("access_token", res.access_token, {expires: 3600});
-        self.username = res.username;
+    // Get user info
+    $.ajax({
+        url: "/api/session",
+        async: false,
+        success: function(res) {
+            Cookies.set("access_token", res.access_token, {expires: 3600});
+            App.userName = res.username;
+        }
     });
-
-    console.log(App.username);
 
     if(Backbone.history) {
         Backbone.history.start();
