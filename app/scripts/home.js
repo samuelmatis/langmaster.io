@@ -14,6 +14,7 @@ $(".js-signin").on("click",function(e){e.preventDefault();$(this).fadeOut(1,func
             });
         })
     });
+
     $(".js-login-twitter").on("click", function (h) {
         h.preventDefault();
         o.popup("twitter", function (h, n) {
@@ -22,8 +23,9 @@ $(".js-signin").on("click",function(e){e.preventDefault();$(this).fadeOut(1,func
                 "oauth_token": n.oauth_token,
                 "oauth_token_secret": n.oauth_token_secret
             });
-        })
+        });
     });
+
     $(".js-login-google").on("click", function (h) {
         h.preventDefault();
         o.popup("google", function (h, n) {

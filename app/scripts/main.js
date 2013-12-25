@@ -21,9 +21,8 @@ App.getCurrentRoute = function() {
     return Backbone.history.fragment;
 };
 
-// On start
-App.on("initialize:after", function() {
-
+// Before initialize
+App.on("initialize:before", function(options){
     // Get user info
     $.ajax({
         url: "/api/session",
@@ -31,9 +30,13 @@ App.on("initialize:after", function() {
         success: function(res) {
             Cookies.set("access_token", res.access_token, {expires: 3600});
             App.userName = res.username;
+            App.fullname = res.fullname;
         }
     });
+});
 
+// After initialize
+App.on("initialize:after", function() {
     if(Backbone.history) {
         Backbone.history.start();
 

@@ -2,7 +2,7 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
 
     /**
      * Header items
-     * 
+     *
      * @region Header
      * @template #header-link
      */
@@ -28,7 +28,7 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
 
     /**
      * Header view
-     * 
+     *
      * @region Header
      * @template #header-template
      */
@@ -42,6 +42,12 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
         events: {
             "click a.brand": "brandClicked",
             "click .js-logout": "logout"
+        },
+
+        serializeData: function() {
+            return {
+                "username": App.fullname
+            }
         },
 
         brandClicked: function(e) {

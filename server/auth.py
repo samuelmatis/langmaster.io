@@ -15,7 +15,8 @@ def login_fb():
 def session_get():
     out = JSONEncoder().encode({
         "username": session['username'],
-        "access_token": session['access_token']
+        "access_token": session['access_token'],
+        "fullname": session['name']
     })
     decoded = json.loads(out)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')
