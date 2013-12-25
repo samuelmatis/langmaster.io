@@ -4,13 +4,6 @@ from flask import session, redirect, url_for
 from flask.sessions import *
 from json import JSONEncoder
 
-@app.route('/api/login/facebook', methods=['POST'])
-def login_fb():
-    session['access_token'] = request.headers['access_token']
-    session['name'] = request.form['name']
-    session['username'] = request.form['username']
-    return "ok"
-
 @app.route('/api/session', methods=['GET'])
 def session_get():
     out = JSONEncoder().encode({
@@ -20,6 +13,10 @@ def session_get():
     })
     decoded = json.loads(out)
     return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')
+
+@app.route('/api/login/facebook', methods=['POST'])
+def login_fb():
+    return create_user("facebook", request.json['name'], request.json['username'], request.json['email'], request.json['picture']['data']['url'])
 
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():

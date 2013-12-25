@@ -5,21 +5,11 @@ import json
 from difflib import SequenceMatcher
 
 
-@app.route('/api/users', methods=['GET'])
-def get_users():
-    users = User.objects()
-    l_users = users.to_json()
-    decoded = json.loads(l_users)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
+def create_user(name, username, email):
+    session['access_token'] = request.headers['access_token']
+    session['name'] = request.json['name']
+    session['username'] = request.json['username']
 
-
-@app.route('/api/users', methods=['POST'])
-def create_user(username, email):
-    if username and email:
-        uname, emil = username, email
-    else:
-        uname, emil = request.json["username"], request.json["email"]
     kokti =str({"username": uname, "email":email})
     users = User.objects()
     l_users = users.to_json()
@@ -34,6 +24,15 @@ def create_user(username, email):
                 words=[])
 
     user.save()
+
+
+@app.route('/api/users', methods=['GET'])
+def get_users():
+    users = User.objects()
+    l_users = users.to_json()
+    decoded = json.loads(l_users)
+    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+                    mimetype='application/json')
 
 
 @app.route('/api/users/<username>', methods=['GET'])
