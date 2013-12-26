@@ -12,6 +12,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             strength: 0
         },
 
+        url: function() {
+            return "/api/users/" + App.user.userName + "/words";
+        },
+
         parse: function (response) {
             response.id = response.word_id;
             delete response.word_id;
