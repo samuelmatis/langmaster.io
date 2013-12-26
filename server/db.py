@@ -1,5 +1,6 @@
 from mongoengine import *
 from flask.ext.mongoengine import MongoEngine
+import datetime
 
 # Connectionry to MongoDB
 connect(
@@ -54,8 +55,12 @@ class User(Document):
     name = StringField(unique=True)
     email = EmailField(unique=True)
     picture = StringField()
-    words = ListField(EmbeddedDocumentField(Word))
     type = StringField()
+    bio = StringField(max_length=150)
+    first_login = DateTimeField(default=datetime.datetime.now)
+    location = StringField()
+    native = StringField()
+    words = ListField(EmbeddedDocumentField(Word))
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 
     def to_dict(self):

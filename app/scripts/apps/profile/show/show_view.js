@@ -12,6 +12,9 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
 
         initialize: function(options) {
             this.numWords = options.numWords;
+            this.bio = options.bio;
+            this.native = options.native;
+            this.location = options.location;
         },
 
         serializeData: function() {
@@ -21,8 +24,21 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                 "email": App.user.email,
                 "picture": App.user.picture,
                 "type": App.user.authType.capitalize(),
-                "numWords": this.numWords
+                "numWords": this.numWords,
+                "bio": this.bio,
+                "native": this.native,
+                "location": this.location
             }
+        },
+
+        events: {
+            "click .js-save": "saveAbout"
+        },
+
+        saveAbout: function(e) {
+            e.preventDefault();
+            var data = Backbone.Syphon.serialize(this);
+            this.trigger("about:submit", data);
         }
 	});
 
