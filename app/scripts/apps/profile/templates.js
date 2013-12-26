@@ -16,7 +16,7 @@ window.JST['profile/profile'] = _.template(
                                     <p> \
                                         <i class="glyphicon glyphicon-profile glyphicon-envelope"></i><%= email %> \
                                         <br /> \
-                                        <i class="glyphicon glyphicon-profile glyphicon-globe"></i><a href="http://www.jquery2dotnet.com"><%= type %> profile</a> \
+                                        <i class="glyphicon glyphicon-profile glyphicon-globe"></i><a href="<% if(type == "google") { %>https://www.plus.google.com/<%= username %>"><% } else { %>https://www.<%= type %>.com/<%= username %><% } %>"><%= type %> profile</a> \
                                         <br /> \
                                         <span style="font-weight: 600">Words:</span> <%= numWords %></p> \
                                 </div> \

@@ -17,6 +17,7 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
         serializeData: function() {
             return {
                 "name": App.user.fullName,
+                "username": App.user.userName,
                 "email": App.user.email,
                 "picture": App.user.picture,
                 "type": App.user.authType.capitalize(),
