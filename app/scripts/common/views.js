@@ -2,12 +2,12 @@ App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
 
     /**
      * Loading view
-     * 
+     *
      * @region Common
      * @template #loading-view
      */
     Views.Loading = Marionette.ItemView.extend({
-        template: "#loading-view",
+        template: "common/loading",
 
         serializeData: function() {
             return {
@@ -35,7 +35,7 @@ App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
                 top: 'auto',
                 left: 'auto'
             };
-            
+
             $('#spinner').spin(opts);
         }
     })

@@ -2,12 +2,12 @@ App.module("Words.Common.Views", function(Views, App, Backbone, Marionette, $, _
 
     /**
      * Form view
-     * 
+     *
      * @region Words.Common
      * @template #words-form
      */
     Views.Form = Marionette.ItemView.extend({
-        template: "#words-form",
+        template: "words/form",
 
         events: {
             "click button.js-submit": "submitClicked"

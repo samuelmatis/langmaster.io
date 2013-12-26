@@ -2,12 +2,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     /**
      * Words layout
-     * 
+     *
      * @region Words-List
      * @template #words-region-layout
      */
     List.Layout = Marionette.Layout.extend({
-        template: "#words-region-layout",
+        template: "words/region-layout",
         className: "pure-g content-ribbon",
 
         regions: {
@@ -18,12 +18,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     /**
      * New word view
-     * 
+     *
      * @region Words-List
      * @template #words-list-newword
      */
     List.NewWord = Marionette.ItemView.extend({
-        template: "#words-list-newword",
+        template: "words/new-word",
 
         events: {
             "click button.js-addnewword": "submitClicked"
@@ -57,19 +57,19 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             }
 
             clearFormErrors();
-            _.each(errors, markErrors); 
+            _.each(errors, markErrors);
         }
     });
 
     /**
      * Word item view
-     * 
+     *
      * @region Words-List
      * @template #words-list-item
      */
     List.Word = Marionette.ItemView.extend({
         tagName: "tr",
-        template: "#word-list-item",
+        template: "words/list-item",
 
         events: {
             "click td a.js-edit": "editClicked",
@@ -105,24 +105,24 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
     /**
      * Empty word view
-     * 
+     *
      * @region Words-List
      * @template #words-list-none
      */
     var NoWordsView = Marionette.ItemView.extend({
-        template: "#word-list-none",
+        template: "words/list-none",
         tagName: "tr",
         className: "warning"
     });
 
     /**
      * Words list view
-     * 
+     *
      * @region Words-List
      * @template #words-list
      */
     List.Words = Marionette.CompositeView.extend({
-        template: "#word-list",
+        template: "words/list",
         emptyView: NoWordsView,
         itemView: List.Word,
         itemViewContainer: "tbody",

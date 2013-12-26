@@ -7,7 +7,7 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
      * @template #header-link
      */
     List.Header = Marionette.ItemView.extend({
-        template: "#header-link",
+        template: 'header/link',
         tagName: "li",
 
         events: {
@@ -33,7 +33,7 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
      * @template #header-template
      */
     List.Headers = Marionette.CompositeView.extend({
-        template: "#header-template",
+        template: 'header/header',
         tagName: "nav",
         className: "navbar-wrapper navbar-default navbar-fixed-top",
         itemView: List.Header,

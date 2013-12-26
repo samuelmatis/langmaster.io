@@ -7,7 +7,7 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-header-panel
      */
      Main.TestHeaderPanel = Marionette.ItemView.extend({
-        template: "#test-header-panel",
+        template: "test/header-panel",
         tagName: "nav",
         className: "navbar-wrapper navbar-test navbar-default",
 
@@ -23,41 +23,41 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * Weakest words table ItemView
-     * 
+     *
      * @region Test-StartPage
      * @template #test-weakest-words
      */
     Main.StartPageWords = Marionette.ItemView.extend({
         tagName: "tr",
-        template: "#test-weakest-words"
+        template: "test/weakest-words"
     });
 
     /**
      * Start page view
-     * 
+     *
      * @region Test-StartPage
      * @template #test-start
      */
     Main.StartPage = Marionette.CompositeView.extend({
-        template: "#test-start",
+        template: "test/start",
         className: "col-md-4 col-md-offset-4",
         id: "test",
         itemView: Main.StartPageWords,
         itemViewContainer: "tbody",
 
         triggers: {
-            "click .js-start-test": "start:test" 
+            "click .js-start-test": "start:test"
         }
     });
 
     /**
      * Test layout
-     * 
+     *
      * @region Test-TestPage
      * @template #test-region-layout
      */
     Main.TestLayout = Marionette.Layout.extend({
-        template: "#test-region-layout",
+        template: "test/region-layout",
         className: "row",
 
         regions: {
@@ -69,12 +69,12 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * Header region view
-     * 
+     *
      * @region Test-TestPage
      * @template #test-header-region
      */
     Main.HeaderRegion = Marionette.ItemView.extend({
-        template: "#test-header-region",
+        template: "test/header",
 
         triggers: {
             "click .js-giveup": "test:giveup"
@@ -83,12 +83,12 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * Main test region
-     * 
+     *
      * @region Test-TestPage
      * @template #test-main-region
      */
     Main.TestRegion = Marionette.ItemView.extend({
-        template: "#test-main-region",
+        template: "test/main-region",
 
         events: {
             "click .js-submit-answer": "submitAnswer"
@@ -103,12 +103,12 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * Test result view
-     * 
+     *
      * @region Test-TestPage
      * @template #test-result-region
      */
      Main.TestResult = Marionette.ItemView.extend({
-        template: "#test-result-region",
+        template: "test/result-region",
 
         serializeData: function() {
             if(this.options.result === "good") {
@@ -136,23 +136,23 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * Final test table view
-     * 
+     *
      * @region Test-TestPage
      * @template #test-final-table
      */
     Main.FinalTableView = Marionette.ItemView.extend({
         tagName: "tr",
-        template: "#test-final-table"
+        template: "test/final-table"
     });
 
     /**
      * Final test view
-     * 
+     *
      * @region Test-TestPage
      * @template #test-final
      */
     Main.FinalView = Marionette.CompositeView.extend({
-        template: "#test-final",
+        template: "test/final",
         className: "col-md-4 col-md-offset-4",
         id: "test",
         itemView: Main.FinalTableView,
@@ -183,12 +183,12 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * No words for test view
-     * 
+     *
      * @region Test-TestPage
      * @template #test-no-words
      */
      Main.TestNoWords = Marionette.ItemView.extend({
-        template: "#test-no-words",
+        template: "test/no-words",
         className: "col-md-6 col-md-offset-3",
         id: "test"
      });

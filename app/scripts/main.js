@@ -11,16 +11,6 @@ App.addRegions({
     })
 });
 
-// Router helper methods
-App.navigate = function(route, options) {
-    options || (options = {});
-    Backbone.history.navigate(route, options);
-};
-
-App.getCurrentRoute = function() {
-    return Backbone.history.fragment;
-};
-
 // Before initialize
 App.on("initialize:before", function(options){
     // Get user info
@@ -31,6 +21,9 @@ App.on("initialize:before", function(options){
             Cookies.set("access_token", res.access_token, {expires: 3600});
             App.userName = res.username;
             App.fullname = res.fullname;
+        },
+        error: function() {
+            App.vent.trigger("app:logout");
         }
     });
 });
