@@ -25,13 +25,14 @@ def session_get():
         abort(404)
 
 def login(type, token, name, username, email, picture):
-    user = User.objects(username=request.json['username'])
+    user = User.objects(email=request.json['email'])
     if len(user) == 0:
         new_user = create_user(type, name, username, email, picture)
 
         session['access_token'] = token
         session['name'] = name
         session['username'] = username
+        session['email'] = email
 
         return Response(json.dumps({}, sort_keys=False, indent=4),
                     mimetype='application/json')
@@ -39,6 +40,7 @@ def login(type, token, name, username, email, picture):
         session['access_token'] = token
         session['name'] = name
         session['username'] = username
+        session['email'] = email
 
         return Response(json.dumps({}, sort_keys=False, indent=4),
                     mimetype='application/json')

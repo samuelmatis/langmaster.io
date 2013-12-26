@@ -171,7 +171,7 @@ def change_word(username, word_id):
                     translation=request.json.get("translation",
                                                  words[wordid_index[0]]
                                                  ["translation"]),
-                    strength=1)
+                    strength=request.json["strength"])
 
         new_word = word.to_dict()
         words[wordid_index[0]] = new_word
