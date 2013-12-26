@@ -12,7 +12,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             strength: 0
         },
 
-        url: function() {
+        urlRoot: function() {
             return "/api/users/" + App.user.userName + "/words";
         },
 
