@@ -5,12 +5,7 @@ import json
 from difflib import SequenceMatcher
 
 
-def create_user(name, username, email):
-    session['access_token'] = request.headers['access_token']
-    session['name'] = request.json['name']
-    session['username'] = request.json['username']
-
-    kokti =str({"username": uname, "email":email})
+def create_user(type, name, username, email, picture):
     users = User.objects()
     l_users = users.to_json()
     decoded = json.loads(l_users)
@@ -19,11 +14,15 @@ def create_user(name, username, email):
     except:
         u_id = 1
     user = User(user_id=u_id,
-                username=uname,
-                email=emil,
+                username=username,
+                name=name,
+                picture=picture,
+                email=email,
+                type=type,
                 words=[])
 
     user.save()
+    return str(user)
 
 
 @app.route('/api/users', methods=['GET'])

@@ -51,9 +51,11 @@ class Word(EmbeddedDocument):
 class User(Document):
     user_id = IntField(unique=True)
     username = StringField(max_length=20, unique=True)
+    name = StringField(unique=True)
     email = EmailField(unique=True)
+    picture = StringField()
     words = ListField(EmbeddedDocumentField(Word))
-    active = BooleanField(default=True)
+    type = StringField()
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 
     def to_dict(self):
