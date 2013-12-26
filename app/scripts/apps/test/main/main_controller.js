@@ -116,7 +116,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     var self = this;
 
                     // Check word correctness from API
-                    $.post("api/users/"+ App.userName +"/compare", {"origin": origin_word, "input": input_word}, function(data) {
+                    $.post("api/users/"+ App.user.userName +"/compare", {"origin": origin_word, "input": input_word}, function(data) {
 
                         console.log(data);
 
@@ -172,7 +172,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     var know = localStorage.getItem(key);
 
                     // Send (demo) test results to the API and add results to collection
-                    $.post("api/users/"+ App.userName +"/test", {"word": word, "know": know}, function(data) {
+                    $.post("api/users/"+ App.user.userName +"/test", {"word": word, "know": know}, function(data) {
                         outputWords.add({word: data.word, strength: data.strength, increase: data.increase});
                         localStorage.removeItem("test_word_" + data.word);
                     });

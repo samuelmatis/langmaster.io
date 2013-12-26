@@ -47,7 +47,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      */
     Entities.WordCollection = Backbone.Collection.extend({
         url: function() {
-            return "/api/users/" + App.userName + "/words";
+            return "/api/users/" + App.user.userName + "/words";
         },
 
         model: Entities.Word
