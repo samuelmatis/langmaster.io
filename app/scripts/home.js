@@ -10,16 +10,16 @@ $(".js-signin").on("click",function(e){
 
 $(".js-login-facebook").on("click", function (h) {
     h.preventDefault();
-    OAuth.popup("facebook", function (h, n) {
-        $.get('https://graph.facebook.com/me?fields=id,name,username,email,picture.type(large)&access_token=' + n.access_token, function(d) {
+    OAuth.popup("facebook", function (err, result) {
+        result.get("/me?fields=id,name,username,email,picture.type(large)").done(function(data) {
             $.ajax({
                 type: "POST",
                 url: "api/login/facebook",
-                data: JSON.stringify(d),
+                data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json',
-                beforeSend: function (request) { request.setRequestHeader("access_token", n.access_token); },
-                success: function(d) { window.location.reload(true); }
+                beforeSend: function (request) { request.setRequestHeader("access_token", result.access_token); },
+                success: function() { window.location.reload(true); }
             });
         });
     })
@@ -27,18 +27,21 @@ $(".js-login-facebook").on("click", function (h) {
 
 $(".js-login-twitter").on("click", function (h) {
     h.preventDefault();
-    OAuth.popup("twitter", function (h, n) {
-        $.post("api/login/twitter", {
-            "type": "twitter",
-            "oauth_token": n.oauth_token,
-            "oauth_token_secret": n.oauth_token_secret
+    OAuth.popup("twitter", function (err, result) {
+        // $.post("api/login/twitter", {
+        //     "type": "twitter",
+        //     "oauth_token": n.oauth_token,
+        //     "oauth_token_secret": n.oauth_token_secret
+        // });
+        result.get("/users/show").done(function(data) {
+            console.log(data);
         });
     });
 });
 
 $(".js-login-google").on("click", function (h) {
     h.preventDefault();
-    OAuth.popup("google", function (h, n) {
+    OAuth.popup("google", function (err, result) {
         $.post("api/login/facebook", {
             "type": "google",
             "access_token": n.access_token,
