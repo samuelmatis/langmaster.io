@@ -12,3 +12,7 @@ Backbone.Marionette.Renderer.render = function(template, data){
   if (!JST[template]) throw "Template '" + template + "' not found!";
   return JST[template](data);
 }
+
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}

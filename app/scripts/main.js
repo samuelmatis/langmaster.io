@@ -19,8 +19,12 @@ App.on("initialize:before", function(options){
         async: false,
         success: function(res) {
             Cookies.set("access_token", res.access_token, {expires: 3600});
-            App.userName = res.username;
-            App.fullname = res.fullname;
+            App.user = {};
+            App.user.userName = res.username;
+            App.user.fullName = res.fullname;
+            App.user.email = res.email;
+            App.user.picture = res.picture;
+            App.user.authType = res.type;
         },
         error: function() {
             App.vent.trigger("app:logout");
