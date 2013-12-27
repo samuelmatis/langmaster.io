@@ -18,7 +18,6 @@ App.on("initialize:before", function(options){
         url: "/api/session",
         async: false,
         success: function(res) {
-            Cookies.set("access_token", res.access_token, {expires: 3600});
             App.user = {};
             App.user.userName = res.username;
             App.user.fullName = res.fullname;
@@ -41,7 +40,6 @@ App.on("initialize:after", function() {
     }
 
     App.vent.on("app:logout", function() {
-        Cookies.expire('access_token');
         window.location.replace("/api/logout");
     });
 });

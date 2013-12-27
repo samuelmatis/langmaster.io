@@ -15,7 +15,7 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                 var self = this;
                 $.ajax({
                     type: "GET",
-                    url: "/api/users/" + App.user.userName,
+                    url: "/api/user",
                     async: false,
                     success: function(res) {
                         console.log(res);
@@ -42,7 +42,7 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                     console.log(data);
                     $.ajax({
                         method: "PUT",
-                        url: "/api/users/" + App.user.userName,
+                        url: "/api/user",
                         data: JSON.stringify(data),
                         contentType: 'application/json',
                         dataType: 'json',
