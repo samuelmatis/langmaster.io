@@ -47,9 +47,8 @@ def test():
     else:
         increase = 1
     user = User.objects(username=session['username'])
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    words = decoded[0]["words"]
+    user_json = json.loads(user.to_json())
+    words = user_json[0]["words"]
     word = [words[item] for item in range(len(words)) if words[item]["word"] == word]
     try:
         word = word[0]
@@ -63,5 +62,4 @@ def test():
         words[wordid_index[0]] = word
     user.update(**{"set__words": words})
     word["increase"] = increase
-    return Response(json.dumps(word, sort_keys=False, indent=4),
-                    mimetype='application/json')
+    return Response(json.dumps(word, sort_keys=False, indent=4), mimetype='application/json')

@@ -6,11 +6,9 @@ from datetime import datetime
 
 
 def create_user(type, name, username, email, picture):
-    users = User.objects()
-    l_users = users.to_json()
-    decoded = json.loads(l_users)
+    users = json.loads(User.objects().to_json())
     try:
-        u_id = decoded[0]["user_id"]+1
+        u_id = users[0]["user_id"]+1
     except:
         u_id = 1
     user = User(user_id=u_id,
@@ -31,46 +29,35 @@ def create_user(type, name, username, email, picture):
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    users = User.objects()
-    l_users = users.to_json()
-    decoded = json.loads(l_users)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
+    users = json.loads(User.objects().to_json())
+    return Response(json.dumps(users, sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/user', methods=['GET'])
 def get_user():
         user = User.objects(username=session['username'])
-        l_user = user.to_json()
-        decoded = json.loads(l_user)
-        return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')
+        user_json = json.loads(user.to_json())
+        return Response(json.dumps(user_json, sort_keys=False, indent=4),mimetype='application/json')
 
 
 @app.route('/api/user', methods=['PUT'])
-def update_user(username):
+def update_user():
     user = User.objects(username=session['username'])
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
     user.update(**{
             "set__bio": request.json['bio'],
             "set__location": request.json['location'],
             "set__native": request.json['native']})
-
-    user = User.objects(username=request.form.get("username",
-                        decoded[0]["username"]))
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
+    user_json = json.loads(user.to_json())
+    return Response(json.dumps(user_json, sort_keys=False, indent=4),
                     mimetype='application/json')
 
 
 @app.route('/api/user', methods=['DELETE'])
 def delete_user(username):
     user = User.objects(username=session['username'])
-    l_user = user.to_json()
-    decoded = json.loads(l_user)
-    if decoded == []:
+    user_json = json.loads(user.to_json())
+    if user_json == []:
         abort(404)
-    user.delete()
-    return Response(json.dumps(decoded, sort_keys=False, indent=4),
-                    mimetype='application/json')
+    else:
+        user.delete()
+        return "ok"
