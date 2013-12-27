@@ -1,5 +1,7 @@
 from users import *
 from auth import *
+from words import *
+from test import *
 from flask import session
 import os
 
