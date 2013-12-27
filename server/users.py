@@ -27,12 +27,6 @@ def create_user(type, name, username, email, picture):
     return str(user)
 
 
-@app.route('/api/users', methods=['GET'])
-def get_users():
-    users = json.loads(User.objects().to_json())
-    return Response(json.dumps(users, sort_keys=False, indent=4), mimetype='application/json')
-
-
 @app.route('/api/user', methods=['GET'])
 def get_user():
         user = User.objects(username=session['username'])
