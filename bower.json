@@ -15,7 +15,7 @@
     "bootbox": "~4.1.0",
     "backbone.picky": "~0.1.0",
     "cookies-js": "~0.3.1",
-    "bootstrap-growl": "~1.1.7"
+    "bootstrap-growl": "~1.1.0"
   },
   "devDependencies": {}
 }
