@@ -23,8 +23,6 @@ App.on("initialize:before", function(options){
             App.user.userName = res.username;
             App.user.fullName = res.fullname;
             App.user.email = res.email;
-            App.user.picture = res.picture;
-            App.user.authType = res.type;
         },
         error: function() {
             App.vent.trigger("app:logout");

@@ -15,10 +15,7 @@ def session_get():
             "username": user_dict['username'],
             "access_token": session['access_token'],
             "fullname": user_dict['name'],
-            "email": user_dict['email'],
-            "picture": user_dict['picture'],
-            "type": user_dict['type'],
-            "learningSince": user_dict['first_login']["$date"]
+            "email": user_dict['email']
         })
         decoded = json.loads(out)
         return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')

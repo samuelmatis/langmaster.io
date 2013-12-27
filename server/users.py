@@ -3,6 +3,7 @@ from app import *
 from flask import request, session, abort, Response, jsonify, render_template
 import json
 from difflib import SequenceMatcher
+from datetime import datetime
 
 
 def create_user(type, name, username, email, picture):
@@ -22,6 +23,7 @@ def create_user(type, name, username, email, picture):
                 bio="",
                 location="",
                 native="",
+                first_login=datetime.now().strftime('%Y-%m-%d'),
                 words=[])
 
     user.save()

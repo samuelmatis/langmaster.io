@@ -19,13 +19,13 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                 "name": App.user.fullName,
                 "username": App.user.userName,
                 "email": App.user.email,
-                "picture": App.user.picture,
-                "type": App.user.authType.capitalize(),
+                "picture": this.opt.picture,
+                "type": this.opt.type.capitalize(),
                 "numWords": this.opt.numWords,
                 "bio": this.opt.bio,
                 "native": this.opt.native,
                 "location": this.opt.location,
-                "learningSince": App.user.learningSince
+                "learningSince": this.opt.learningSince
             }
         },
 

@@ -21,7 +21,10 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                         console.log(res);
                         self.bio = res[0]["bio"],
                         self.native = res[0]["native"],
-                        self.location = res[0]["location"]
+                        self.location = res[0]["location"],
+                        self.learningSince = res[0]["first_login"],
+                        self.type = res[0]["type"],
+                        self.picture = res[0]["picture"]
                     }
                 });
 
@@ -29,7 +32,10 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                     numWords: this.numWords,
                     bio: this.bio,
                     native: this.native,
-                    location: this.location
+                    location: this.location,
+                    learningSince: this.learningSince,
+                    type: this.type,
+                    picture: this.picture
                 });
 
                 profileView.on("about:submit", function(data) {
