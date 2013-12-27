@@ -36,7 +36,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
 
                 // Initialize list view
                 var appRegionView = new List.Words({
-                    collection: words
+                    collection: filteredWords
                 });
 
                 // Filter words if criterion is defined
