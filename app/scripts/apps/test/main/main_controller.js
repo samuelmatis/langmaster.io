@@ -59,8 +59,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                 // Find a random word from words collection
                 randomWord = function() {
-                    var randomNumber = _.random(1, words.size());
-                    var selectedWord = words.at(randomNumber);
+                    var randomNumber = Math.floor(Math.random() * (words.size() - 1 + 1)) + 1;
+                    // _.random(1, words.size());
+                    var selectedWord = words.at(randomNumber - 1);
                     return selectedWord;
                 };
 
@@ -70,7 +71,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 // Test steps
-                var steps = 5;
+                localStorage['steps'] = 5;
 
                 testLayoutMain.once("show", function() {
                     localStorage.setItem("last_word", "");
@@ -85,22 +86,23 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         localStorage.setItem("test_word_" + this.model.get("word"), "");
                     }
 
+                    // Close test after it will exceed steps
+                    if(localStorage.getItem("steps") < 0) {
+                        testLayout.close();
+                        App.Test.Main.Controller.showAfterTest(words);
+                    }
+
                     // Check if word is not repeating
-                    if(steps < 5) {
+                    if(localStorage.getItem("steps") < 6) {
                         if(this.model.get("word") === localStorage.getItem("last_word")) {
                             testLayoutMain.model = randomWord();
                             testLayout.testResult.close();
                             testLayout.testMain.show(testLayoutMain);
                             self.$("#js-submit-answer").focus();
+                            console.log(localStorage.get("steps"));
                         }
 
                         localStorage.setItem("last_word", this.model.get("word"));
-                    }
-
-                    // Close test after it will exceed steps
-                    if(steps < 0) {
-                        testLayout.close();
-                        App.Test.Main.Controller.showAfterTest(words);
                     }
                 });
 
@@ -109,14 +111,14 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     this.$(".js-submit-answer").hide();
 
                     // Count down steps
-                    steps--;
+                    localStorage['steps']--;
 
                     var origin_word = this.model.get("word");
                     var input_word = data.answer;
                     var self = this;
 
                     // Check word correctness from API
-                    $.post("api/users/"+ App.user.userName +"/compare", {"origin": origin_word, "input": input_word}, function(data) {
+                    $.post("api/test/compare", {"origin": origin_word, "input": input_word}, function(data) {
 
                         console.log(data);
 
@@ -172,7 +174,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     var know = localStorage.getItem(key);
 
                     // Send (demo) test results to the API and add results to collection
-                    $.post("api/users/"+ App.user.userName +"/test", {"word": word, "know": know}, function(data) {
+                    $.post("api/test", {"word": word, "know": know}, function(data) {
                         outputWords.add({word: data.word, strength: data.strength, increase: data.increase});
                         localStorage.removeItem("test_word_" + data.word);
                     });
