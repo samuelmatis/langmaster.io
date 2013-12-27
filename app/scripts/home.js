@@ -35,7 +35,6 @@ $(".js-login-twitter").on("click", function (h) {
         cb.setToken(result.oauth_token, result.oauth_token_secret);
         _user = cb.__call(
             "account_verifyCredentials", {}, function (data) {
-                console.log(data);
                 $.ajax({
                     type: "POST",
                     url: "api/login/twitter",
@@ -43,7 +42,7 @@ $(".js-login-twitter").on("click", function (h) {
                     contentType: "application/json",
                     dataType: "json",
                     beforeSend: function(request) { request.setRequestHeader("access_token", result.oauth_token)},
-                    success: function(res) { console.log(res); }
+                    success: function(res) { window.location.replace(true); }
                 });
             }
         );
