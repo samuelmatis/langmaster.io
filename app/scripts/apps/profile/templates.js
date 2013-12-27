@@ -15,11 +15,13 @@ window.JST['profile/profile'] = _.template(
                                     </i></cite></small> \
                                     <p> \
                                         <i class="glyphicon glyphicon-profile glyphicon-envelope"></i><%= email %> \
-                                        <br /> \
+                                        <br> \
                                         <i class="glyphicon glyphicon-profile glyphicon-globe"></i><a href="<% if(type == "google") { %>https://www.plus.google.com/<%= username %>"><% } else { %>https://www.<%= type %>.com/<%= username %><% } %>"><%= type %> profile</a> \
-                                        <br /> \
-                                        <span style="font-weight: 600">Words:</span> <%= numWords %></p> \
+                                        <br> \
+                                        <span style="font-weight: 600">Words:</span> <%= numWords %> \
+                                        <br> \
                                         <span style="font-weight: 600">Learning since </span> <%= learningSince %></p> \
+                                        </p> \
                                 </div> \
                             </div> \
                         </div> \
@@ -41,7 +43,7 @@ window.JST['profile/profile'] = _.template(
                     </div> \
                     <label for="bio">Bio</label> \
                     <textarea class="form-control" id="bio" name="bio" rows="5"><%= bio %></textarea> \
-                    <br /> \
+                    <br> \
                 <div class="row"> \
                 <div class="col-xs-12 col-md-12 form-group"> \
                 <button class="js-save btn btn-primary pull-right" type="submit">Save</button> \
