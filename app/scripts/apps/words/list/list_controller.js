@@ -70,9 +70,6 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                             word: newWord.get("word"),
                             translation: newWord.get("translation")
                         });
-                        console.log(words);
-                        console.log("------------------------");
-                        console.log(appRegionView);
                         appRegionView.children.findByModel(newWord).flash("success");
                     } else {
                         appRegionNewWord.triggerMethod("form:data:invalid", newWord.validationError);
@@ -90,7 +87,6 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                         if(model.save(data)) {
                             childView.render();
                             view.trigger("dialog:close");
-                            childView.flash("success");
                         } else {
                             view.triggerMethod("form:data:invalid", model.validationError);
                         }

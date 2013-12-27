@@ -76,15 +76,6 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             "click button.js-delete": "deleteClicked"
         },
 
-        flash: function(cssClass) {
-            var $view = this.$el;
-            $view.hide().toggleClass(cssClass).fadeIn(800, function() {
-                setTimeout(function() {
-                    $view.toggleClass(cssClass);
-                }, 500);
-            });
-        },
-
         deleteClicked: function(e) {
             e.preventDefault();
             e.stopPropagation();
