@@ -57,15 +57,23 @@ $(".js-login-twitter").on("click", function (h) {
 $(".js-login-google").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("google", function (err, result) {
-        $.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + result.access_token, function(res) { console.log(res); });
-        // $.post("api/login/facebook", {
-        //     "type": "google",
-        //     "access_token": n.access_token,
-        //     "token_type": n.token_type,
-        //     "expires_in": n.expires_in,
-        //     "id_token": n.id_token
-        // }, function () {
-        //     window.location.replace("/app");
-        // });
+        $.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + result.access_token, function(data) {
+            bootbox.prompt("What is your email?", function(result) {
+                if (result === null) {
+                    return ;
+                } else {
+                    data.email = result;
+                    $.ajax({
+                        type: "POST",
+                        url: "api/login/google",
+                        data: JSON.stringify(data),
+                        contentType: "application/json",
+                        dataType: "json",
+                        beforeSend: function(request) { request.setRequestHeader("access_token", result.access_token)},
+                        success: function(res) { window.location.reload(true); }
+                    });
+                }
+            });
+        });
     })
 });

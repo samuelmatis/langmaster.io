@@ -42,7 +42,7 @@ def login(type, token, name, username, email, picture):
         session['username'] = user_dict['username']
         session['email'] = user_dict['email']
 
-        return Response(json.dumps({}, sort_keys=False, indent=4),
+        return Response(json.dumps(user_dict, sort_keys=False, indent=4),
                     mimetype='application/json')
 
 @app.route('/api/login/facebook', methods=['POST'])
@@ -56,7 +56,7 @@ def login_tw():
 
 @app.route('/api/login/google', methods=['POST'])
 def login_plus():
-    return login("google", request.headers['access_token'], request.json['name'], request.json['username'], request.json['email'], request.json['picture']['data']['url'])
+    return login("google", request.headers['access_token'], request.json['name'], request.json['name'].replace(" ", ""), request.json['email'], request.json['picture'])
 
 @app.route('/api/logout', methods=['GET'])
 def logout():
