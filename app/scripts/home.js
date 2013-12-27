@@ -28,9 +28,7 @@ $(".js-login-facebook").on("click", function (h) {
 $(".js-login-twitter").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("twitter", function (err, result) {
-        console.log(result);
         cb = new Codebird;
-        var current_url = location.toString();
         cb.setConsumerKey("tX2i1uv6ON4ffvgLic48Lg","hiRma7ego2XUGWhid8bafC1XxmIKjozGdJCiZooWUg" );
         cb.setToken(result.oauth_token, result.oauth_token_secret);
         _user = cb.__call(
