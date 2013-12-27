@@ -28,14 +28,25 @@ $(".js-login-facebook").on("click", function (h) {
 $(".js-login-twitter").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("twitter", function (err, result) {
-        // $.post("api/login/twitter", {
-        //     "type": "twitter",
-        //     "oauth_token": n.oauth_token,
-        //     "oauth_token_secret": n.oauth_token_secret
-        // });
-        result.get("/users/show").done(function(data) {
-            console.log(data);
-        });
+        console.log(result);
+        cb = new Codebird;
+        var current_url = location.toString();
+        cb.setConsumerKey("tX2i1uv6ON4ffvgLic48Lg","hiRma7ego2XUGWhid8bafC1XxmIKjozGdJCiZooWUg" );
+        cb.setToken(result.oauth_token, result.oauth_token_secret);
+        _user = cb.__call(
+            "account_verifyCredentials", {}, function (data) {
+                console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: "api/login/twitter",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    dataType: "json",
+                    beforeSend: function(request) { request.setRequestHeader("access_token", result.oauth_token)},
+                    success: function(res) { console.log(res); }
+                });
+            }
+        );
     });
 });
 
