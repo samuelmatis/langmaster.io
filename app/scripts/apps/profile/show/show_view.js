@@ -11,10 +11,7 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
 		className: "pure-g content-ribbon",
 
         initialize: function(options) {
-            this.numWords = options.numWords;
-            this.bio = options.bio;
-            this.native = options.native;
-            this.location = options.location;
+            this.opt = options;
         },
 
         serializeData: function() {
@@ -24,10 +21,11 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                 "email": App.user.email,
                 "picture": App.user.picture,
                 "type": App.user.authType.capitalize(),
-                "numWords": this.numWords,
-                "bio": this.bio,
-                "native": this.native,
-                "location": this.location
+                "numWords": this.opt.numWords,
+                "bio": this.opt.bio,
+                "native": this.opt.native,
+                "location": this.opt.location,
+                "learningSince": App.user.learningSince
             }
         },
 

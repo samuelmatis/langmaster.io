@@ -19,6 +19,7 @@ window.JST['profile/profile'] = _.template(
                                         <i class="glyphicon glyphicon-profile glyphicon-globe"></i><a href="<% if(type == "google") { %>https://www.plus.google.com/<%= username %>"><% } else { %>https://www.<%= type %>.com/<%= username %><% } %>"><%= type %> profile</a> \
                                         <br /> \
                                         <span style="font-weight: 600">Words:</span> <%= numWords %></p> \
+                                        <span style="font-weight: 600">Learning since </span> <%= learningSince %></p> \
                                 </div> \
                             </div> \
                         </div> \

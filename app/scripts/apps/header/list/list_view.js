@@ -46,7 +46,7 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
 
         serializeData: function() {
             return {
-                "username": App.fullname
+                "username": App.user.fullName
             }
         },
 
