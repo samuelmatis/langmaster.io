@@ -24,11 +24,13 @@ def session_get():
 
 def login(type, token, name, username, email, picture):
     user = User.objects(email=email)
+    user_json = user.to_json()
+    user_dict = json.loads(user_json)[0]
     if len(user) == 0:
         new_user = create_user(type, name, username, email, picture)
 
         session['access_token'] = token
-        session['name'] = name
+        session['name'] = user
         session['username'] = username
         session['email'] = email
 
@@ -36,9 +38,9 @@ def login(type, token, name, username, email, picture):
                     mimetype='application/json')
     else:
         session['access_token'] = token
-        session['name'] = name
-        session['username'] = username
-        session['email'] = email
+        session['name'] = user_dict['name']
+        session['username'] = user_dict['username']
+        session['email'] = user_dict['email']
 
         return Response(json.dumps({}, sort_keys=False, indent=4),
                     mimetype='application/json')
@@ -49,7 +51,7 @@ def login_fb():
 
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():
-    return login("twitter", request.headers['access_token'], request.json['name'], request.json['screen_name'], "", request.json['profile_image_url'])
+    return login("twitter", request.headers['access_token'], request.json['name'], request.json['screen_name'], request.json['email'], request.json['profile_image_url'])
 
 
 @app.route('/api/login/google', methods=['POST'])
