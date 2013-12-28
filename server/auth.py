@@ -24,8 +24,6 @@ def session_get():
 
 def login(type, token, name, username, email, picture):
     user = User.objects(email=email)
-    user_json = user.to_json()
-    user_dict = json.loads(user_json)[0]
     if len(user) == 0:
         new_user = create_user(type, name, username, email, picture)
 
@@ -37,6 +35,9 @@ def login(type, token, name, username, email, picture):
         return Response(json.dumps(new_user, sort_keys=False, indent=4),
                     mimetype='application/json')
     else:
+        user_json = user.to_json()
+        user_dict = json.loads(user_json)[0]
+
         session['access_token'] = token
         session['name'] = user_dict['name']
         session['username'] = user_dict['username']
@@ -44,6 +45,7 @@ def login(type, token, name, username, email, picture):
 
         return Response(json.dumps(user_dict, sort_keys=False, indent=4),
                     mimetype='application/json')
+
 
 @app.route('/api/login/facebook', methods=['POST'])
 def login_fb():

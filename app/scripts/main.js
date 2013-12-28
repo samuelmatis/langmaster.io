@@ -24,7 +24,7 @@ App.on("initialize:before", function(options){
             App.user.email = res.email;
         },
         error: function() {
-            App.vent.trigger("app:logout");
+            window.location.replace("/api/logout");
         }
     });
 });
