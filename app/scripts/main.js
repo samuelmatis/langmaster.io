@@ -15,13 +15,13 @@ App.addRegions({
 App.on("initialize:before", function(options){
     // Get user info
     $.ajax({
-        url: "/api/session",
+        url: "/api/user",
         async: false,
         success: function(res) {
             App.user = {};
-            App.user.userName = res.username;
-            App.user.fullName = res.fullname;
-            App.user.email = res.email;
+            App.user.userName = res[0]['username'];
+            App.user.fullName = res[0]['name'];
+            App.user.email = res[0]['email'];
         },
         error: function() {
             window.location.replace("/api/logout");
