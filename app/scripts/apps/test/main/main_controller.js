@@ -71,7 +71,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 // Test steps
-                localStorage['steps'] = 5;
+                localStorage['steps'] = 15;
 
                 testLayoutMain.once("show", function() {
                     localStorage.setItem("last_word", "");
@@ -93,13 +93,13 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     }
 
                     // Check if word is not repeating
-                    if(localStorage.getItem("steps") < 6) {
+                    if(localStorage.getItem("steps") < 16) {
                         if(this.model.get("word") === localStorage.getItem("last_word")) {
                             testLayoutMain.model = randomWord();
                             testLayout.testResult.close();
                             testLayout.testMain.show(testLayoutMain);
                             self.$("#js-submit-answer").focus();
-                            console.log(localStorage.get("steps"));
+                            console.log(localStorage['steps']);
                         }
 
                         localStorage.setItem("last_word", this.model.get("word"));
@@ -151,6 +151,12 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 testLayoutHeader.on("test:giveup", function() {
+                    // Remove test items from localStorage
+                    Object.keys(localStorage).forEach(function(key) {
+                        if(/^test_word_.*$/.test(key)) { localStorage.removeItem(key); }
+                        localStorage.removeItem("last_word");
+                        localStorage.removeItem("steps");
+                    });
                     var HeaderPanel = new Main.TestHeaderPanel();
                     App.headerRegion.show(HeaderPanel);
                     App.trigger("test:main:show");
@@ -181,6 +187,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 }
             });
             localStorage.removeItem("last_word");
+            localStorage.removeItem("steps");
 
             var finalView = new Main.FinalView({collection: outputWords});
             App.appRegion.show(finalView);
