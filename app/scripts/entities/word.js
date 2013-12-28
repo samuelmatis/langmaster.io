@@ -31,10 +31,6 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             }
             if(!attrs.translation) {
                 errors.translation = "Can't be blank";
-            } else {
-                if(attrs.translation.length < 2) {
-                    errors.translation = "Is too short";
-                }
             }
             if(!_.isEmpty(errors)) {
                 return errors;
