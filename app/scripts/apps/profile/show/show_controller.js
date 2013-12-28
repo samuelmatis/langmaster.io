@@ -52,6 +52,36 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                     })
                 });
 
+                profileView.on("remove:account", function() {
+                    bootbox.dialog({
+                        message: "Are you sure you want to delete your account? This cannot be undone.",
+                        title: "Warning",
+                        buttons: {
+                            danger: {
+                                label: "Yes.",
+                                className: "btn-danger",
+                                callback: function() {
+                                    $.ajax({
+                                        url: "api/user",
+                                        type: "DELETE",
+                                        success: function() {
+                                            $.bootstrapGrowl("Your account has been deleted.");
+                                            App.vent.trigger("app:logout");
+                                        }
+                                    });
+                                }
+                            },
+                            main: {
+                                label: "No.",
+                                className: "btn-primary",
+                                callback: function() {
+                                    bootbox.hideAll();
+                                }
+                            }
+                        }
+                    });
+                })
+
                 App.appRegion.show(profileView);
             });
         }

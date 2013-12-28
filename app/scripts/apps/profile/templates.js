@@ -36,17 +36,24 @@ window.JST['profile/profile'] = _.template(
                         <label for="name">Location</label> \
                         <input class="form-control" id="name" name="location" type="text" value="<%= location %>" /> \
                     </div> \
-                        <div class="col-xs-6 col-md-6 form-group"> \
+                    <div class="col-xs-6 col-md-6 form-group"> \
                         <label for="lang">Native language</label> \
-                            <input class="form-control" id="lang" name="native" type="text" value="<%= native %>" /> \
-                        </div> \
+                        <input class="form-control" id="lang" name="native" type="text" value="<%= native %>" /> \
                     </div> \
-                    <label for="bio">Bio</label> \
-                    <textarea class="form-control" id="bio" name="bio" rows="5"><%= bio %></textarea> \
-                    <br> \
+                </div> \
+                <label for="bio">Bio</label> \
+                <textarea class="form-control" id="bio" name="bio" rows="5"><%= bio %></textarea> \
+                <br> \
                 <div class="row"> \
-                <div class="col-xs-12 col-md-12 form-group"> \
-                <button class="js-save btn btn-primary pull-right" type="submit">Save</button> \
+                    <div class="col-xs-12 col-md-12 form-group"> \
+                        <button class="js-save btn btn-primary pull-right" type="submit">Save</button> \
+                    </div> \
+                </div> \
+                <div class="row"> \
+                    <div class="col-xs-12 col-md-12 form-group"> \
+                        <button class="js-remove-account btn btn-danger pull-right" type="button">Remove your account</button> \
+                    </div> \
+                </div> \
             </form> \
         </div> \
     </div>');
