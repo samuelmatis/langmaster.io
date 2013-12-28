@@ -8,19 +8,23 @@ $(".js-signin").on("click",function(e){
     });
 });
 
+function login(type, access_token, data) {
+    $.ajax({
+        type: "POST",
+        url: "api/login/" + type,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        beforeSend: function (request) { request.setRequestHeader("access_token", access_token); },
+        success: function() { window.location.reload(true); }
+    });
+}
+
 $(".js-login-facebook").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("facebook", function (err, result) {
         result.get("/me?fields=id,name,username,email,picture.type(large)").done(function(data) {
-            $.ajax({
-                type: "POST",
-                url: "api/login/facebook",
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: 'json',
-                beforeSend: function (request) { request.setRequestHeader("access_token", result.access_token); },
-                success: function() { window.location.reload(true); }
-            });
+            login("facebook", result.access_token, data);
         });
     })
 });
@@ -38,15 +42,7 @@ $(".js-login-twitter").on("click", function (h) {
                         return ;
                     } else {
                         data.email = result;
-                        $.ajax({
-                            type: "POST",
-                            url: "api/login/twitter",
-                            data: JSON.stringify(data),
-                            contentType: "application/json",
-                            dataType: "json",
-                            beforeSend: function(request) { request.setRequestHeader("access_token", result.oauth_token)},
-                            success: function(res) { window.location.reload(true); }
-                        });
+                        login("twitter", result.access_token, data);
                     }
                 });
             }
@@ -63,15 +59,7 @@ $(".js-login-google").on("click", function (h) {
                     return ;
                 } else {
                     data.email = result;
-                    $.ajax({
-                        type: "POST",
-                        url: "api/login/google",
-                        data: JSON.stringify(data),
-                        contentType: "application/json",
-                        dataType: "json",
-                        beforeSend: function(request) { request.setRequestHeader("access_token", result.access_token)},
-                        success: function(res) { window.location.reload(true); }
-                    });
+                    login("google", result.access_token, data);
                 }
             });
         });
