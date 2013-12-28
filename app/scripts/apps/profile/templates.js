@@ -49,9 +49,9 @@ window.JST['profile/profile'] = _.template(
                         <button class="js-save btn btn-primary pull-right" type="submit">Save</button> \
                     </div> \
                 </div> \
-                <div class="row"> \
+                <div class="row" style="margin-top: 25px"> \
                     <div class="col-xs-12 col-md-12 form-group"> \
-                        <button class="js-remove-account btn btn-danger pull-right" type="button">Remove your account</button> \
+                        <a class="js-remove-account pull-right">Remove your account</a> \
                     </div> \
                 </div> \
             </form> \
