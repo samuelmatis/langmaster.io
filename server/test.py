@@ -5,23 +5,18 @@ import json
 from difflib import SequenceMatcher
 
 
-def rate_words(word_get, word_post):
-    current_ratio = SequenceMatcher(None, word_get, word_post).ratio()
-    return str(current_ratio)
-
-
 @app.route('/api/test/compare', methods=['POST'])
 def compare():
     original = request.form["origin"]
     want = request.form["input"]
-    user = User.objects(username=session['username'])
+    user = User.objects(email=session['email'])
     l_word = user.to_json()
     words = json.loads(l_word)[0]["words"]
     translation = [word["translation"] for word in words
                    if word["word"] == original]
     if translation == []:
         abort(404)
-    return rate_words(translation[0], want)
+    return str(SequenceMatcher(None, translation[0], want).ratio())
 
 
 def rate_alg(l):
@@ -46,7 +41,7 @@ def test():
         increase = 0
     else:
         increase = 1
-    user = User.objects(username=session['username'])
+    user = User.objects(email=session['email'])
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
     word = [words[item] for item in range(len(words)) if words[item]["word"] == word]
