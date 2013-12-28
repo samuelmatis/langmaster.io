@@ -11,6 +11,7 @@ Web application for smarter memorizing vocabulary of a foreign language.
 #### Server:
 * Python (Flask framework)
 * MongoDB (MongoEngine)
+
 #### Client:
 * Backbone.js with Marionette
 * Twitter Bootstrap
