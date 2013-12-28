@@ -4,35 +4,39 @@ from flask import session, redirect, url_for, abort
 from flask.sessions import *
 from json import *
 
-@app.route('/api/session', methods=['GET'])
-def session_get():
-    if "access_token" in session:
-        user = User.objects(email=session['email'])
-        user_json = user.to_json()
-        user_dict = json.loads(user_json)[0]
+# @app.route('/api/session', methods=['GET'])
+# def session_get():
+#     if "access_token" in session:
+#         user = User.objects(email=session['email'])
+#         user_json = user.to_json()
+#         user_dict = json.loads(user_json)[0]
 
-        out = JSONEncoder().encode({
-            "username": user_dict['username'],
-            "access_token": session['access_token'],
-            "fullname": user_dict['name'],
-            "email": user_dict['email']
-        })
-        decoded = json.loads(out)
-        return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')
-    else:
-        abort(404)
+#         out = JSONEncoder().encode({
+#             "username": user_dict['username'],
+#             "access_token": session['access_token'],
+#             "fullname": user_dict['name'],
+#             "email": user_dict['email']
+#         })
+#         decoded = json.loads(out)
+#         return Response(json.dumps(decoded, sort_keys=False, indent=4),mimetype='application/json')
+#     else:
+#         abort(404)
 
 def login(type, token, name, username, email, picture):
     user = User.objects(email=email)
     if len(user) == 0:
-        new_user = create_user(type, name, username, email, picture)
+        if not email:
+            return Response(json.dumps("no", sort_keys=False, indent=4),
+                    mimetype='application/json')
+        else:
+            new_user = create_user(type, name, username, email, picture)
 
-        session['access_token'] = token
-        session['name'] = user
-        session['username'] = username
-        session['email'] = email
+            session['access_token'] = token
+            session['name'] = user
+            session['username'] = username
+            session['email'] = email
 
-        return Response(json.dumps(new_user, sort_keys=False, indent=4),
+            return Response(json.dumps(new_user, sort_keys=False, indent=4),
                     mimetype='application/json')
     else:
         user_json = user.to_json()
@@ -53,12 +57,12 @@ def login_fb():
 
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():
-    return login("twitter", request.headers['access_token'], request.json['name'], request.json['screen_name'], request.json['email'], request.json['profile_image_url'])
+    return login("twitter", request.headers['access_token'], request.json['name'], request.json['screen_name'], request.json.get('email', ''), request.json['profile_image_url'])
 
 
 @app.route('/api/login/google', methods=['POST'])
 def login_plus():
-    return login("google", request.headers['access_token'], request.json['name'], request.json['name'].replace(" ", ""), request.json['email'], request.json['picture'])
+    return login("google", request.headers['access_token'], request.json['name'], request.json['name'].replace(" ", ""), request.json.get('email', ''), request.json['picture'])
 
 @app.route('/api/logout', methods=['GET'])
 def logout():

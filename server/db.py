@@ -50,9 +50,9 @@ class Word(EmbeddedDocument):
 
 class User(Document):
     user_id = IntField(unique=True)
-    username = StringField(max_length=20, unique=True)
+    username = StringField()
     name = StringField()
-    email = StringField()
+    email = StringField(unique=True)
     picture = StringField()
     type = StringField()
     bio = StringField(max_length=150)

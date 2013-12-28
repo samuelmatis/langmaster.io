@@ -24,7 +24,8 @@ def create_user(type, name, username, email, picture):
                 words=[])
 
     user.save()
-    return str(user)
+    user_json = json.loads(user.to_json())
+    return json.dumps(user_json, sort_keys=False, indent=4)
 
 
 @app.route('/api/user', methods=['GET'])
