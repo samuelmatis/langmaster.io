@@ -13,7 +13,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         },
 
         urlRoot: function() {
-            return "/api/users/" + App.user.userName + "/words";
+            return "/api/user/words";
         },
 
         parse: function (response) {
@@ -31,10 +31,6 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             }
             if(!attrs.translation) {
                 errors.translation = "Can't be blank";
-            } else {
-                if(attrs.translation.length < 2) {
-                    errors.translation = "Is too short";
-                }
             }
             if(!_.isEmpty(errors)) {
                 return errors;
@@ -51,7 +47,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      */
     Entities.WordCollection = Backbone.Collection.extend({
         url: function() {
-            return "/api/users/" + App.user.userName + "/words";
+            return "/api/user/words";
         },
 
         model: Entities.Word

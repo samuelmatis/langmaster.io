@@ -33,6 +33,10 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
             "click .js-save": "saveAbout"
         },
 
+        triggers: {
+            "click .js-remove-account": "remove:account"
+        },
+
         saveAbout: function(e) {
             e.preventDefault();
             var data = Backbone.Syphon.serialize(this);

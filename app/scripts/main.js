@@ -15,17 +15,16 @@ App.addRegions({
 App.on("initialize:before", function(options){
     // Get user info
     $.ajax({
-        url: "/api/session",
+        url: "/api/user",
         async: false,
         success: function(res) {
-            Cookies.set("access_token", res.access_token, {expires: 3600});
             App.user = {};
-            App.user.userName = res.username;
-            App.user.fullName = res.fullname;
-            App.user.email = res.email;
+            App.user.userName = res[0]['username'];
+            App.user.fullName = res[0]['name'];
+            App.user.email = res[0]['email'];
         },
         error: function() {
-            App.vent.trigger("app:logout");
+            window.location.replace("/api/logout");
         }
     });
 });
@@ -41,7 +40,6 @@ App.on("initialize:after", function() {
     }
 
     App.vent.on("app:logout", function() {
-        Cookies.expire('access_token');
         window.location.replace("/api/logout");
     });
 });

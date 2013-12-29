@@ -1,9 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Radley&subset=latin,latin-ext);
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 html,body { height: 100%; }
-body { margin: 0 auto; line-height: 1.7em; padding-top: 70px; }
+body { margin: 0 auto; line-height: 1.7em; padding-top: 90px; }
 #wrap { min-height: 100%; height: auto; margin: 0 auto -60px; padding: 0 0 60px; }
-.navbar-brand { font-family: 'Radley', serif; font-size: 20px; color: #428bca !important; padding-left: 0px; }
+.navbar-brand { font-family: 'Radley', serif; font-size: 20px; color: #428bca !important; padding-left: 0px;  padding-bottom: 5px; padding-top: 10px; }
+.nav>li { margin-top: 5px; height: 65px; }
+.navbar-nav { height: 60px; }
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {  padding-top: 20px; padding-bottom: 20px; }
+.nav>li.active { margin-top: 0px; }
 .container-footer { padding: 0 15px; }
 .container-footer .credit { margin: 20px 0; }
 .btn-logout { margin-left: 10px; margin-right: 10px; }
@@ -20,3 +24,4 @@ body { margin: 0 auto; line-height: 1.7em; padding-top: 70px; }
 .navbar-test {background-color: white; border-color: white; margin-top: -70px;}
 .glyphicon-profile {  margin-bottom: 10px;margin-right: 10px;}
 small {display: block;line-height: 1.428571429;color: #999;}
+.navbar-default .navbar-text { margin-top: 20px; }

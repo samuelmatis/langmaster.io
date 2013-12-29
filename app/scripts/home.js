@@ -8,19 +8,36 @@ $(".js-signin").on("click",function(e){
     });
 });
 
+function login(type, access_token, data) {
+    $.ajax({
+        type: "POST",
+        url: "api/login/" + type,
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        dataType: 'json',
+        beforeSend: function (request) { request.setRequestHeader("access_token", access_token); },
+        success: function(res) {
+            if (res == "no") {
+                bootbox.prompt("What is your email?", function(result) {
+                    if (result === null) {
+                        return ;
+                    } else {
+                        data.email = result;
+                        login(type, access_token, data);
+                    }
+                });
+            } else {
+                window.location.reload(true);
+            }
+        },
+    });
+}
+
 $(".js-login-facebook").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("facebook", function (err, result) {
         result.get("/me?fields=id,name,username,email,picture.type(large)").done(function(data) {
-            $.ajax({
-                type: "POST",
-                url: "api/login/facebook",
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                dataType: 'json',
-                beforeSend: function (request) { request.setRequestHeader("access_token", result.access_token); },
-                success: function() { window.location.reload(true); }
-            });
+            login("facebook", result.access_token, data);
         });
     })
 });
@@ -33,22 +50,7 @@ $(".js-login-twitter").on("click", function (h) {
         cb.setToken(result.oauth_token, result.oauth_token_secret);
         _user = cb.__call(
             "account_verifyCredentials", {}, function (data) {
-                bootbox.prompt("What is your email?", function(result) {
-                    if (result === null) {
-                        return ;
-                    } else {
-                        data.email = result;
-                        $.ajax({
-                            type: "POST",
-                            url: "api/login/twitter",
-                            data: JSON.stringify(data),
-                            contentType: "application/json",
-                            dataType: "json",
-                            beforeSend: function(request) { request.setRequestHeader("access_token", result.oauth_token)},
-                            success: function(res) { window.location.reload(true); }
-                        });
-                    }
-                });
+                login("twitter", result.access_token, data);
             }
         );
     });
@@ -57,23 +59,9 @@ $(".js-login-twitter").on("click", function (h) {
 $(".js-login-google").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("google", function (err, result) {
+        console.log(result);
         $.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + result.access_token, function(data) {
-            bootbox.prompt("What is your email?", function(result) {
-                if (result === null) {
-                    return ;
-                } else {
-                    data.email = result;
-                    $.ajax({
-                        type: "POST",
-                        url: "api/login/google",
-                        data: JSON.stringify(data),
-                        contentType: "application/json",
-                        dataType: "json",
-                        beforeSend: function(request) { request.setRequestHeader("access_token", result.access_token)},
-                        success: function(res) { window.location.reload(true); }
-                    });
-                }
-            });
+            login("google", result.access_token, data);
         });
     })
 });
