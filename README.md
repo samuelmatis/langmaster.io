@@ -29,6 +29,7 @@ Web application for smarter memorizing vocabulary of a foreign language.
     2. Change `host=os.environ['MONGOLAB_URI']` to `host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'`
 
 * #### Use your own database ####
+
     1. Create your own database and create *users* collection
     2. Go to the *server/db.py*
     3. Change `host=os.environ['MONGOLAB_URI']` with your mongodb:// database url
