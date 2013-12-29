@@ -1,12 +1,10 @@
 from mongoengine import *
 from flask.ext.mongoengine import MongoEngine
-import os
 
-# Connection to MongoDB
-# Read README.md if you need help with setting up database
+# Connectionry to MongoDB
 connect(
     'words',
-    host=os.environ['MONGOLAB_URI']
+    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
 )
 
 # Make dict from MongoDB collec
@@ -52,9 +50,9 @@ class Word(EmbeddedDocument):
 
 class User(Document):
     user_id = IntField(unique=True)
-    username = StringField()
+    username = StringField(max_length=20, unique=True)
     name = StringField()
-    email = StringField(unique=True)
+    email = StringField()
     picture = StringField()
     type = StringField()
     bio = StringField(max_length=150)
