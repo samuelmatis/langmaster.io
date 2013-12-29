@@ -1,7 +1,8 @@
 # Words #
 
 Web application for smarter memorizing vocabulary of a foreign language.
-_ _ _ 
+
+
 ### Technologies: ####
 
 #### Server: ####
@@ -12,13 +13,15 @@ _ _ _
 * Backbone.js with Marionette
 * Twitter Bootstrap
 * OAuth.io
-_ _ _ 
+
+
 ### Running locally ###
 
 1. Install dependencies : `(sudo) npm install && pip install -r requirements.txt && bower install`
 2. Run the application : `python server/server.py`
 3. Open a web browser with URL [http://localhost:5000](http://localhost:5000)
-_ _ _ 
+
+
 ### Setting up database ###
 * #### Use our demo database (publicly available) ####
     
@@ -29,7 +32,8 @@ _ _ _
     1. Create your own database and create *users* collection
     2. Go to the *server/db.py*
     3. Change `host=os.environ['MONGOLAB_URI']` with your mongodb:// database url
-_ _ _
+
+
 ### Build the application ###
 
 1. Run `grunt build` command from command line
