@@ -1,10 +1,11 @@
 from mongoengine import *
 from flask.ext.mongoengine import MongoEngine
+import os
 
 # Connectionry to MongoDB
 connect(
     'words',
-    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
+    host=os.environ['MONGOLAB_URI']
 )
 
 # Make dict from MongoDB collec
