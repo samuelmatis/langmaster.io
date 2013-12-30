@@ -48,6 +48,7 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                         dataType: 'json',
                         success: function(res) {
                             $.bootstrapGrowl("Your profile has been saved.", { type: 'success' });
+                            App.trigger("profile:show");
                         }
                     })
                 });
