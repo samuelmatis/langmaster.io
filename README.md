@@ -1,4 +1,4 @@
-# Words #
+# Langmaster.io #
 
 Web application for smarter memorizing vocabulary of a foreign language.
 
