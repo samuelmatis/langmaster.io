@@ -11,7 +11,7 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
             var headers = new List.Headers({collection: links});
 
             headers.on("brand:clicked", function(){
-                App.trigger("contacts:list");
+                App.trigger("words:list");
             });
 
             headers.on("itemview:navigate", function(childView, model){

@@ -40,8 +40,8 @@ App.module("Header.List", function(List, App, Backbone, Marionette, $, _){
         itemViewContainer: "ul.nav-main",
 
         events: {
-            "click a.brand": "brandClicked",
-            "click .js-logout": "logout"
+            "click a.navbar-brand": "brandClicked",
+            "click .js-logout": "logout",
         },
 
         serializeData: function() {

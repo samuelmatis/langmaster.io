@@ -15,7 +15,6 @@ function login(type, access_token, data) {
         data: JSON.stringify(data),
         contentType: 'application/json',
         dataType: 'json',
-        beforeSend: function (request) { request.setRequestHeader("access_token", access_token); },
         success: function(res) {
             if (res == "no") {
                 bootbox.prompt("What is your email?", function(result) {
@@ -36,7 +35,7 @@ function login(type, access_token, data) {
 $(".js-login-facebook").on("click", function (h) {
     h.preventDefault();
     OAuth.popup("facebook", function (err, result) {
-        result.get("/me?fields=id,name,username,email,picture.type(large)").done(function(data) {
+        result.get("/me?fields=id,name,username,email,link,picture.type(large)").done(function(data) {
             login("facebook", result.access_token, data);
         });
     })
