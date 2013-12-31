@@ -33,6 +33,14 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         collection: weakestWords
                     });
 
+                    startView.on("show", function() {
+                        Mousetrap.bind("enter", function() { startView.trigger("start:test"); });
+                    });
+
+                    startView.on("close", function() {
+                        Mousetrap.unbind("enter");
+                    });
+
                     // On start test
                     startView.on("start:test", function() {
                         App.Test.Main.Controller.showTest(words);
