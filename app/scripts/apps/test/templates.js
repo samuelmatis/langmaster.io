@@ -63,7 +63,7 @@ window.JST['test/main-region'] = _.template(
         </div> \
         <div class="col-md-5"> \
             <form class="form" id="test-form" role="form"> \
-                <input type="text" name="answer" class="form-control col-md-12" autofocus="autofocus"> \
+                <input type="text" name="answer" class="js-test-input form-control col-md-12" autofocus="autofocus"> \
                 <button class="js-submit-answer btn btn-success" form="test-form" style="margin-top: 40px;">Check</button> \
             </form> \
         </div> \
