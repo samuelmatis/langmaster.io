@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Radley&subset=latin,latin-ext);
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 html,body { height: 100%; }
 body { margin: 0 auto; line-height: 1.7em; padding-top: 90px; }
@@ -25,3 +26,9 @@ body { margin: 0 auto; line-height: 1.7em; padding-top: 90px; }
 .glyphicon-profile {  margin-bottom: 10px;margin-right: 10px;}
 small {display: block;line-height: 1.428571429;color: #999;}
 .navbar-default .navbar-text { margin-top: 20px; }
+#profile-types { list-style-type: none; padding-left: 0px;}
+.profile-type-icon { font-size: 17px; }
+.fa-facebook-square { color: #43609C; }
+.fa-twitter-square { color: #00BBF5; }
+.fa-google-plus-square { color: #DA5534; }
+.profile-link { margin-left: 5px; }

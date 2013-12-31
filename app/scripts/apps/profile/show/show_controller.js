@@ -66,7 +66,6 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                                         url: "api/user",
                                         type: "DELETE",
                                         success: function() {
-                                            $.bootstrapGrowl("Your account has been deleted.");
                                             App.vent.trigger("app:logout");
                                         }
                                     });
