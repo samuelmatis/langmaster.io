@@ -97,17 +97,19 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     // Close test after it will exceed steps
                     if(localStorage.getItem("steps") < 0) {
                         testLayout.close();
-                        App.Test.Main.Controller.showAfterTest(words);
+                        App.Test.Main.Controller.showAfterTest(weakestWords);
                     }
 
                     // Check if word is not repeating
                     if(localStorage.getItem("steps") < 16) {
-                        if(this.model.get("word") === localStorage.getItem("last_word")) {
-                            testLayoutMain.model = randomWord();
-                            testLayout.testResult.close();
-                            testLayout.testMain.show(testLayoutMain);
-                            self.$("#js-submit-answer").focus();
-                            console.log(localStorage['steps']);
+                        if(weakestWords.size() > 1) {
+                            if(this.model.get("word") === localStorage.getItem("last_word")) {
+                                testLayoutMain.model = randomWord();
+                                testLayout.testResult.close();
+                                testLayout.testMain.show(testLayoutMain);
+                                testLayoutHeader.model.set("steps", localStorage.getItem('steps'));
+                                self.$("#js-submit-answer").focus();
+                            }
                         }
 
                         localStorage.setItem("last_word", this.model.get("word"));
