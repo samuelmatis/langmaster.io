@@ -43,7 +43,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                     // On start test
                     startView.on("start:test", function() {
-                        App.Test.Main.Controller.showTest(words);
+                        App.Test.Main.Controller.showTest(weakestWords);
                     });
 
                     App.appRegion.show(startView);
@@ -56,7 +56,8 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
             });
         },
 
-        showTest: function(words) {
+        showTest: function(weakestWords) {
+
             App.headerRegion.close();
             var testLayout = new Main.TestLayout();
             var testLayoutHeader = new Main.HeaderRegion();
@@ -67,9 +68,8 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                 // Find a random word from words collection
                 randomWord = function() {
-                    var randomNumber = Math.floor(Math.random() * (words.size() - 1 + 1)) + 1;
-                    // _.random(1, words.size());
-                    var selectedWord = words.at(randomNumber - 1);
+                    var randomNumber = Math.floor(Math.random() * (weakestWords.size() - 1 + 1)) + 1;
+                    var selectedWord = weakestWords.at(randomNumber - 1);
                     return selectedWord;
                 };
 
@@ -176,7 +176,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
             App.appRegion.show(testLayout);
         },
 
-        showAfterTest: function(words) {
+        showAfterTest: function(weakestWords) {
             // Create backbone collection of output words
             var outputWords = new Backbone.Collection();
 
