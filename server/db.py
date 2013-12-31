@@ -2,13 +2,12 @@ from mongoengine import *
 from flask.ext.mongoengine import MongoEngine
 import os
 
-# Connectionry to MongoDB
+# Connect to MongoDB
 connect(
-    'words',
     host=os.environ['MONGOLAB_URI']
 )
 
-# Make dict from MongoDB collec
+# Make dict from MongoDB collection
 def make_dict(obj):
     return_data = []
 
@@ -37,7 +36,7 @@ def make_dict(obj):
 
     return dict(return_data)
 
-# Define mongoengine documents
+# Define mongoengine schema
 class Word(EmbeddedDocument):
     word_id = IntField()
     word = StringField()
