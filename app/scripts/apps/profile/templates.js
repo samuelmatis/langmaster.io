@@ -16,8 +16,11 @@ window.JST['profile/profile'] = _.template(
                                     <p> \
                                         <i class="glyphicon glyphicon-profile glyphicon-envelope"></i><%= email %> \
                                         <br> \
-                                        <i class="glyphicon glyphicon-profile glyphicon-globe"></i><a href="<% if(type == "google") { %>https://www.plus.google.com/<%= username %>"><% } else { %>https://www.<%= type %>.com/<%= username %><% } %>"><%= type %> profile</a> \
-                                        <br> \
+                                        <ul id="profile-types"> \
+                                        <% for(t in type) { %> \
+                                            <li><i class="fa fa-<%= type[t]["type"].toLowerCase() %>-square profile-type-icon"></i><a class="profile-link" href="<%= type[t]["profile_url"] %>"><%= type[t]["type"].replace(/-/g," ") %> profile</a></li> \
+                                        <% } %> \
+                                        </ul> \
                                         <span style="font-weight: 600">Words:</span> <%= numWords %> \
                                         <br> \
                                         <span style="font-weight: 600">Learning since </span> <%= learningSince %></p> \

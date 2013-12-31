@@ -8,7 +8,7 @@ import os
 # Route for homepage
 @app.route('/')
 def index():
-    if 'access_token' in session:
+    if 'email' in session:
         return render_template("index.html")
     else:
         return render_template("home.html")

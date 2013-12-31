@@ -47,6 +47,13 @@ class Word(EmbeddedDocument):
     def to_dict(self):
         return make_dict(self)
 
+class Type(EmbeddedDocument):
+    type = StringField()
+    profile_url = StringField()
+    meta = {'collection': 'users'}
+
+    def to_dict(self):
+        return make_dict(self)
 
 class User(Document):
     user_id = IntField(unique=True)
@@ -54,7 +61,7 @@ class User(Document):
     name = StringField()
     email = StringField(unique=True)
     picture = StringField()
-    type = StringField()
+    type = ListField(EmbeddedDocumentField(Type))
     bio = StringField(max_length=150)
     first_login = StringField()
     location = StringField()

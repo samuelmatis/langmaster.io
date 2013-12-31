@@ -5,18 +5,21 @@ import json
 from datetime import datetime
 
 
-def create_user(type, name, username, email, picture):
+def create_user(type, profile_url, name, username, email, picture):
     users = json.loads(User.objects().to_json())
     try:
         u_id = users[0]["user_id"]+1
     except:
         u_id = 1
+
+    new_type = Type(type=type, profile_url=profile_url)
+
     user = User(user_id=u_id,
                 username=username,
                 name=name,
                 picture=picture,
                 email=email,
-                type=type,
+                type=[new_type],
                 bio="",
                 location="",
                 native="",

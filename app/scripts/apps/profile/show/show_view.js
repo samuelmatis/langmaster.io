@@ -20,7 +20,7 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                 "username": App.user.userName,
                 "email": App.user.email,
                 "picture": this.opt.picture,
-                "type": this.opt.type.capitalize(),
+                "type": this.opt.type,
                 "numWords": this.opt.numWords,
                 "bio": this.opt.bio,
                 "native": this.opt.native,
