@@ -111,6 +111,9 @@ def test_end():
                 word["last_points"] = 0
                 word["success"] = -1
                 testa.append(word)
+            else:
+                word["success"] = 0
+                testa.append(word)
 
     user.update(**{"set__points": user_json[0]["points"] + sum(l_points)})
     user.update(**{"set__words": words})
