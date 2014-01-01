@@ -33,13 +33,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         collection: weakestWords
                     });
 
-                    startView.on("show", function() {
-                        Mousetrap.bind("enter", function() { startView.trigger("start:test"); });
-                    });
-
-                    startView.on("close", function() {
-                        Mousetrap.unbind("enter");
-                    });
+                    // Bind and unbind enter key to start the test
+                    startView.on("show", function() { Mousetrap.bind("enter", function() { startView.trigger("start:test"); }); });
+                    startView.on("close", function() { Mousetrap.unbind("enter"); });
 
                     // On start test
                     startView.on("start:test", function() {
@@ -129,11 +125,11 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         // Save progress to localStorage and show result view
                         var showResult = function(text, number) {
 
-                            var words = JSON.parse(localStorage.getItem("words"));
+                            var test_words = JSON.parse(localStorage.getItem("words"));
 
-                            if (words.indexOf(word_id)) < 0) {
-                                words.push(word_id);
-                                localStorage["words"] = JSON.stringify(words);
+                            if (test_words.indexOf(word_id) < 0) {
+                                test_words.push(word_id);
+                                localStorage["words"] = JSON.stringify(test_words);
                             }
 
                             var result = new Main.TestResult({ result: text });
