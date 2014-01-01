@@ -24,7 +24,8 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                         self.location = res[0]["location"],
                         self.learningSince = res[0]["first_login"],
                         self.type = res[0]["type"],
-                        self.picture = res[0]["picture"]
+                        self.picture = res[0]["picture"],
+                        self.points = res[0]["points"]
                     }
                 });
 
@@ -35,7 +36,8 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                     location: this.location,
                     learningSince: this.learningSince,
                     type: this.type,
-                    picture: this.picture
+                    picture: this.picture,
+                    points: this.points
                 });
 
                 profileView.on("about:submit", function(data) {

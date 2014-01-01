@@ -25,7 +25,8 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                 "bio": this.opt.bio,
                 "native": this.opt.native,
                 "location": this.opt.location,
-                "learningSince": this.opt.learningSince
+                "learningSince": this.opt.learningSince,
+                "points": this.opt.points
             }
         },
 

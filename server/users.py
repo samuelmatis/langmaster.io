@@ -23,6 +23,7 @@ def create_user(type, profile_url, name, username, email, picture):
                 bio="",
                 location="",
                 native="",
+                points=0,
                 first_login=datetime.now().strftime('%Y-%m-%d'),
                 words=[])
 
