@@ -44,7 +44,6 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                     App.appRegion.show(startView);
                 } else {
-
                     // If there are no words
                     var noWords = new Main.TestNoWords();
                     App.appRegion.show(noWords);
@@ -98,7 +97,6 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                                 testLayoutMain.model = randomWord();
                                 testLayout.testResult.close();
                                 testLayout.testMain.show(testLayoutMain);
-                                testLayoutHeader.model.set("steps", localStorage.getItem('steps'));
                                 self.$("#js-submit-answer").focus();
                             }
                         }
