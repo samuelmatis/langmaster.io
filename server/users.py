@@ -4,7 +4,6 @@ from flask import request, session, abort, Response, jsonify, render_template
 import json
 from datetime import datetime
 
-
 def create_user(type, profile_url, name, username, email, picture):
     users = json.loads(User.objects().to_json())
     try:
@@ -34,9 +33,9 @@ def create_user(type, profile_url, name, username, email, picture):
 
 @app.route('/api/user', methods=['GET'])
 def get_user():
-        user = User.objects(email=session['email'])
-        user_json = json.loads(user.to_json())
-        return Response(json.dumps(user_json, sort_keys=False, indent=4),mimetype='application/json')
+    user = User.objects(email=session.get('email',''))
+    user_json = json.loads(user.to_json())
+    return Response(json.dumps(user_json, sort_keys=False, indent=4),mimetype='application/json')
 
 
 @app.route('/api/user', methods=['PUT'])

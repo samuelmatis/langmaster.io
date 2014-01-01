@@ -46,6 +46,19 @@ def test():
     return compare_result
 
 
+@app.route("/api/test/giveup", methods=['POST'])
+def test_giveup():
+    user = User.objects(email=session.get('email',''))
+    user_json = json.loads(user.to_json())
+    words = user_json[0]["words"]
+
+    l_points = [word["last_points"] for word in words]
+
+    user.update(**{"set__points": user_json[0]["points"] - 15 })
+
+    return Response(json.dumps(user_json, sort_keys=False, indent=4), mimetype='application/json')
+
+
 @app.route('/api/test/end', methods=['POST'])
 def test_end():
     user = User.objects(email=session.get('email',''))

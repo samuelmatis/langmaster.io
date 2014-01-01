@@ -155,13 +155,15 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 testLayoutHeader.on("test:giveup", function() {
-                    // Remove test items from localStorage
-                    localStorage.removeItem("words");
-                    localStorage.removeItem("last_word");
-                    localStorage.removeItem("steps");
-                    var HeaderPanel = new Main.TestHeaderPanel();
-                    App.headerRegion.show(HeaderPanel);
-                    App.trigger("test:main:show");
+                    $.post("api/test/giveup", function() {
+                        localStorage.removeItem("words");
+                        localStorage.removeItem("last_word");
+                        localStorage.removeItem("steps");
+                        var HeaderPanel = new Main.TestHeaderPanel();
+                        App.headerRegion.show(HeaderPanel);
+                        App.trigger("test:main:show");
+                    });
+
                 });
 
                 testLayout.testMain.show(testLayoutMain);
@@ -177,7 +179,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
             var data = { "words": JSON.parse(localStorage.getItem("words")).toString() }
             $.ajax({
                 type: "POST",
-                url: "api/test-end",
+                url: "api/test/end",
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 dataType: 'json',
