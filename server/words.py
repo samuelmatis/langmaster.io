@@ -37,6 +37,9 @@ def create_word():
     word = Word(word_id=u_id,
                 word=request.json["word"],
                 translation=request.json["translation"],
+                last_test="",
+                points=0,
+                last_points=0,
                 strength=0)
     words.append(word.to_dict())
     user.update(**{"set__words": words})

@@ -4,7 +4,8 @@ import os
 
 # Connect to MongoDB
 connect(
-    host=os.environ['MONGOLAB_URI']
+    'words',
+    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
 )
 
 # Make dict from MongoDB collection
@@ -38,10 +39,13 @@ def make_dict(obj):
 
 # Define mongoengine schema
 class Word(EmbeddedDocument):
-    word_id = IntField()
+    word_id = IntField(unique=True)
     word = StringField()
     translation = StringField()
     strength = IntField()
+    last_test = StringField()
+    points = IntField()
+    last_points = IntField()
     meta = {'collection': 'users'}
 
     def to_dict(self):
@@ -61,6 +65,7 @@ class User(Document):
     name = StringField()
     email = StringField(unique=True)
     picture = StringField()
+    points = IntField()
     type = ListField(EmbeddedDocumentField(Type))
     bio = StringField(max_length=150)
     first_login = StringField()

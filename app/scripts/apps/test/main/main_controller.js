@@ -83,16 +83,11 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                 testLayoutMain.once("show", function() {
                     localStorage.setItem("last_word", "");
-                    console.log(testLayoutMain.model);
+                    localStorage.setItem("words", "[]");
                 });
 
                 // On test page show
                 testLayoutMain.on("show", function() {
-
-                    // Check if localStorage word test item exist
-                    if(localStorage.getItem("test_word_" + this.model.get("word")) === null) {
-                        localStorage.setItem("test_word_" + this.model.get("word"), "");
-                    }
 
                     // Close test after it will exceed steps
                     if(localStorage.getItem("steps") < 0) {
@@ -124,17 +119,22 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     localStorage['steps']--;
 
                     var origin_word = this.model.get("word");
+                    var word_id = this.model.get("id");
                     var input_word = data.answer;
                     var self = this;
 
                     // Check word correctness from API
-                    $.post("api/test/compare", {"origin": origin_word, "input": input_word}, function(data) {
-
-                        console.log(data);
+                    $.post("api/test", {"origin": origin_word, "input": input_word}, function(data) {
 
                         // Save progress to localStorage and show result view
                         var showResult = function(text, number) {
-                            localStorage["test_word_" + origin_word] += number;
+
+                            var words = JSON.parse(localStorage.getItem("words"));
+
+                            if (words.indexOf(word_id)) < 0) {
+                                words.push(word_id);
+                                localStorage["words"] = JSON.stringify(words);
+                            }
 
                             var result = new Main.TestResult({ result: text });
                             testLayout.testResult.show(result);
@@ -162,11 +162,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                 testLayoutHeader.on("test:giveup", function() {
                     // Remove test items from localStorage
-                    Object.keys(localStorage).forEach(function(key) {
-                        if(/^test_word_.*$/.test(key)) { localStorage.removeItem(key); }
-                        localStorage.removeItem("last_word");
-                        localStorage.removeItem("steps");
-                    });
+                    localStorage.removeItem("words");
+                    localStorage.removeItem("last_word");
+                    localStorage.removeItem("steps");
                     var HeaderPanel = new Main.TestHeaderPanel();
                     App.headerRegion.show(HeaderPanel);
                     App.trigger("test:main:show");
@@ -182,20 +180,21 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
             // Create backbone collection of output words
             var outputWords = new Backbone.Collection();
 
-            // Send test words
-            Object.keys(localStorage).forEach(function(key) {
-                if(/^test_word_.*$/.test(key)) {
-                    console.log(key);
-                    var word = key.split("_")[2];
-                    var know = localStorage.getItem(key);
-
-                    // Send (demo) test results to the API and add results to collection
-                    $.post("api/test", {"word": word, "know": know}, function(data) {
-                        outputWords.add({word: data.word, strength: data.strength, increase: data.increase});
-                        localStorage.removeItem("test_word_" + data.word);
-                    });
+            var data = { "words": JSON.parse(localStorage.getItem("words")).toString() }
+            $.ajax({
+                type: "POST",
+                url: "api/test-end",
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(data) {
+                    for(i in data) {
+                        outputWords.add({word: data[i]["word"], translation: data[i]["translation"], strength: data[i]["strength"], increase: data[i]["success"]})
+                    }
                 }
             });
+
+            localStorage.removeItem("words");
             localStorage.removeItem("last_word");
             localStorage.removeItem("steps");
 
