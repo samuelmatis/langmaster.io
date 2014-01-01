@@ -2,19 +2,31 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
 
     /**
      * Header item model
-     * 
+     *
      * @entity Header
      */
     Entities.Header = Backbone.Model.extend({
         initialize: function() {
             var selectable = new Backbone.Picky.Selectable(this);
             _.extend(this, selectable);
+        },
+
+        initialize: function(attributes, options) {
+            options || (options = {});
+            this.bind("error", this.defaultErrorHandler);
+            this.init && this.init(attributes, options);
+        },
+
+        defaultErrorHandler: function(model, error) {
+            if (error.status == 401 || error.status == 403 || error.status == 500) {
+                App.vent.trigger("app:logout");
+            }
         }
     });
 
     /**
      * Header items collection
-     * 
+     *
      * @entity Header
      */
     Entities.HeaderCollection = Backbone.Collection.extend({
@@ -23,12 +35,24 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         initialize: function() {
             var singleSelect = new Backbone.Picky.SingleSelect(this);
             _.extend(this, singleSelect);
+        },
+
+        initialize: function(attributes, options) {
+            options || (options = {});
+            this.bind("error", this.defaultErrorHandler);
+            this.init && this.init(attributes, options);
+        },
+
+        defaultErrorHandler: function(model, error) {
+            if (error.status == 401 || error.status == 403 || error.status == 500) {
+                App.vent.trigger("app:logout");
+            }
         }
     });
 
     /**
      * Initialize header items
-     * 
+     *
      * @entity Header
      */
     var initializeHeaders = function() {
@@ -59,5 +83,5 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     App.reqres.setHandler("header:entities", function() {
         return API.getHeaders();
     });
- 
+
 });

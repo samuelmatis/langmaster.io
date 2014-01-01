@@ -24,6 +24,18 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             return response;
         },
 
+        initialize: function(attributes, options) {
+            options || (options = {});
+            this.bind("error", this.defaultErrorHandler);
+            this.init && this.init(attributes, options);
+        },
+
+        defaultErrorHandler: function(model, error) {
+            if (error.status == 401 || error.status == 403 || error.status == 500) {
+                App.vent.trigger("app:logout");
+            }
+        },
+
         validate: function(attrs, options) {
             var errors = {};
             if(!attrs.word) {
@@ -50,7 +62,19 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             return "/api/user/words";
         },
 
-        model: Entities.Word
+        model: Entities.Word,
+
+        initialize: function(attributes, options) {
+            options || (options = {});
+            this.bind("error", this.defaultErrorHandler);
+            this.init && this.init(attributes, options);
+        },
+
+        defaultErrorHandler: function(model, error) {
+            if (error.status == 401 || error.status == 403 || error.status == 500) {
+                App.vent.trigger("app:logout");
+            }
+        }
     });
 
     // Entities.configureStorage(Entities.WordCollection);

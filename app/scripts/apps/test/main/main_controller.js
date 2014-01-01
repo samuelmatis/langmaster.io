@@ -185,6 +185,9 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                     for(i in data) {
                         outputWords.add({word: data[i]["word"], translation: data[i]["translation"], strength: data[i]["strength"], increase: data[i]["success"]})
                     }
+                },
+                error: function() {
+                    App.vent.trigger("app:logout");
                 }
             });
 

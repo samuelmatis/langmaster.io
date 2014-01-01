@@ -41,7 +41,7 @@ def get_user():
 
 @app.route('/api/user', methods=['PUT'])
 def update_user():
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user.update(**{
             "set__bio": request.json['bio'],
             "set__location": request.json['location'],
@@ -53,7 +53,7 @@ def update_user():
 
 @app.route('/api/user', methods=['DELETE'])
 def delete_user():
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     if user_json == []:
         abort(404)

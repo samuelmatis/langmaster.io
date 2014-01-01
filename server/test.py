@@ -46,10 +46,9 @@ def test():
     return compare_result
 
 
-@app.route('/api/test-end', methods=['POST'])
+@app.route('/api/test/end', methods=['POST'])
 def test_end():
-
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
 

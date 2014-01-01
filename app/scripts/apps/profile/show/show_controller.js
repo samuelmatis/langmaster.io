@@ -26,6 +26,9 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                         self.type = res[0]["type"],
                         self.picture = res[0]["picture"],
                         self.points = res[0]["points"]
+                    },
+                    error: function() {
+                        App.vent.trigger("app:logout");
                     }
                 });
 
@@ -51,6 +54,9 @@ App.module("Profile.Show", function(Show, App, Backbone, Marionette, $, _) {
                         success: function(res) {
                             $.bootstrapGrowl("Your profile has been saved.", { type: 'success' });
                             App.trigger("profile:show");
+                        },
+                        error: function() {
+                            App.vent.trigger("app:logout");
                         }
                     })
                 });

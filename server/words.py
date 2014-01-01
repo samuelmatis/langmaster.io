@@ -6,14 +6,14 @@ import json
 
 @app.route('/api/user/words', methods=['GET'])
 def get_words():
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email', ''))
     user_json = json.loads(user.to_json())
     return Response(json.dumps(user_json[0]["words"], sort_keys=False, indent=4), mimetype='application/json')
 
 
 @app.route('/api/user/words/<int:word_id>', methods=['GET'])
 def get_word_id(word_id):
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
     word = [word for word in words if word["word_id"] == word_id]
@@ -24,7 +24,7 @@ def get_word_id(word_id):
 
 @app.route('/api/user/words', methods=['POST'])
 def create_word():
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     try:
         words = user_json[0]["words"]
@@ -48,7 +48,7 @@ def create_word():
 
 @app.route('/api/user/words/<int:word_id>', methods=['PUT'])
 def change_word(word_id):
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
     wordid_index = [k for k in range(len(words)) if words[k]["word_id"]
@@ -69,7 +69,7 @@ def change_word(word_id):
 
 @app.route('/api/user/words/<int:word_id>', methods=['DELETE'])
 def delete_word(word_id):
-    user = User.objects(email=session['email'])
+    user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
     word = [word for word in words if word["word_id"] == word_id]
