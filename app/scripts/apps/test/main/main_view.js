@@ -97,7 +97,6 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
         submitAnswer: function(e) {
             e.preventDefault();
             var data = Backbone.Syphon.serialize(this);
-            this.$(".js-test-input").prop('disabled', true);
             this.trigger("submit:answer", data);
         }
     });

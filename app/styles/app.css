@@ -12,6 +12,11 @@ body { margin: 0 auto; line-height: 1.7em; padding-top: 90px; }
 .container-footer { padding: 0 15px; }
 .container-footer .credit { margin: 20px 0; }
 .btn-logout { margin-left: 10px; margin-right: 10px; }
+.test-input-success { background: #edf8da !important; border: 1px solid #c2d799 !important; color: #5d9400 !important; }
+.test-input-fail { background: #ffecec !important; border: 1px solid #ffa8a8 !important; }
+.alert-success { background: #edf8da !important;
+border: 1px solid #c2d799 !important;
+color: #5d9400 !important;}
 .newword-left { padding-right: 5px !important; }
 .newword-right { padding-left: 5px !important; }
 #footer { height: 60px; background-color: #f5f5f5; }
@@ -32,3 +37,6 @@ small {display: block;line-height: 1.428571429;color: #999;}
 .fa-twitter-square { color: #00BBF5; }
 .fa-google-plus-square { color: #DA5534; }
 .profile-link { margin-left: 5px; }
+.alert { padding-top: 15px; }
+.btn-submit-answer { margin-top: -5px; }
+.btn-submit-answer:focus{ outline:none; }

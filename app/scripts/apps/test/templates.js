@@ -53,7 +53,7 @@ window.JST['test/main'] = _.template(
 window.JST['test/header'] = _.template(
     '<div class="row"> \
         <div class="col-md-6" id="test-header-giveup"><a class="js-giveup btn btn-default">Give up</a></div> \
-        <div class="col-md-6" id="test-header-steps"><%= steps %></div> \
+        <div class="col-md-6" id="test-header-steps"></div> \
     </div>');
 
 window.JST['test/main-region'] = _.template(
@@ -70,7 +70,7 @@ window.JST['test/main-region'] = _.template(
     </div>');
 
 window.JST['test/result-region'] = _.template(
-    '<div class="alert alert-<%= result %>" style="margin-top: 40px;"><%= result_text %><button class="js-next btn btn-<%= result %> pull-right">Next</button></div>');
+    '<div class="alert alert-<%= result %>" style="margin-top: 40px;"><%= result_text %><button class="js-next btn-submit-answer btn btn-<%= result %> pull-right">Next</button></div>');
 
 window.JST['test/final'] = _.template(
     '<h1>Test results</h1> \

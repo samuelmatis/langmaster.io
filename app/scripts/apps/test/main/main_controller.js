@@ -107,6 +107,7 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
 
                 // On submit answer
                 testLayoutMain.on("submit:answer", function(data) {
+                    this.$(".js-test-input").prop('disabled', true);
                     this.$(".js-submit-answer").hide();
 
                     // Count down steps
@@ -144,10 +145,13 @@ App.module("Test.Main", function(Main, App, Backbone, Marionette, $, _) {
                         }
 
                         if(data == 1) {
+                            self.$(".js-test-input").addClass("test-input-success");
                             showResult("good", 1);
                         } else if (data < 1.0 && data >= 0.9) {
+                            self.$(".js-test-input").addClass("test-input-success");
                             showResult("ok", 1);
                         } else if (data < 0.9) {
+                            self.$(".js-test-input").addClass("test-input-fail");
                             showResult("bad", 0);
                         }
                     });
