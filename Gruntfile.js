@@ -193,9 +193,8 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
-                        'images/{,*/}*.{webp,gif}',
-                        'fonts/{,*/}*.*',
-                        'images/homepage-bg.png'
+                        'images/{,*/}*.{webp,gif,png}',
+                        'fonts/{,*/}*.*'
                     ]
                 }]
             },
@@ -228,12 +227,11 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/{,*/}*.js',
                         '<%= yeoman.dist %>/styles/{,*/}*.css',
-                        '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                        '/styles/fonts/{,*/}*.*'
+                        '<%= yeoman.dist %>/styles/fonts/*'
                     ]
                 }
             }
-        }
+        },
     });
 
     grunt.registerTask('createDefaultTemplate', function () {
