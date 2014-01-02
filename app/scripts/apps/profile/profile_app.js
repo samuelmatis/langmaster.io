@@ -1,4 +1,4 @@
-App.module("Profile", function(Profile, App, Backbone, Marionette, $, _) {
+App.module('Profile', function(Profile, App, Backbone, Marionette, $, _) {
 
     /**
      * Router
@@ -6,7 +6,7 @@ App.module("Profile", function(Profile, App, Backbone, Marionette, $, _) {
      */
     Profile.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "profile": "showProfile"
+            'profile': 'showProfile'
         }
     });
 
@@ -17,15 +17,15 @@ App.module("Profile", function(Profile, App, Backbone, Marionette, $, _) {
     var API = {
         showProfile: function() {
             App.Profile.Show.Controller.showProfile();
-            App.execute("set:active:header", "profile");
+            App.execute('set:active:header', 'profile');
         }
     };
 
     /**
      * Events
      */
-    App.on("profile:show", function() {
-        App.navigate("profile");
+    App.on('profile:show', function() {
+        App.navigate('profile');
         API.showProfile();
     });
 

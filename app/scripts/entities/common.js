@@ -1,4 +1,4 @@
-App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
+App.module('Entities', function(Entities, App, Backbone, Marionette, $, _){
 
     /**
      * Filtered word collection
@@ -12,7 +12,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
         var applyFilter = function(filterCriterion, filterStrategy, collection){
             var collection = collection || original;
             var criterion;
-            if(filterStrategy == "filter"){
+            if(filterStrategy === 'filter'){
                 criterion = filterCriterion.trim();
             } else{
                 criterion = filterCriterion;
@@ -20,9 +20,9 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
 
             var items = [];
             if(criterion){
-                if(filterStrategy == "filter"){
+                if(filterStrategy === 'filter'){
                     if( ! filtered.filterFunction){
-                        throw("Attempted to use 'filter' function, but none was defined");
+                        throw('Attempted to use "filter" function, but none was defined');
                     }
                     var filterFunction = filtered.filterFunction(criterion);
                     items = collection.filter(filterFunction);
@@ -39,27 +39,27 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _){
         };
 
         filtered.filter = function(filterCriterion){
-            filtered._currentFilter = "filter";
-            var items = applyFilter(filterCriterion, "filter");
+            filtered._currentFilter = 'filter';
+            var items = applyFilter(filterCriterion, 'filter');
 
             filtered.reset(items);
             return filtered;
         };
 
         filtered.where = function(filterCriterion){
-            filtered._currentFilter = "where";
-            var items = applyFilter(filterCriterion, "where");
+            filtered._currentFilter = 'where';
+            var items = applyFilter(filterCriterion, 'where');
 
             filtered.reset(items);
             return filtered;
         };
 
-        original.on("reset", function(){
+        original.on('reset', function(){
             var items = applyFilter(filtered._currentCriterion, filtered._currentFilter);
             filtered.reset(items);
         });
 
-        original.on("add", function(models){
+        original.on('add', function(models){
             var coll = new original.constructor();
             coll.add(models);
             var items = applyFilter(filtered._currentCriterion, filtered._currentFilter, coll);

@@ -1,4 +1,4 @@
-App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
+App.module('Home', function(Home, App, Backbone, Marionette, $, _) {
 
     /**
      * Router
@@ -6,7 +6,7 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
      */
     Home.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "home": "showHome"
+            'home': 'showHome'
         }
     });
 
@@ -17,16 +17,16 @@ App.module("Home", function(Home, App, Backbone, Marionette, $, _) {
     var API = {
         showHome: function() {
             // App.Home.Show.Controller.showHome();
-            // App.execute("set:active:header", "home");
-            App.trigger("words:list");
+            // App.execute('set:active:header', 'home');
+            App.trigger('words:list');
         },
     };
 
     /**
      * Events
      */
-    App.on("home:show", function() {
-        App.navigate("home");
+    App.on('home:show', function() {
+        App.navigate('home');
         API.showHome();
     });
 

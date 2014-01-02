@@ -1,4 +1,4 @@
-App.module("Header", function(Header, App, Backbone, Marionette, $, _){
+App.module('Header', function(Header, App, Backbone, Marionette, $, _){
 
     /**
      * API
@@ -13,18 +13,18 @@ App.module("Header", function(Header, App, Backbone, Marionette, $, _){
     /**
      * Events
      */
-    App.commands.setHandler("set:active:header", function(name){
+    App.commands.setHandler('set:active:header', function(name){
         App.Header.List.Controller.setActiveHeader(name);
     });
 
     /**
      * On start and stop header sub-app
      */
-    Header.on("start", function(){
+    Header.on('start', function(){
         API.listHeader();
     });
 
-    Header.on("stop", function() {
+    Header.on('stop', function() {
         App.headerRegion.close();
     });
 });

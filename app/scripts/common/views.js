@@ -7,13 +7,13 @@ App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
      * @template #loading-view
      */
     Views.Loading = Marionette.ItemView.extend({
-        template: "common/loading",
+        template: 'common/loading',
 
         serializeData: function() {
             return {
-                title: this.options.title || "Loading Data",
-                message: this.options.message || "Please wait, data is loading"
-            }
+                title: this.options.title || 'Loading Data',
+                message: this.options.message || 'Please wait, data is loading'
+            };
         },
 
         onShow: function() {
@@ -38,6 +38,6 @@ App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
 
             $('#spinner').spin(opts);
         }
-    })
+    });
 
-})
+});

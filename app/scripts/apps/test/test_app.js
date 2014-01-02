@@ -1,4 +1,4 @@
-App.module("Test", function(Test, App, Backbone, Marionette, $, _) {
+App.module('Test', function(Test, App, Backbone, Marionette, $, _) {
 
     /**
      * Router
@@ -6,7 +6,7 @@ App.module("Test", function(Test, App, Backbone, Marionette, $, _) {
      */
     Test.Router = Marionette.AppRouter.extend({
         appRoutes: {
-            "test": "showTest"
+            'test': 'showTest'
         }
     });
 
@@ -17,15 +17,15 @@ App.module("Test", function(Test, App, Backbone, Marionette, $, _) {
     var API = {
         showTest: function() {
             Test.Main.Controller.showMain();
-            App.execute("set:active:header", "test");
+            App.execute('set:active:header', 'test');
         }
     };
 
     /**
      * Events
      */
-    App.on("test:main:show", function() {
-        App.navigate("test");
+    App.on('test:main:show', function() {
+        App.navigate('test');
         API.showTest();
     });
 

@@ -1,4 +1,4 @@
-App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
+App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
 
     List.Controller = {
 
@@ -14,10 +14,10 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
             App.appRegion.show(loadingView);
 
             // Fetch words
-            var words = App.request("words:entities");
+            var words = App.request('words:entities');
 
             // Initialize views
-            App.module("Header").start();
+            App.module('Header').start();
             var appRegionLayout = new List.Layout();
             var appRegionNewWord = new List.NewWord();
 
@@ -42,51 +42,51 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                 // Filter words if criterion is defined
                 if(criterion) {
                     filteredWords.filter(criterion);
-                    appRegionView.once("show", function(){
-                        appRegionView.triggerMethod("set:filter:criterion", criterion);
+                    appRegionView.once('show', function(){
+                        appRegionView.triggerMethod('set:filter:criterion', criterion);
                     });
                 }
 
                 // On words filter
-                appRegionView.on("words:filter", function(filterCriterion) {
+                appRegionView.on('words:filter', function(filterCriterion) {
                     filteredWords.filter(filterCriterion);
-                    App.trigger("words:filter", filterCriterion);
+                    App.trigger('words:filter', filterCriterion);
                 });
 
                 // On words layout show
-                appRegionLayout.on("show", function() {
+                appRegionLayout.on('show', function() {
                     appRegionLayout.listRegion.show(appRegionView);
                     appRegionLayout.addRegion.show(appRegionNewWord);
                 });
 
                 // On submit new word form
-                appRegionNewWord.on("form:submit", function(data) {
+                appRegionNewWord.on('form:submit', function(data) {
                     var newWord = new App.Entities.Word();
                     if(newWord.save(data)) {
-                        this.$("#create-word, #create-translation").val("");
-                        this.$("#create-word").focus();
+                        this.$('#create-word, #create-translation').val('');
+                        this.$('#create-word').focus();
                         words.add({
-                            id: newWord.get("id"),
-                            word: newWord.get("word"),
-                            translation: newWord.get("translation")
+                            id: newWord.get('id'),
+                            word: newWord.get('word'),
+                            translation: newWord.get('translation')
                         });
                     } else {
-                        appRegionNewWord.triggerMethod("form:data:invalid", newWord.validationError);
+                        appRegionNewWord.triggerMethod('form:data:invalid', newWord.validationError);
                     }
                 });
 
                 // On word edit
-                appRegionView.on("itemview:word:edit", function(childView, model) {
+                appRegionView.on('itemview:word:edit', function(childView, model) {
                     var view = new App.Words.Edit.Word({
                         model: model
                     });
 
-                    view.on("form:submit", function(data) {
+                    view.on('form:submit', function(data) {
                         if(model.save(data)) {
                             childView.render();
-                            view.trigger("dialog:close");
+                            view.trigger('dialog:close');
                         } else {
-                            view.triggerMethod("form:data:invalid", model.validationError);
+                            view.triggerMethod('form:data:invalid', model.validationError);
                         }
                     });
 
@@ -94,13 +94,13 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
                 });
 
                 // On word delete
-                appRegionView.on("itemview:word:delete", function(childView, model) {
+                appRegionView.on('itemview:word:delete', function(childView, model) {
                     model.destroy();
                 });
 
                 App.appRegion.show(appRegionLayout);
             });
         }
-    }
+    };
 
 });

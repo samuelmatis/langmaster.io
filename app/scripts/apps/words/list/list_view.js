@@ -1,4 +1,4 @@
-App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
+App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
 
     /**
      * Words layout
@@ -7,12 +7,12 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
      * @template #words-region-layout
      */
     List.Layout = Marionette.Layout.extend({
-        template: "words/region-layout",
-        className: "pure-g content-ribbon",
+        template: 'words/region-layout',
+        className: 'pure-g content-ribbon',
 
         regions: {
-            listRegion: "#list-words",
-            addRegion: "#add-new-word"
+            listRegion: '#list-words',
+            addRegion: '#add-new-word'
         }
     });
 
@@ -23,38 +23,38 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
      * @template #words-list-newword
      */
     List.NewWord = Marionette.ItemView.extend({
-        template: "words/new-word",
+        template: 'words/new-word',
 
         events: {
-            "click button.js-addnewword": "submitClicked"
+            'click button.js-addnewword': 'submitClicked'
         },
 
         submitClicked: function(e) {
             e.preventDefault();
             var data = Backbone.Syphon.serialize(this);
             console.log(data);
-            this.trigger("form:submit", data);
+            this.trigger('form:submit', data);
         },
 
         onFormDataInvalid: function(errors) {
             var $view = this.$el;
 
             var clearFormErrors = function() {
-                var $form = $view.find("form");
-                $form.find(".help-inline.error").each(function() {
+                var $form = $view.find('form');
+                $form.find('.help-inline.error').each(function() {
                     $(this).remove();
                 });
-                $form.find(".control-group.error").each(function() {
-                    $(this).removeClass("error");
+                $form.find('.control-group.error').each(function() {
+                    $(this).removeClass('error');
                 });
             }
 
             var self = this;
             var markErrors = function(value, key) {
-                var $controlGroup = self.$el.find("#create-" + key).parent();
-                var $errorEl = $('<span>', {class: "help-inline error", text: value});
-                $controlGroup.append($errorEl).addClass("error");
-            }
+                var $controlGroup = self.$el.find('#create-' + key).parent();
+                var $errorEl = $('<span>', {class: 'help-inline error', text: value});
+                $controlGroup.append($errorEl).addClass('error');
+            };
 
             clearFormErrors();
             _.each(errors, markErrors);
@@ -68,21 +68,21 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
      * @template #words-list-item
      */
     List.Word = Marionette.ItemView.extend({
-        tagName: "tr",
-        template: "words/list-item",
+        tagName: 'tr',
+        template: 'words/list-item',
 
         events: {
-            "click td a.js-edit": "editClicked",
-            "click button.js-delete": "deleteClicked"
+            'click td a.js-edit': 'editClicked',
+            'click button.js-delete': 'deleteClicked'
         },
 
         deleteClicked: function(e) {
             e.preventDefault();
             e.stopPropagation();
             var self = this;
-            bootbox.confirm("Do you really want to remove word " + this.model.get('word') + "?", function(result) {
+            bootbox.confirm('Do you really want to remove word ' + this.model.get('word') + '?', function(result) {
                 if(result) {
-                    self.trigger("word:delete", self.model);
+                    self.trigger('word:delete', self.model);
                 }
             });
         },
@@ -90,7 +90,7 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
         editClicked: function(e) {
             e.preventDefault();
             e.stopPropagation();
-            this.trigger("word:edit", this.model);
+            this.trigger('word:edit', this.model);
         }
     });
 
@@ -101,9 +101,9 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
      * @template #words-list-none
      */
     var NoWordsView = Marionette.ItemView.extend({
-        template: "words/list-none",
-        tagName: "tr",
-        className: "warning"
+        template: 'words/list-none',
+        tagName: 'tr',
+        className: 'warning'
     });
 
     /**
@@ -113,23 +113,23 @@ App.module("Words.List", function(List, App, Backbone, Marionette, $, _) {
      * @template #words-list
      */
     List.Words = Marionette.CompositeView.extend({
-        template: "words/list",
+        template: 'words/list',
         emptyView: NoWordsView,
         itemView: List.Word,
-        itemViewContainer: "tbody",
+        itemViewContainer: 'tbody',
 
         events: {
-            "click button.js-filter": "filterClicked"
+            'click button.js-filter': 'filterClicked'
         },
 
         ui: {
-            criterion: "input.js-filter-criterion"
+            criterion: 'input.js-filter-criterion'
         },
 
         filterClicked: function(e) {
             e.preventDefault();
             var criterion = this.$('.js-filter-criterion').val();
-            this.trigger("words:filter", criterion);
+            this.trigger('words:filter', criterion);
         },
 
         onSetFilterCriterion: function(criterion) {

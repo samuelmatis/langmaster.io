@@ -1,4 +1,4 @@
-App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
+App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     /**
      * Header item model
@@ -6,7 +6,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Header
      */
     Entities.Header = Backbone.Model.extend({
-        initialize: function(attributes, options) {
+        initialize: function() {
             var selectable = new Backbone.Picky.Selectable(this);
             _.extend(this, selectable);
         }
@@ -33,10 +33,10 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
      */
     var initializeHeaders = function() {
         Entities.headers = new Entities.HeaderCollection([
-            { name: "Home", url: "home", navigationTrigger: "home:show" },
-            { name: "Test", url: "test", navigationTrigger: "test:main:show" },
-            { name: "Words", url: "words", navigationTrigger: "words:list" },
-            { name: "Profile", url: "profile", navigationTrigger: "profile:show"}
+            { name: 'Home', url: 'home', navigationTrigger: 'home:show' },
+            { name: 'Test', url: 'test', navigationTrigger: 'test:main:show' },
+            { name: 'Words', url: 'words', navigationTrigger: 'words:list' },
+            { name: 'Profile', url: 'profile', navigationTrigger: 'profile:show'}
         ]);
     };
 
@@ -56,7 +56,7 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
     /**
      * Events
      */
-    App.reqres.setHandler("header:entities", function() {
+    App.reqres.setHandler('header:entities', function() {
         return API.getHeaders();
     });
 

@@ -1,4 +1,4 @@
-App.module("Home.Show", function(Show, App, Backbone, Marionette, $, _) {
+App.module('Home.Show', function(Show, App, Backbone, Marionette, $, _) {
 
     Show.Controller = {
 
@@ -6,6 +6,6 @@ App.module("Home.Show", function(Show, App, Backbone, Marionette, $, _) {
             App.appRegion.close();
         }
 
-    }
+    };
 
 });

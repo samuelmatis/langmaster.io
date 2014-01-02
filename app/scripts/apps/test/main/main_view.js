@@ -1,4 +1,4 @@
-App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
+App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
 
     /**
      * Test header panel
@@ -7,17 +7,17 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-header-panel
      */
      Main.TestHeaderPanel = Marionette.ItemView.extend({
-        template: "test/header-panel",
-        tagName: "nav",
-        className: "navbar-wrapper navbar-test navbar-default",
+        template: 'test/header-panel',
+        tagName: 'nav',
+        className: 'navbar-wrapper navbar-test navbar-default',
 
         events: {
-            "click .js-back-to-words": "backToWords"
+            'click .js-back-to-words': 'backToWords'
         },
 
         backToWords: function(e) {
             e.preventDefault();
-            App.trigger("words:list");
+            App.trigger('words:list');
         }
      });
 
@@ -28,8 +28,8 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-weakest-words
      */
     Main.StartPageWords = Marionette.ItemView.extend({
-        tagName: "tr",
-        template: "test/weakest-words"
+        tagName: 'tr',
+        template: 'test/weakest-words'
     });
 
     /**
@@ -39,14 +39,14 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-start
      */
     Main.StartPage = Marionette.CompositeView.extend({
-        template: "test/start",
-        className: "col-md-4 col-md-offset-4",
-        id: "test",
+        template: 'test/start',
+        className: 'col-md-4 col-md-offset-4',
+        id: 'test',
         itemView: Main.StartPageWords,
-        itemViewContainer: "tbody",
+        itemViewContainer: 'tbody',
 
         triggers: {
-            "click .js-start-test": "start:test"
+            'click .js-start-test': 'start:test'
         }
     });
 
@@ -57,13 +57,13 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-region-layout
      */
     Main.TestLayout = Marionette.Layout.extend({
-        template: "test/region-layout",
-        className: "row",
+        template: 'test/region-layout',
+        className: 'row',
 
         regions: {
-            testHeader: "#test-header",
-            testMain: "#test-main",
-            testResult: "#test-result"
+            testHeader: '#test-header',
+            testMain: '#test-main',
+            testResult: '#test-result'
         }
     });
 
@@ -74,10 +74,10 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-header-region
      */
     Main.HeaderRegion = Marionette.ItemView.extend({
-        template: "test/header",
+        template: 'test/header',
 
         triggers: {
-            "click .js-giveup": "test:giveup"
+            'click .js-giveup': 'test:giveup'
         }
     });
 
@@ -88,16 +88,16 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-main-region
      */
     Main.TestRegion = Marionette.ItemView.extend({
-        template: "test/main-region",
+        template: 'test/main-region',
 
         events: {
-            "click .js-submit-answer": "submitAnswer"
+            'click .js-submit-answer': 'submitAnswer'
         },
 
         submitAnswer: function(e) {
             e.preventDefault();
             var data = Backbone.Syphon.serialize(this);
-            this.trigger("submit:answer", data);
+            this.trigger('submit:answer', data);
         }
     });
 
@@ -108,29 +108,29 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-result-region
      */
      Main.TestResult = Marionette.ItemView.extend({
-        template: "test/result-region",
+        template: 'test/result-region',
 
         serializeData: function() {
-            if(this.options.result === "good") {
+            if(this.options.result === 'good') {
                 return {
-                    "result": "success",
-                    "result_text": "Good! :)"
+                    'result': 'success',
+                    'result_text': 'Good! :)'
                 }
-            } else if (this.options.result === "ok") {
+            } else if (this.options.result === 'ok') {
                 return {
-                    "result": "warning",
-                    "result_text": "You have a small typo in your answer."
+                    'result': 'warning',
+                    'result_text': 'You have a small typo in your answer.'
                 }
             } else {
                 return {
-                    "result": "danger",
-                    "result_text": "No No No!"
+                    'result': 'danger',
+                    'result_text': 'No No No!'
                 }
             }
         },
 
         triggers: {
-            "click .js-next": "test:next"
+            'click .js-next': 'test:next'
         }
      });
 
@@ -141,8 +141,8 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-final-table
      */
     Main.FinalTableView = Marionette.ItemView.extend({
-        tagName: "tr",
-        template: "test/final-table"
+        tagName: 'tr',
+        template: 'test/final-table'
     });
 
     /**
@@ -152,31 +152,31 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-final
      */
     Main.FinalView = Marionette.CompositeView.extend({
-        template: "test/final",
-        className: "col-md-4 col-md-offset-4",
-        id: "test",
+        template: 'test/final',
+        className: 'col-md-4 col-md-offset-4',
+        id: 'test',
         itemView: Main.FinalTableView,
-        itemViewContainer: "tbody",
+        itemViewContainer: 'tbody',
 
         serializeData: function() {
             return {
-                "result": this.options.data
+                'result': this.options.data
             }
         },
 
         events: {
-            "click .js-start-again": "startAgain",
-            "click .js-end-test": "testEnd"
+            'click .js-start-again': 'startAgain',
+            'click .js-end-test': 'testEnd'
         },
 
         startAgain: function(e) {
             e.preventDefault();
-            App.trigger("test:main:show");
+            App.trigger('test:main:show');
         },
 
         testEnd: function(e) {
             e.preventDefault();
-            App.trigger("words:list");
+            App.trigger('words:list');
         }
 
      });
@@ -188,9 +188,9 @@ App.module("Test.Main", function(Main, Test, Backbone, Marionette, $, _) {
      * @template #test-no-words
      */
      Main.TestNoWords = Marionette.ItemView.extend({
-        template: "test/no-words",
-        className: "col-md-6 col-md-offset-3",
-        id: "test"
+        template: 'test/no-words',
+        className: 'col-md-6 col-md-offset-3',
+        id: 'test'
      });
 
 });

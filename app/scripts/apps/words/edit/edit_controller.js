@@ -1,4 +1,4 @@
-App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
+App.module('Words.Edit', function(Edit, App, Backbone, Marionette, $, _) {
 
     Edit.Controller = {
 
@@ -14,7 +14,7 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
             App.appRegion.show(loadingView);
 
             // Fetch word
-            var word = App.request("word:entity", id);
+            var word = App.request('word:entity', id);
             $.when(word).done(function(word) {
                 var view;
                 if(word !== undefined) {
@@ -24,11 +24,11 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
                     });
 
                     // On submit form
-                    view.on("form:submit", function(data) {
+                    view.on('form:submit', function(data) {
                         if(word.save(data)) {
-                            App.trigger("words:list");
+                            App.trigger('words:list');
                         } else {
-                            view.triggerMethod("form:data:invalid", word.validationError);
+                            view.triggerMethod('form:data:invalid', word.validationError);
                         }
                     });
                 } else {
@@ -37,8 +37,8 @@ App.module("Words.Edit", function(Edit, App, Backbone, Marionette, $, _) {
                 }
 
                 App.appRegion.show(view);
-            })
+            });
         }
-    }
+    };
 
 });

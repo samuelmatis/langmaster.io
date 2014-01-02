@@ -7,42 +7,42 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      */
     Entities.Word = Backbone.Model.extend({
         defaults: {
-            word: "",
-            translation: "",
+            word: '',
+            translation: '',
             strength: 0
         },
 
         urlRoot: function() {
-            return "/api/user/words";
+            return '/api/user/words';
         },
 
         parse: function (response) {
-            response.id = response.word_id;
-            delete response.word_id;
-            delete response._id;
+            response.id = response["word_id"];
+            delete response["word_id"];
+            delete response["_id"];
             console.log(response);
             return response;
         },
 
         initialize: function(attributes, options) {
             options || (options = {});
-            this.bind("error", this.defaultErrorHandler);
+            this.bind('error', this.defaultErrorHandler);
             this.init && this.init(attributes, options);
         },
 
         defaultErrorHandler: function(model, error) {
             if (error.status == 401 || error.status == 403 || error.status == 500) {
-                App.vent.trigger("app:logout");
+                App.vent.trigger('app:logout');
             }
         },
 
         validate: function(attrs, options) {
             var errors = {};
             if(!attrs.word) {
-                errors.word = "Can't be blank";
+                errors.word = 'Can't be blank';
             }
             if(!attrs.translation) {
-                errors.translation = "Can't be blank";
+                errors.translation = 'Can't be blank';
             }
             if(!_.isEmpty(errors)) {
                 return errors;
@@ -59,20 +59,20 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      */
     Entities.WordCollection = Backbone.Collection.extend({
         url: function() {
-            return "/api/user/words";
+            return '/api/user/words';
         },
 
         model: Entities.Word,
 
         initialize: function(attributes, options) {
             options || (options = {});
-            this.bind("error", this.defaultErrorHandler);
+            this.bind('error', this.defaultErrorHandler);
             this.init && this.init(attributes, options);
         },
 
         defaultErrorHandler: function(model, error) {
-            if (error.status == 401 || error.status == 403 || error.status == 500) {
-                App.vent.trigger("app:logout");
+            if (error.status === 401 || error.status === 403 || error.status === 500) {
+                App.vent.trigger('app:logout');
             }
         }
     });
@@ -86,10 +86,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      */
     var initializeWords = function() {
         var words = new Entities.WordCollection([
-            { "id": 1, "word": "car", "translation": "auto", "strength": 4 },
-            { "id": 2, "word": "house", "translation": "dom", "strength": 5 },
-            { "id": 3, "word": "computer", "translation": "pocitac", "strength": 2 },
-            { "id": 4, "word": "book", "translation": "kniha", "strength": 3 }
+            { 'id': 1, 'word': 'car', 'translation': 'auto', 'strength': 4 },
+            { 'id': 2, 'word': 'house', 'translation': 'dom', 'strength': 5 },
+            { 'id': 3, 'word': 'computer', 'translation': 'pocitac', 'strength': 2 },
+            { 'id': 4, 'word': 'book', 'translation': 'kniha', 'strength': 3 }
         ]);
 
         return words.models;
@@ -132,11 +132,11 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     /**
      * Events
      */
-    App.reqres.setHandler("words:entities", function() {
+    App.reqres.setHandler('words:entities', function() {
         return API.getWordsEntities();
     });
 
-    App.reqres.setHandler("word:entity", function(id) {
+    App.reqres.setHandler('word:entity', function(id) {
         return API.getWordEntity(id);
     });
 
