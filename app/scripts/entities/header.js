@@ -6,21 +6,9 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
      * @entity Header
      */
     Entities.Header = Backbone.Model.extend({
-        initialize: function() {
+        initialize: function(attributes, options) {
             var selectable = new Backbone.Picky.Selectable(this);
             _.extend(this, selectable);
-        },
-
-        initialize: function(attributes, options) {
-            options || (options = {});
-            this.bind("error", this.defaultErrorHandler);
-            this.init && this.init(attributes, options);
-        },
-
-        defaultErrorHandler: function(model, error) {
-            if (error.status == 401 || error.status == 403 || error.status == 500) {
-                App.vent.trigger("app:logout");
-            }
         }
     });
 
@@ -35,18 +23,6 @@ App.module("Entities", function(Entities, App, Backbone, Marionette, $, _) {
         initialize: function() {
             var singleSelect = new Backbone.Picky.SingleSelect(this);
             _.extend(this, singleSelect);
-        },
-
-        initialize: function(attributes, options) {
-            options || (options = {});
-            this.bind("error", this.defaultErrorHandler);
-            this.init && this.init(attributes, options);
-        },
-
-        defaultErrorHandler: function(model, error) {
-            if (error.status == 401 || error.status == 403 || error.status == 500) {
-                App.vent.trigger("app:logout");
-            }
         }
     });
 
