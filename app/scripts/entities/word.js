@@ -39,10 +39,10 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         validate: function(attrs, options) {
             var errors = {};
             if(!attrs.word) {
-                errors.word = 'Can't be blank';
+                errors.word = "Can't be blank";
             }
             if(!attrs.translation) {
-                errors.translation = 'Can't be blank';
+                errors.translation = "Can't be blank";
             }
             if(!_.isEmpty(errors)) {
                 return errors;
