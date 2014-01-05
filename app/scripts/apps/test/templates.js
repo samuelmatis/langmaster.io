@@ -15,7 +15,7 @@ window.JST['test/region-layout'] = _.template(
 window.JST['test/start'] = _.template(
     '<h1>Welcome to test</h1> \
     <div class="row"> \
-        <div class="col-md-12"> \
+        <div class="col-md-12" id="weakest-words-table"> \
             <h4>Weak words</h4> \
             <table class="table table-bordered"> \
                 <thead> \

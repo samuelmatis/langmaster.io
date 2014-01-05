@@ -24,6 +24,7 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
      */
     List.NewWord = Marionette.ItemView.extend({
         template: 'words/new-word',
+        id: "new-word-form",
 
         events: {
             'click button.js-addnewword': 'submitClicked'
