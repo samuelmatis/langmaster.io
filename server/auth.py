@@ -34,7 +34,7 @@ def login(type, profile_url, name, username, email, picture):
 
 @app.route('/api/login/facebook', methods=['POST'])
 def login_fb():
-    return login("Facebook", request.json['link'], request.json['name'], request.json['username'], request.json['email'], request.json['picture']['data']['url'])
+    return login("Facebook", request.json['link'], request.json['name'], request.json['username'], request.json.get('email', ''), request.json['picture']['data']['url'])
 
 @app.route('/api/login/twitter', methods=['POST'])
 def login_tw():
