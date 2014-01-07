@@ -25,7 +25,7 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
                         self.learningSince = res[0].first_login,
                         self.type = res[0].type,
                         self.picture = res[0].picture,
-                        self.points = res[0].point
+                        self.points = res[0].points
                     },
                     error: function() {
                         App.vent.trigger('app:logout');
