@@ -36,7 +36,7 @@ def create_user(type, profile_url, name, username, email, picture):
 def get_user():
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
-    return Response(json.dumps(user_json[0], sort_keys=False, indent=4),mimetype='application/json')
+    return Response(json.dumps(user_json[0], sort_keys=True, indent=4),mimetype='application/json')
 
 
 @app.route('/api/user', methods=['PUT'])
