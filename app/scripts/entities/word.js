@@ -115,16 +115,14 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         getWordEntity: function(wordId) {
             var word = new Entities.Word({id: wordId});
             var defer = $.Deferred();
-            setTimeout(function() {
-                word.fetch({
-                    success: function(data) {
-                        defer.resolve(data);
-                    },
-                    error: function(data) {
-                        defer.resolve(undefined);
-                    }
-                });
-            }, 500);
+            word.fetch({
+                success: function(data) {
+                    defer.resolve(data);
+                },
+                error: function(data) {
+                    defer.resolve(undefined);
+                }
+            });
             return defer.promise();
         }
     };
