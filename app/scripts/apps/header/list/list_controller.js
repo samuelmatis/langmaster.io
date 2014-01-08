@@ -8,18 +8,22 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
          */
         listHeader: function(){
             var links = App.request('header:entities');
-            var headers = new List.Headers({collection: links});
+            var user = App.request('user:entity');
 
-            headers.on('brand:clicked', function(){
-                App.trigger('words:list');
+            $.when(user).done(function(user) {
+                var headers = new List.Headers({collection: links, name: user.get('name')});
+
+                headers.on('brand:clicked', function(){
+                    App.trigger('words:list');
+                });
+
+                headers.on('itemview:navigate', function(childView, model){
+                    var trigger = model.get('navigationTrigger');
+                    App.trigger(trigger);
+                });
+
+                App.headerRegion.show(headers);
             });
-
-            headers.on('itemview:navigate', function(childView, model){
-                var trigger = model.get('navigationTrigger');
-                App.trigger(trigger);
-            });
-
-            App.headerRegion.show(headers);
         },
 
         /**

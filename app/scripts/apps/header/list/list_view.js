@@ -46,7 +46,7 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
 
         serializeData: function() {
             return {
-                'username': App.user.fullName
+                'name': this.opt.name
             };
         },
 
@@ -59,7 +59,8 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
             App.vent.trigger('app:logout');
         },
 
-        initialize: function() {
+        initialize: function(options) {
+            this.opt = options;
             this.$el.attr('role', 'navigation');
         }
     });
