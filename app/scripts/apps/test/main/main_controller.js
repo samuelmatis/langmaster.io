@@ -61,6 +61,8 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             testLayout.on('show', function() {
                 testLayout.testHeader.show(testLayoutHeader);
 
+                Mousetrap.bind('backspace', function(e) { e.preventDefault(); });
+
                 // Find a random word from words collection
                 randomWord = function() {
                     var randomNumber = Math.floor(Math.random() * (weakestWords.size() - 1 + 1)) + 1;
@@ -172,6 +174,10 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
 
                 testLayout.testMain.show(testLayoutMain);
             });
+
+            testLayout.on('close', function() {
+                Mousetrap.unbind('backspace');
+            })
 
             App.appRegion.show(testLayout);
         },
