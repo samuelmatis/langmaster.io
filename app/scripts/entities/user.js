@@ -1,11 +1,11 @@
 App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
     /**
-     * User model
+     * Current user model
      *
-     * @entity Word
+     * @entity User
      */
-    Entities.User = Backbone.Model.extend({
+    Entities.CurrentUser = Backbone.Model.extend({
         defaults: {
             id: 1
         },
@@ -18,8 +18,8 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
      * Main API methods for user entity
      */
     var API = {
-        getUser: function() {
-            var user = new Entities.User();
+        getCurrentUser: function() {
+            var user = new Entities.CurrentUser();
             var defer = $.Deferred();
             user.fetch({
                 success: function(data) {
@@ -34,8 +34,8 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     /**
      * Events
      */
-    App.reqres.setHandler('user:entity', function() {
-        return API.getUser();
+    App.reqres.setHandler('current:user', function() {
+        return API.getCurrentUser();
     });
 
 });

@@ -11,7 +11,7 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
-            var user = App.request('user:entity');
+            var user = App.request('current:user');
 
             $.when(user).done(function(user) {
                 var profileView = new Show.Profile({

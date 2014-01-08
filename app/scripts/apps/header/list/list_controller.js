@@ -8,7 +8,7 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
          */
         listHeader: function(){
             var links = App.request('header:entities');
-            var user = App.request('user:entity');
+            var user = App.request('current:user');
 
             $.when(user).done(function(user) {
                 var headers = new List.Headers({collection: links, name: user.get('name')});
