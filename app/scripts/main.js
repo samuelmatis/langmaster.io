@@ -11,23 +11,15 @@ App.addRegions({
     })
 });
 
-// Before initialize
-App.on('initialize:before', function(){
-    // Get user info
+App.on('initialize:before', function() {
     $.ajax({
+        type: 'GET',
         url: '/api/user',
-        async: false,
-        success: function(res) {
-            App.user = {};
-            App.user.userName = res[0].username;
-            App.user.fullName = res[0].name;
-            App.user.email = res[0].email;
-        },
         error: function() {
             window.location.replace('/api/logout');
         }
     });
-});
+})
 
 // After initialize
 App.on('initialize:after', function() {
