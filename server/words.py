@@ -42,7 +42,9 @@ def create_word():
                 last_points=0,
                 strength=0)
     words.append(word.to_dict())
-    user.update(**{"set__words": words})
+    user.update(**{
+            "set__words": words,
+            "set__num_words": user_json[0]["num_words"] + 1})
     return Response(json.dumps(words[-1], sort_keys=True, indent=4), mimetype='application/json')
 
 
@@ -79,5 +81,7 @@ def delete_word(word_id):
     if word == []:
         abort(404)
     words.pop(words.index(word[0]))
-    user.update(**{"set__words": words})
+    user.update(**{
+            "set__words": words,
+            "set__num_words": user_json[0]["num_words"] - 1})
     return Response(json.dumps(words, sort_keys=True, indent=4), mimetype='application/json')
