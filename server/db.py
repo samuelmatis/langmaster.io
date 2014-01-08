@@ -71,6 +71,7 @@ class User(Document):
     first_login = StringField()
     location = StringField()
     native = StringField()
+    num_words = IntField()
     words = ListField(EmbeddedDocumentField(Word))
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 

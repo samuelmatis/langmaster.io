@@ -23,6 +23,7 @@ def create_user(type, profile_url, name, username, email, picture):
                 location="",
                 native="",
                 points=0,
+                num_words=0,
                 first_login=datetime.now().strftime('%Y-%m-%d'),
                 words=[])
 
@@ -35,7 +36,7 @@ def create_user(type, profile_url, name, username, email, picture):
 def get_user():
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
-    return Response(json.dumps(user_json, sort_keys=False, indent=4),mimetype='application/json')
+    return Response(json.dumps(user_json[0], sort_keys=False, indent=4),mimetype='application/json')
 
 
 @app.route('/api/user', methods=['PUT'])
@@ -58,4 +59,5 @@ def delete_user():
         abort(404)
     else:
         user.delete()
-        return "ok"
+        return Response(json.dumps("ok", sort_keys=False, indent=4),
+                    mimetype='application/json')
