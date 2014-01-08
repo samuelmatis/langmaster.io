@@ -10,26 +10,6 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
 		template: 'profile/profile',
 		className: 'pure-g content-ribbon',
 
-        initialize: function(options) {
-            this.opt = options;
-        },
-
-        serializeData: function() {
-            return {
-                'name': App.user.fullName,
-                'username': App.user.userName,
-                'email': App.user.email,
-                'picture': this.opt.picture,
-                'type': this.opt.type,
-                'numWords': this.opt.numWords,
-                'bio': this.opt.bio,
-                'native': this.opt.native,
-                'location': this.opt.location,
-                'learningSince': this.opt.learningSince,
-                'points': this.opt.points
-            };
-        },
-
         events: {
             'click .js-save': 'saveAbout'
         },

@@ -22,9 +22,9 @@ window.JST['profile/profile'] = _.template(
                                             <li><i class="fa fa-<%= type[t]["type"].toLowerCase() %>-square profile-type-icon"></i><a class="profile-link" href="<%= type[t]["profile_url"] %>"><%= type[t]["type"].replace(/-/g," ") %> profile</a></li> \
                                         <% } %> \
                                         </ul> \
-                                        <span style="font-weight: 600">Words:</span> <%= numWords %> \
+                                        <span style="font-weight: 600">Words:</span> <%= num_words %> \
                                         <br> \
-                                        <span style="font-weight: 600">Learning since </span> <%= learningSince %></p> \
+                                        <span style="font-weight: 600">Learning since </span> <%= first_login %></p> \
                                     </p> \
                                 </div> \
                             </div> \
