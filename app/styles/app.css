@@ -39,3 +39,23 @@ small {display: block;line-height: 1.428571429;color: #999;}
 .alert { padding-top: 15px; }
 .btn-submit-answer { margin-top: -5px; }
 .btn-submit-answer:focus{ outline:none; }
+
+@media (max-width: 767px) {
+    .navbar-nav { height: 100%; }
+    .nav>li { margin-top: 0px; height: 100%; }
+    .navbar-text { float:left; margin-left: 15px; }
+    .btn-logout { float: right; }
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+        border: 0px;
+        border-bottom: 1px solid #A8A8A8;
+    }
+}
+
+@media (max-width: 800px) {
+    .words-list table,.words-list thead,.words-list tbody,.words-list th,.words-list td,.words-list tr { display: block;}
+    .words-list thead tr { position: absolute; top: -9999px; left: -9999px; }
+    .words-list tr { border: 1px solid #ccc; }
+    .words-list td { border: none; border: 1px solid black; position: relative; padding-left: 50% !important; white-space: normal; text-align:left; }
+    .words-list td:before { position: absolute; top: 6px; left: 6px; width: 45%; padding-right: 10px; white-space: nowrap; text-align:left; font-weight: bold; }
+    .words-list td:before { content: attr(data-title); }
+}

@@ -15,7 +15,7 @@ window.JST['words/list'] = _.template(
         </div> \
     </form> \
     <p id="words-list"> \
-        <table class="table table-striped table-bordered table-hover"> \
+        <table class="words-list table table-striped table-bordered table-hover"> \
             <thead> \
                 <tr> \
                     <th>Word</th> \
@@ -30,16 +30,16 @@ window.JST['words/list'] = _.template(
     </p>');
 
 window.JST['words/list-item'] = _.template(
-	'<td><%= word %></td> \
-    <td><%= translation %></td> \
-    <td> \
+	'<td data-title="Word"><%= word %></td> \
+    <td data-title="Translation"><%= translation %></td> \
+    <td data-title="Strength"> \
         <% if(strength == 0) { %> \
             <span class="glyphicon glyphicon-star-empty"></span> \
         <% } else { for(var i=0; i < strength; i++){ %> \
             <span class="glyphicon glyphicon-star"></span> \
         <% } } %> \
     </td> \
-    <td> \
+    <td data-title="Actions"> \
         <a href="#words/<%= id %>/edit" class="js-edit btn btn-default btn-xs"> \
             <span class="glyphicon glyphicon-pencil"></span> Edit \
         </a> \
