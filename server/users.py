@@ -29,7 +29,7 @@ def create_user(type, profile_url, name, username, email, picture):
 
     user.save()
     user_json = json.loads(user.to_json())
-    return json.dumps(user_json, sort_keys=False, indent=4)
+    return json.dumps(user_json, sort_keys=True, indent=4)
 
 
 @app.route('/api/user', methods=['GET'])
@@ -47,7 +47,7 @@ def update_user():
             "set__location": request.json['location'],
             "set__native": request.json['native']})
     user_json = json.loads(user.to_json())
-    return Response(json.dumps(user_json, sort_keys=False, indent=4),
+    return Response(json.dumps(user_json, sort_keys=True, indent=4),
                     mimetype='application/json')
 
 
@@ -59,5 +59,5 @@ def delete_user():
         abort(404)
     else:
         user.delete()
-        return Response(json.dumps("ok", sort_keys=False, indent=4),
+        return Response(json.dumps("ok", sort_keys=True, indent=4),
                     mimetype='application/json')

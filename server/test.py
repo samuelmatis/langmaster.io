@@ -56,7 +56,7 @@ def test_giveup():
 
     user.update(**{"set__points": user_json[0]["points"] - 15 })
 
-    return Response(json.dumps(user_json, sort_keys=False, indent=4), mimetype='application/json')
+    return Response(json.dumps(user_json, sort_keys=True, indent=4), mimetype='application/json')
 
 
 @app.route('/api/test/end', methods=['POST'])
@@ -130,4 +130,4 @@ def test_end():
     user.update(**{"set__points": user_json[0]["points"] + sum(l_points)})
     user.update(**{"set__words": words})
 
-    return Response(json.dumps(testa, sort_keys=False, indent=4), mimetype='application/json')
+    return Response(json.dumps(testa, sort_keys=True, indent=4), mimetype='application/json')

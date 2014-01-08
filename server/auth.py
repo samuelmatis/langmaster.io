@@ -8,13 +8,13 @@ def login(type, profile_url, name, username, email, picture):
     user = User.objects(email=email)
     if len(user) == 0:
         if not email:
-            return Response(json.dumps("no", sort_keys=False, indent=4),
+            return Response(json.dumps("no", sort_keys=True, indent=4),
                     mimetype='application/json')
         else:
             new_user = create_user(type, profile_url, name, username, email, picture)
             session['email'] = email
 
-            return Response(json.dumps(new_user, sort_keys=False, indent=4),
+            return Response(json.dumps(new_user, sort_keys=True, indent=4),
                     mimetype='application/json')
     else:
         user_json = user.to_json()
@@ -28,7 +28,7 @@ def login(type, profile_url, name, username, email, picture):
 
         session['email'] = user_dict['email']
 
-        return Response(json.dumps(user_dict, sort_keys=False, indent=4),
+        return Response(json.dumps(user_dict, sort_keys=True, indent=4),
                     mimetype='application/json')
 
 
