@@ -17,7 +17,6 @@ App.module('Test', function(Test, App, Backbone, Marionette, $, _) {
     var API = {
         showTest: function() {
             Test.Main.Controller.showMain();
-            App.execute('set:active:header', 'test');
         }
     };
 

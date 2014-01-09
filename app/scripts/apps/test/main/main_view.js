@@ -119,12 +119,14 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
             } else if (this.options.result === 'ok') {
                 return {
                     'result': 'warning',
-                    'result_text': 'You have a small typo in your answer.'
+                    'result_text': 'You have a small typo in your answer. The answer is ',
+                    'answer': this.options.translation
                 }
             } else {
                 return {
                     'result': 'danger',
-                    'result_text': 'No No No!'
+                    'result_text': 'No, the answer is ',
+                    'answer': this.options.translation
                 }
             }
         },

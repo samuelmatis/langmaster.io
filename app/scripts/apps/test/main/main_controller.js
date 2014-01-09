@@ -116,6 +116,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                     localStorage['steps']--;
 
                     var origin_word = this.model.get('word');
+                    var translation = this.model.get('translation');
                     var word_id = this.model.get('id');
                     var input_word = data.answer;
                     var self = this;
@@ -133,7 +134,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                                 localStorage['words'] = JSON.stringify(test_words);
                             }
 
-                            var result = new Main.TestResult({ result: text });
+                            var result = new Main.TestResult({ result: text, translation: translation });
                             testLayout.testResult.show(result);
 
                             this.$('.js-next').focus();
