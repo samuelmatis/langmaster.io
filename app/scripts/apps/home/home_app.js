@@ -19,7 +19,7 @@ App.module('Home', function(Home, App, Backbone, Marionette, $, _) {
             // App.Home.Show.Controller.showHome();
             // App.execute('set:active:header', 'home');
             App.trigger('words:list');
-        },
+        }
     };
 
     /**
