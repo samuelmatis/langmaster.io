@@ -5,6 +5,7 @@ test/temp
 .sass-cache
 app/bower_components
 .tmp
+.idea/
 test/bower_components/
 *.sublime-project
 *.sublime-workspace
