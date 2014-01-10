@@ -16,7 +16,7 @@ function login(type, data) {
         contentType: 'application/json',
         dataType: 'json',
         success: function(res) {
-            if (res == 'no') {
+            if (res === 'no') {
                 bootbox.prompt('What is your email?', function(result) {
                     if (result !== null) {
                         data.email = result;
@@ -44,8 +44,8 @@ $('.js-login-twitter').on('click', function (e) {
     OAuth.popup('twitter', function (err, result) {
         var cb = new Codebird;
         cb.setConsumerKey('tX2i1uv6ON4ffvgLic48Lg','hiRma7ego2XUGWhid8bafC1XxmIKjozGdJCiZooWUg' );
-        cb.setToken(result.oauth_token, result.oauth_token_secret);
-        var _user = cb.__call(
+        cb.setToken(result['oauth_token'], result['oauth_token_secret']);
+        cb.__call(
             'account_verifyCredentials', {}, function (data) {
                 login('twitter', data);
             }
@@ -57,7 +57,7 @@ $('.js-login-google').on('click', function (e) {
     e.preventDefault();
     OAuth.popup('google', function (err, result) {
         console.log(result);
-        $.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + result.access_token, function(data) {
+        $.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + result['access_token'], function(data) {
             login('google', data);
         });
     });
