@@ -3,7 +3,7 @@ App.module('Home', function(Home, App, Backbone, Marionette, $, _) {
 
     /**
      * Router
-     * Define routers for words sub-app
+     * Define routes for words sub-app
      */
     Home.Router = Marionette.AppRouter.extend({
         appRoutes: {
