@@ -6,11 +6,13 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
          * Header list method
          * It shows header view
          */
-        listHeader: function(){
-            var links = App.request('header:entities');
-            var user = App.request('current:user');
+        listHeader: function() {
 
-            $.when(user).done(function(user) {
+            // Fetch header links and current user
+            var links = App.request('header:entities'),
+                user = App.request('current:user');
+
+            $.when.apply(links, user).done(function(user) {
                 var headers = new List.Headers({collection: links, name: user.get('name')});
 
                 headers.on('brand:clicked', function(){

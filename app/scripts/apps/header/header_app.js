@@ -27,4 +27,5 @@ App.module('Header', function(Header, App, Backbone, Marionette, $, _){
     Header.on('stop', function() {
         App.headerRegion.close();
     });
+
 });

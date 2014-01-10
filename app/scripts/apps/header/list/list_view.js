@@ -41,7 +41,7 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
 
         events: {
             'click a.navbar-brand': 'brandClicked',
-            'click .js-logout': 'logout',
+            'click .js-logout': 'logout'
         },
 
         serializeData: function() {
