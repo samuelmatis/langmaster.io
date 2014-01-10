@@ -8,9 +8,11 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
          */
         showProfile: function() {
 
+            // Show loading view
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
+            // Fetch current user
             var user = App.request('current:user');
 
             $.when(user).done(function(user) {
@@ -18,45 +20,27 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
                     model: user
                 });
 
+                // On submit profile details
                 profileView.on('about:submit', function(data) {
-                    console.log(data);
                     user.save(data, {
-                        success: function(model, response) {
+                        success: function() {
                             $.bootstrapGrowl('Your profile has been saved.', { type: 'success' });
                             App.trigger('profile:show');
                         },
-                        error: function(model, response) {
+                        error: function() {
                             App.vent.trigger('app:logout');
                         },
                         wait: true
                     });
                 });
 
+                // On remove account
                 profileView.on('remove:account', function() {
-                    bootbox.dialog({
-                        message: 'Are you sure you want to delete your account? This cannot be undone.',
-                        title: 'Warning',
-                        buttons: {
-                            danger: {
-                                label: 'Yes.',
-                                className: 'btn-danger',
-                                callback: function() {
-                                    user.destroy({
-                                        success: function(model, response) {
-                                            App.vent.trigger('app:logout');
-                                        },
-                                        wait: true
-                                    });
-                                }
-                            },
-                            main: {
-                                label: 'No.',
-                                className: 'btn-primary',
-                                callback: function() {
-                                    bootbox.hideAll();
-                                }
-                            }
-                        }
+                    user.destroy({
+                        success: function() {
+                            App.vent.trigger('app:logout');
+                        },
+                        wait: true
                     });
                 });
 
