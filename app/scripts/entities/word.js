@@ -36,7 +36,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             }
         },
 
-        validate: function(attrs, options) {
+        validate: function(attrs) {
             var errors = {};
             if(!attrs.word) {
                 errors.word = "Can't be blank";
@@ -49,8 +49,6 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             }
         }
     });
-
-    // Entities.configureStorage(Entities.Word);
 
     /**
      * Word items collection
@@ -77,24 +75,6 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         }
     });
 
-    // Entities.configureStorage(Entities.WordCollection);
-
-    /**
-     * Initialize word items
-     *
-     * @entity Word
-     */
-    var initializeWords = function() {
-        var words = new Entities.WordCollection([
-            { 'id': 1, 'word': 'car', 'translation': 'auto', 'strength': 4 },
-            { 'id': 2, 'word': 'house', 'translation': 'dom', 'strength': 5 },
-            { 'id': 3, 'word': 'computer', 'translation': 'pocitac', 'strength': 2 },
-            { 'id': 4, 'word': 'book', 'translation': 'kniha', 'strength': 3 }
-        ]);
-
-        return words.models;
-    };
-
     /**
      * API
      * Main API methods for word entity
@@ -108,8 +88,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
                     defer.resolve(data);
                 }
             });
-            var promise = defer.promise();
-            return promise;
+            return defer.promise();
         },
 
         getWordEntity: function(wordId) {
@@ -119,7 +98,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
                 success: function(data) {
                     defer.resolve(data);
                 },
-                error: function(data) {
+                error: function() {
                     defer.resolve(undefined);
                 }
             });
