@@ -1,4 +1,5 @@
 App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
+    "use strict";
 
     Main.Controller = {
 

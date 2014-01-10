@@ -1,4 +1,5 @@
 App.module('Profile', function(Profile, App, Backbone, Marionette, $, _) {
+    "use strict";
 
     /**
      * Router

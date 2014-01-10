@@ -1,4 +1,5 @@
 App.module('Words.Common.Views', function(Views, App, Backbone, Marionette, $, _) {
+    "use strict";
 
     /**
      * Form view

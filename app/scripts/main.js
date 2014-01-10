@@ -1,5 +1,7 @@
 /*global App, Backbone, Marionette*/
 
+"use_strict";
+
 var App = new Marionette.Application();
 
 // Add regions on page
@@ -13,6 +15,7 @@ App.addRegions({
 
 // Check if user is logged in before initialize
 App.on('initialize:before', function() {
+
     App.vent.on('app:logout', function() {
         window.location.replace('/api/logout');
     });
@@ -29,6 +32,7 @@ App.on('initialize:before', function() {
 
 // After initialize
 App.on('initialize:after', function() {
+
     if(Backbone.history) {
         Backbone.history.start();
 

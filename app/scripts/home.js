@@ -1,3 +1,5 @@
+"use_strict";
+
 $('.js-signin').on('click',function(e){
     e.preventDefault();
     $(this).fadeOut(1,function() {

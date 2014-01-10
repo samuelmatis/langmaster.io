@@ -1,3 +1,5 @@
+"use strict";
+
 // Router helper methods
 App.navigate = function(route, options) {
     options || (options = {});

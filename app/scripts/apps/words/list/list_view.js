@@ -1,4 +1,5 @@
 App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
+    "use strict";
 
     /**
      * Words layout

@@ -1,4 +1,5 @@
 App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
+    "use strict";
 
 	/**
 	 * Profile view

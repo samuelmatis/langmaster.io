@@ -1,4 +1,5 @@
 App.module('Test', function(Test, App, Backbone, Marionette, $, _) {
+    "use strict";
 
     /**
      * Router
