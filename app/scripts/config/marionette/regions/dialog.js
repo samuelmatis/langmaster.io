@@ -12,7 +12,7 @@ Marionette.Region.Dialog = Marionette.Region.extend({
             model: true,
             title: view.title,
             width: 'auto',
-            close: function(e, ui) {
+            close: function() {
                 self.closeDialog();
             }
         });
@@ -23,4 +23,4 @@ Marionette.Region.Dialog = Marionette.Region.extend({
         this.close();
         this.$el.dialog('destroy');
     }
-})
+});
