@@ -12,7 +12,7 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
             var links = App.request('header:entities'),
                 user = App.request('current:user');
 
-            $.when.apply(links, user).done(function(user) {
+            $.when(links, user).done(function(links, user) {
                 var headers = new List.Headers({collection: links, name: user.get('name')});
 
                 headers.on('brand:clicked', function(){
