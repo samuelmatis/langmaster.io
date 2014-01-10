@@ -10,18 +10,21 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
          */
         listWords: function(criterion) {
 
+            // Show loading view
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
-
-            // Fetch words
-            var words = App.request('words:entities');
 
             // Initialize views
             App.module('Header').start();
             var appRegionLayout = new List.Layout();
             var appRegionNewWord = new List.NewWord();
 
+            // Fetch words
+            var words = App.request('words:entities');
+
             $.when(words).done(function(words) {
+
+                // Create new filtered collection
                 var filteredWords = App.Entities.FilteredCollection({
                     collection: words,
                     filterFunction: function(filterCriterion) {
@@ -42,6 +45,7 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
                 // Filter words if criterion is defined
                 if(criterion) {
                     filteredWords.filter(criterion);
+
                     appRegionView.once('show', function(){
                         appRegionView.triggerMethod('set:filter:criterion', criterion);
                     });
@@ -77,10 +81,11 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
 
                 // On word edit
                 appRegionView.on('itemview:word:edit', function(childView, model) {
-                    var view = new App.Words.Edit.Word({
+                    var view = new List.EditWord({
                         model: model
                     });
 
+                    // On submit form
                     view.on('form:submit', function(data) {
                         if(model.save(data)) {
                             childView.render();

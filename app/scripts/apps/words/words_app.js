@@ -7,8 +7,7 @@ App.module('Words', function(Words, App, Backbone, Marionette, $, _) {
     Words.Router = Marionette.AppRouter.extend({
         appRoutes: {
             'words': 'listWords',
-            'words/(?filter=:criterion)': 'filterWords',
-            'words/:id/edit': 'editWord'
+            'words/(?filter=:criterion)': 'filterWords'
         }
     });
 
@@ -25,11 +24,6 @@ App.module('Words', function(Words, App, Backbone, Marionette, $, _) {
         filterWords: function(criterion) {
             App.Words.List.Controller.listWords(criterion);
             App.execute('set:active:header', 'words');
-        },
-
-        editWord: function(id) {
-            App.Words.Edit.Controller.editWord(id);
-            App.execute('set:active:header', 'words');
         }
     };
 
@@ -39,10 +33,6 @@ App.module('Words', function(Words, App, Backbone, Marionette, $, _) {
     App.on('words:list', function() {
         App.navigate('words');
         API.listWords();
-    });
-
-    App.on('word:edit', function(id) {
-        App.navigate('words');
     });
 
     App.on('words:filter', function(criterion) {

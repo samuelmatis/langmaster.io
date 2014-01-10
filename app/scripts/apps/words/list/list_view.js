@@ -48,7 +48,7 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
                 $form.find('.control-group.error').each(function() {
                     $(this).removeClass('error');
                 });
-            }
+            };
 
             var self = this;
             var markErrors = function(value, key) {
@@ -135,6 +135,16 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
 
         onSetFilterCriterion: function(criterion) {
             $(this.ui.criterion).val(criterion);
+        }
+    });
+
+    List.EditWord = App.Words.Common.Views.Form.extend({
+        initialize: function() {
+            this.title = 'Edit ' + this.model.get('word');
+        },
+
+        onRender: function() {
+            this.$('.js-submit').text('Update word');
         }
     });
 
