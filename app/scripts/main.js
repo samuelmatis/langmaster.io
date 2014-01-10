@@ -1,6 +1,6 @@
 /*global App, Backbone, Marionette*/
 
-"use_strict";
+'use strict';
 
 var App = new Marionette.Application();
 

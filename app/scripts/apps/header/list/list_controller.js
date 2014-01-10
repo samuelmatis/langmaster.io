@@ -1,5 +1,5 @@
 App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
-    "use strict";
+    'use strict';
 
     List.Controller = {
 

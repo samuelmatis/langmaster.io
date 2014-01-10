@@ -1,5 +1,5 @@
 App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
-    "use strict";
+    'use strict';
 
     /**
      * Test header panel

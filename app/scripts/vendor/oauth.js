@@ -1,5 +1,5 @@
 (function() {
-	"use strict";
+	'use strict';
 	var config = {
 		oauthd_url: 'https://oauth.io'
 	};

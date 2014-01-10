@@ -1,5 +1,5 @@
 App.module('Header', function(Header, App, Backbone, Marionette, $, _){
-    "use strict";
+    'use strict';
 
     /**
      * API

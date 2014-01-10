@@ -1,5 +1,5 @@
 App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
-    "use strict";
+    'use strict';
 
     /**
      * Loading view

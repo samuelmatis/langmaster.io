@@ -1,4 +1,4 @@
-"use_strict";
+'use strict';
 
 $('.js-signin').on('click',function(e){
     e.preventDefault();
