@@ -106,7 +106,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                                 testLayoutMain.model = randomWord();
                                 testLayout.testResult.close();
                                 testLayout.testMain.show(testLayoutMain);
-                                self.$('#js-submit-answer').focus();
+                                this.$('#js-submit-answer').focus();
                             }
                         }
 
@@ -122,31 +122,30 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                     // Count down steps
                     localStorage['steps']--;
 
-                    var word_id = this.model.get('id');
+                    var wordId = this.model.get('id');
                     var self = this;
 
                     // Save progress to localStorage and show result view
                     var showResult = function(result) {
 
                         // Show result view
-                        var result = new Main.TestResult({ result: result, translation: this.model.get('translation') });
+                        var result = new Main.TestResult({ result: result, translation: self.model.get('translation') });
                         testLayout.testResult.show(result);
 
                         Mousetrap.bind('enter', function() { result.trigger('test:next'); });
-                        this.$('.js-next').focus();
 
                         // If localstorage doesn't contain word, add it.
-                        var test_words = JSON.parse(localStorage.getItem('words'));
-                        if (test_words.indexOf(word_id) < 0) {
-                            test_words.push(word_id);
-                            localStorage['words'] = JSON.stringify(test_words);
+                        var testWords = JSON.parse(localStorage.getItem('words'));
+                        if (testWords.indexOf(wordId) < 0) {
+                            testWords.push(wordId);
+                            localStorage['words'] = JSON.stringify(testWords);
                         }
 
                         result.on('test:next', function() {
                             testLayoutMain.model = randomWord();
                             testLayout.testResult.close();
                             testLayout.testMain.show(testLayoutMain);
-                            this.$('#js-submit-answer').focus();
+                            self.$('#js-submit-answer').focus();
                         });
 
                         // Unbind enter if result view is closed
@@ -157,7 +156,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                     $.post('api/test', {'origin': this.model.get('word'), 'input': data.answer}, function(data) {
 
                         // Check how many points received word and show result
-                        if(data == 1) {
+                        if(data === 1) {
                             self.$('.js-test-input').addClass('test-input-success');
                             showResult(1);
                         } else if (data < 1.0 && data >= 0.9) {
