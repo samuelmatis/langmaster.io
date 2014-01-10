@@ -35,10 +35,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                         collection: weakestWords
                     });
 
-                    // Bind and unbind enter key to start the test
-                    startView.on('show', function() { Mousetrap.bind('enter', function() { startView.trigger('start:test'); }); });
-                    startView.on('close', function() { Mousetrap.unbind('enter'); });
-
                     // On start test
                     startView.on('start:test', function() {
                         Main.Controller.showTest(weakestWords);
@@ -69,8 +65,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             // On test layout show
             testLayout.on('show', function() {
                 testLayout.testHeader.show(testLayoutHeader);
-
-                Mousetrap.bind('backspace', function(e) { e.preventDefault(); });
 
                 // Find a random word from words collection
                 var randomWord = function() {
@@ -133,8 +127,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                         var result = new Main.TestResult({ result: result, translation: self.model.get('translation') });
                         testLayout.testResult.show(result);
 
-                        Mousetrap.bind('enter', function() { result.trigger('test:next'); });
-
                         // If localstorage doesn't contain word, add it.
                         var testWords = JSON.parse(localStorage.getItem('words'));
                         if (testWords.indexOf(wordId) < 0) {
@@ -148,9 +140,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                             testLayout.testMain.show(testLayoutMain);
                             self.$('#js-submit-answer').focus();
                         });
-
-                        // Unbind enter if result view is closed
-                        result.on('close', function() { Mousetrap.unbind('enter'); });
                     };
 
                     // Check word correctness from API
@@ -178,10 +167,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 testLayout.testMain.show(testLayoutMain);
-            });
-
-            testLayout.on('close', function() {
-                Mousetrap.unbind('backspace');
             });
 
             App.appRegion.show(testLayout);

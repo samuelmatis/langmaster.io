@@ -48,6 +48,10 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
 
         triggers: {
             'click .js-start-test': 'start:test'
+        },
+
+        keyboardEvents: {
+            'enter': function() { this.trigger('start:test'); }
         }
     });
 
@@ -65,6 +69,10 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
             testHeader: '#test-header',
             testMain: '#test-main',
             testResult: '#test-result'
+        },
+
+        keyboardEvents: {
+            'backspace': function(e) { e.preventDefault(); }
         }
     });
 
@@ -93,6 +101,10 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
 
         events: {
             'click .js-submit-answer': 'submitAnswer'
+        },
+
+        keyboardEvents: {
+            'enter': 'submitAnswer'
         },
 
         submitAnswer: function(e) {
@@ -135,6 +147,10 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
 
         triggers: {
             'click .js-next': 'test:next'
+        },
+
+        keyboardEvents: {
+            'enter': function() { this.trigger('test:next'); }
         }
      });
 
