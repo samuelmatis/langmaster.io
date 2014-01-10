@@ -11,15 +11,21 @@ App.addRegions({
     })
 });
 
+// Check if user is logged in before initialize
 App.on('initialize:before', function() {
+    App.vent.on('app:logout', function() {
+        window.location.replace('/api/logout');
+    });
+
     $.ajax({
         type: 'GET',
         url: '/api/user',
+        async: false,
         error: function() {
-            window.location.replace('/api/logout');
+            App.vent.trigger('app:logout');
         }
     });
-})
+});
 
 // After initialize
 App.on('initialize:after', function() {
@@ -30,8 +36,4 @@ App.on('initialize:after', function() {
             App.trigger('words:list');
         }
     }
-
-    App.vent.on('app:logout', function() {
-        window.location.replace('/api/logout');
-    });
 });
