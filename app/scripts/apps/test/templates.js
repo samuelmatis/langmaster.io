@@ -7,7 +7,7 @@ window.JST['test/header-panel'] = _.template(
 
 window.JST['test/region-layout'] = _.template(
     '<div class="col-md-6 col-md-offset-3" id="test-page-region" style="margin-top: 20px;"> \
-        <div id="test-header" style="pagging-bottom: 5px; border-bottom: 1px solid #ccc;"></div> \
+        <div id="test-header" style="padding-bottom: 5px; border-bottom: 1px solid #ccc;"></div> \
         <div id="test-main"></div> \
         <div id="test-result"></div> \
     </div>');
@@ -71,7 +71,7 @@ window.JST['test/main-region'] = _.template(
 
 window.JST['test/result-region'] = _.template(
     '<div class="alert alert-<%= result %>" style="margin-top: 40px;"><%= result_text %><button class="js-next btn-submit-answer btn btn-<%= result %> pull-right">Next</button> \
-    <% if(answer) { %><b><%= answer %></b><% } %></div>');
+    <% if(answer != "") { %><b><%= answer %></b><% } %></div>');
 
 window.JST['test/final'] = _.template(
     '<h1>Test results</h1> \
