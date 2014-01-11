@@ -61,9 +61,9 @@ def change_word(word_id):
     word = Word(word_id=wordid,
                 word=request.json.get("word", words[wordid_index[0]]["word"]),
                 translation=request.json.get("translation", words[wordid_index[0]]["translation"]),
-                    points = words[wordid]["points"],
-                    last_points = words[wordid]["last_points"],
-                    last_test = words[wordid]["last_test"],
+                points = words[wordid]["points"],
+                last_points = words[wordid]["last_points"],
+                last_test = words[wordid]["last_test"],
                 strength=words[wordid]["strength"])
 
     new_word = word.to_dict()
