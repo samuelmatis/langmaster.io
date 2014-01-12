@@ -157,7 +157,7 @@ module.exports = function (grunt) {
         cssmin: {
             dist: {
                 files: {
-                    '<%= yeoman.dist %>/styles/main.css': [ '<%= yeoman.app %>/styles/bootstrap.min.css', '<%= yeoman.app %>/styles/app.css', '<%= yeoman.app %>/styles/jquery.ui.dialog.min.css', '<%= yeoman.app %>/styles/jquery-ui-theme.css', '<%= yeoman.app %>/styles/offline-theme-default.css' ],
+                    '<%= yeoman.dist %>/styles/main.css': [ '<%= yeoman.app %>/styles/bootstrap.min.css', '<%= yeoman.app %>/styles/app.css', '<%= yeoman.app %>/styles/jquery.ui.dialog.min.css', '<%= yeoman.app %>/styles/jquery-ui-theme.css' ],
                     '<%= yeoman.dist %>/styles/home.css': [ '<%= yeoman.app %>/styles/bootstrap.min.css', '<%= yeoman.app %>/styles/home.css', '<%= yeoman.app %>/styles/bootstrap-social.css' ]
                 }
             }
