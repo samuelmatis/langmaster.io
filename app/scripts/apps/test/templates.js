@@ -53,7 +53,7 @@ window.JST['test/main'] = _.template(
 window.JST['test/header'] = _.template(
     '<div class="row"> \
         <div class="col-md-6" id="test-header-giveup"><a class="js-giveup btn btn-default">Give up</a></div> \
-        <div class="col-md-6" id="test-header-steps"></div> \
+        <div class="col-md-6" id="test-header-steps"><%= step %> / <%= totalSteps %></div> \
     </div>');
 
 window.JST['test/main-region'] = _.template(

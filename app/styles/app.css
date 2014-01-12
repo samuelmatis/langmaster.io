@@ -14,6 +14,7 @@ body { margin: 0 auto; line-height: 1.7em; padding-top: 90px; }
 .btn-logout { margin-left: 10px; margin-right: 10px; }
 .test-input-success { background: #edf8da !important; border: 1px solid #c2d799 !important; color: #5d9400 !important; }
 .test-input-fail { background: #ffecec !important; border: 1px solid #ffa8a8 !important; }
+.test-input-warning { background: #fcf8e3 !important; border: 1px solid #faebcc !important; color: #8a6d3b !important; }
 .alert-success { background: #edf8da !important; border: 1px solid #c2d799 !important; color: #5d9400 !important;}
 .alert-danger { background: #ffecec !important; border: 1px solid #ffa8a8 !important; }
 .newword-left { padding-right: 5px !important; }

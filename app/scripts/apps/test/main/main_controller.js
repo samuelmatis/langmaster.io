@@ -17,6 +17,12 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
+            // Clear localStorage test data
+            localStorage.removeItem('words');
+            localStorage.removeItem('last_word');
+            localStorage.removeItem('step');
+            localStorage.removeItem('totalSteps');
+
             // Fetch words
             var words = App.request('words:entities');
 
@@ -61,29 +67,43 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             App.headerRegion.close();
             var testLayout = new Main.TestLayout();
             var testLayoutHeader = new Main.HeaderRegion();
+            var testLayoutMain = new Main.TestRegion();
+
+            // Initialize localStorage test data
+            localStorage.setItem('totalSteps', 10);
+            localStorage.setItem('step', 10);
+            localStorage.setItem('last_word', '');
+            localStorage.setItem('words', '[]');
+
+            // Find a random word from words collection
+            var randomWord = function() {
+                var randomNumber = Math.floor(Math.random() * weakestWords.size());
+                var word = weakestWords.at(randomNumber);
+                return word;
+            };
+
+            var nextWord = function() {
+                // Update views
+                var word = randomWord();
+                testLayoutMain.model = word;
+                testLayout.testResult.close();
+                testLayout.testMain.show(testLayoutMain);
+
+                testLayoutHeader.trigger('render');
+                testLayout.testHeader.show(testLayoutHeader);
+            };
+
+            testLayout.once('show', function() {
+                // Update views
+                var newWord = randomWord();
+                testLayoutMain.model = newWord;
+
+                testLayoutHeader.trigger('render');
+                testLayout.testHeader.show(testLayoutHeader);
+            });
 
             // On test layout show
             testLayout.on('show', function() {
-                testLayout.testHeader.show(testLayoutHeader);
-
-                // Find a random word from words collection
-                var randomWord = function() {
-                    var randomNumber = Math.floor(Math.random() * (weakestWords.size() - 1 + 1)) + 1;
-                    return weakestWords.at(randomNumber - 1);
-                };
-
-                // Create new test view with random word
-                var testLayoutMain = new Main.TestRegion({
-                    model: randomWord()
-                });
-
-                // Test steps
-                localStorage['steps'] = 10;
-
-                testLayoutMain.once('show', function() {
-                    localStorage.setItem('last_word', '');
-                    localStorage.setItem('words', '[]');
-                });
 
                 // On test page show
                 testLayoutMain.on('show', function() {
@@ -98,10 +118,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                     if(localStorage.getItem('steps') < 11) {
                         if(weakestWords.size() > 1) {
                             if(this.model.get('word') === localStorage.getItem('last_word')) {
-                                testLayoutMain.model = randomWord();
-                                testLayout.testResult.close();
-                                testLayout.testMain.show(testLayoutMain);
-                                this.$('#js-submit-answer').focus();
+                                nextWord();
                             }
                         }
 
@@ -115,7 +132,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                     this.$('.js-submit-answer').hide();
 
                     // Count down steps
-                    localStorage['steps']--;
+                    localStorage['step']--;
 
                     var wordId = this.model.get('id');
                     var self = this;
@@ -135,10 +152,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                         }
 
                         result.on('test:next', function() {
-                            testLayoutMain.model = randomWord();
-                            testLayout.testResult.close();
-                            testLayout.testMain.show(testLayoutMain);
-                            self.$('#js-submit-answer').focus();
+                            nextWord();
                         });
                     };
 
@@ -146,11 +160,11 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                     $.post('api/test', {'origin': this.model.get('word'), 'input': data.answer}, function(data) {
 
                         // Check how many points received word and show result
-                        if(data === 1) {
+                        if(data == 1) {
                             self.$('.js-test-input').addClass('test-input-success');
                             showResult(1);
                         } else if (data < 1.0 && data >= 0.9) {
-                            self.$('.js-test-input').addClass('test-input-success');
+                            self.$('.js-test-input').addClass('test-input-warning');
                             showResult(0);
                         } else if (data < 0.9) {
                             self.$('.js-test-input').addClass('test-input-fail');
@@ -200,7 +214,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
 
             localStorage.removeItem('words');
             localStorage.removeItem('last_word');
-            localStorage.removeItem('steps');
+            localStorage.removeItem('step');
 
             var finalView = new Main.FinalView({collection: outputWords});
             App.appRegion.show(finalView);
