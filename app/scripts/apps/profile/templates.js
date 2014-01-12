@@ -8,7 +8,7 @@ window.JST['profile/profile'] = _.template(
                             <div class="row"> \
                                 <div class="col-sm-6 col-md-4"> \
                                     <img src="<%= picture %>" alt="" class="img-rounded img-responsive" /> \
-                                    <div style="margin-top:15px;margin-left: 2px;"><img src="images/10.png" style="width: 20px; margin-left: 40px;"> <b><%= points %></b></div> \
+                                    <div style="margin-top:15px;margin-left: 2px;"><img src="images/points.png" style="width: 20px; margin-left: 40px;"> <b><%= points %></b></div> \
                                 </div> \
                                 <div class="col-sm-6 col-md-8"> \
                                     <h4><%= name %></h4> \
