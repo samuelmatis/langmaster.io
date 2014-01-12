@@ -1,6 +1,6 @@
 from db import *
 from app import *
-from flask import request, session, abort, Response, jsonify, render_template
+from flask import request, session, abort, Response
 import json
 from difflib import SequenceMatcher
 from datetime import datetime

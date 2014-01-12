@@ -1,8 +1,8 @@
 from app import *
 from users import *
-from flask import session, redirect, url_for, abort
+from flask import session, redirect, url_for
 from flask.sessions import *
-from json import *
+import json
 
 def login(type, profile_url, name, username, email, picture):
     user = User.objects(email=email)

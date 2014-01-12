@@ -2,7 +2,7 @@ from users import *
 from auth import *
 from words import *
 from test import *
-from flask import session
+from flask import session, render_template
 import os
 
 # Route for homepage
