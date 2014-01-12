@@ -18,10 +18,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             App.appRegion.show(loadingView);
 
             // Clear localStorage test data
-            localStorage.removeItem('words');
-            localStorage.removeItem('last_word');
-            localStorage.removeItem('step');
-            localStorage.removeItem('totalSteps');
+            localStorage.clear();
 
             // Fetch words
             var words = App.request('words:entities');
@@ -212,12 +209,10 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                 }
             });
 
-            localStorage.removeItem('words');
-            localStorage.removeItem('last_word');
-            localStorage.removeItem('step');
+            localStorage.clear();
 
             var finalView = new Main.FinalView({collection: outputWords});
-            App.appRegion.show(finalView);
+            App.appgRegion.show(finalView);
         }
     }
 
