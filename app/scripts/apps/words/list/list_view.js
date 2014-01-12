@@ -34,7 +34,6 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
         submitClicked: function(e) {
             e.preventDefault();
             var data = Backbone.Syphon.serialize(this);
-            console.log(data);
             this.trigger('form:submit', data);
         },
 

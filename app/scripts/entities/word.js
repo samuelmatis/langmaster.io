@@ -21,7 +21,6 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             response.id = response["word_id"];
             delete response["word_id"];
             delete response["_id"];
-            console.log(response);
             return response;
         },
 
