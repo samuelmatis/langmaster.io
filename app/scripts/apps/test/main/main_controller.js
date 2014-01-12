@@ -10,8 +10,8 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
 
             // Disable original header and show test header
             App.module('Header').stop();
-            var HeaderPanel = new Main.TestHeaderPanel();
-            App.headerRegion.show(HeaderPanel);
+            var headerPanel = new Main.TestHeaderPanel();
+            App.headerRegion.show(headerPanel);
 
             // Show loading view
             var loadingView = new App.Common.Views.Loading();
