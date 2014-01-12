@@ -77,7 +77,6 @@ window.JST['test/final'] = _.template(
     '<h1>Test results</h1> \
     <div class="row"> \
         <div class="col-md-12"> \
-            <h4>Weak words</h4> \
             <table class="table table-bordered"> \
                 <thead> \
                     <tr> \
