@@ -212,7 +212,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             localStorage.clear();
 
             var finalView = new Main.FinalView({collection: outputWords});
-            App.appgRegion.show(finalView);
+            App.appRegion.show(finalView);
         }
     }
 
