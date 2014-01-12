@@ -1,52 +1,24 @@
 node_modules
 dist
 deploy
+deploy.sh
 test/temp
-.sass-cache
 app/bower_components
 .tmp
-.idea/
 test/bower_components/
-*.sublime-project
-*.sublime-workspace
 *.py[cod]
 newrelic.ini
 npm-debug.log
 *.sublime-project
 *.sublime-workspace
 .DS_Store
-
-jscompile.py
-compiler.jar
-
-# C extensions
-*.so
-
-# Packages
-*.egg
-*.egg-info
 build
-eggs
 parts
 bin
 var
-sdist
-develop-eggs
-.installed.cfg
 lib
 lib64
+.idea
 __pycache__
-
-# Installer logs
-pip-log.txt
-
-# Unit test / coverage reports
-.coverage
-.tox
-nosetests.xml
-
-# Heroku
-*.pyc
 venv
 *~
-.DS_Store
