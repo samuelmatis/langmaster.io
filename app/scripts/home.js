@@ -42,14 +42,9 @@ $('.js-login-facebook').on('click', function (e) {
 $('.js-login-twitter').on('click', function (e) {
     e.preventDefault();
     OAuth.popup('twitter', function (err, result) {
-        var cb = new Codebird;
-        cb.setConsumerKey('tX2i1uv6ON4ffvgLic48Lg','hiRma7ego2XUGWhid8bafC1XxmIKjozGdJCiZooWUg' );
-        cb.setToken(result['oauth_token'], result['oauth_token_secret']);
-        cb.__call(
-            'account_verifyCredentials', {}, function (data) {
-                login('twitter', data);
-            }
-        );
+        result.get('/1.1/account/verify_credentials.json').done(function(data) {
+            login('twitter', data);
+        });
     });
 });
 
