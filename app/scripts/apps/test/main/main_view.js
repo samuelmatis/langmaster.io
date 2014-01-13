@@ -85,7 +85,9 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
     Main.HeaderRegion = Marionette.ItemView.extend({
         template: 'test/header',
 
-        totalSteps: localStorage.getItem('totalSteps'),
+        initialize: function() {
+            this.totalSteps = localStorage.getItem('totalSteps');
+        },
 
         triggers: {
             'click .js-giveup': 'test:giveup'

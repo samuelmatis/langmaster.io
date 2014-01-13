@@ -17,8 +17,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             var loadingView = new App.Common.Views.Loading();
             App.appRegion.show(loadingView);
 
-            // Clear localStorage test data
-            localStorage.clear();
 
             // Fetch words
             var words = App.request('words:entities');
@@ -60,17 +58,17 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
          */
         showTest: function(weakestWords) {
 
-            // Show test views
-            App.headerRegion.close();
-            var testLayout = new Main.TestLayout();
-            var testLayoutHeader = new Main.HeaderRegion();
-            var testLayoutMain = new Main.TestRegion();
-
             // Initialize localStorage test data
             localStorage.setItem('totalSteps', 10);
             localStorage.setItem('step', 10);
             localStorage.setItem('last_word', '');
             localStorage.setItem('words', '[]');
+
+            // Show test views
+            App.headerRegion.close();
+            var testLayout = new Main.TestLayout();
+            var testLayoutHeader = new Main.HeaderRegion();
+            var testLayoutMain = new Main.TestRegion();
 
             // Find a random word from words collection
             var randomWord = function() {
@@ -80,6 +78,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             };
 
             var nextWord = function() {
+
                 // Update views
                 var word = randomWord();
                 testLayoutMain.model = word;
@@ -105,14 +104,8 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                 // On test page show
                 testLayoutMain.on('show', function() {
 
-                    // Close test after it will exceed steps
-                    if(localStorage.getItem('steps') < 0) {
-                        testLayout.close();
-                        Main.Controller.showAfterTest();
-                    }
-
                     // Check if word is not repeating
-                    if(localStorage.getItem('steps') < 11) {
+                    if(localStorage.getItem('step') < 11) {
                         if(weakestWords.size() > 1) {
                             if(this.model.get('word') === localStorage.getItem('last_word')) {
                                 nextWord();
@@ -149,7 +142,12 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                         }
 
                         result.on('test:next', function() {
-                            nextWord();
+                            // Close test after it will exceed steps
+                            if(localStorage.getItem('step') < 1) {
+                                Main.Controller.showAfterTest();
+                            } else {
+                                nextWord();
+                            }
                         });
                     };
 
@@ -172,7 +170,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                 });
 
                 testLayoutHeader.on('test:giveup', function() {
-
                     // Skip to the end of the test
                     Main.Controller.showAfterTest();
                 });
@@ -203,9 +200,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                             outputWords.add({word: data[i]['word'], translation: data[i]['translation'], strength: data[i]['strength'], increase: data[i]['success']});
                         }
                     }
-                },
-                error: function() {
-                    App.vent.trigger('app:logout');
                 }
             });
 
