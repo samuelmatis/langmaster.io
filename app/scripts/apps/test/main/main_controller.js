@@ -208,6 +208,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             var finalView = new Main.FinalView({collection: outputWords});
             App.appRegion.show(finalView);
         }
-    }
+    };
 
 });
