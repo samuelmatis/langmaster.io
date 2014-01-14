@@ -29,20 +29,21 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
                 message: 'Are you sure you want to delete your account? This cannot be undone.',
                 title: 'Warning',
                 buttons: {
+                    main: {
+                        label: 'Cancel',
+                        className: 'btn-default',
+                        callback: function() {
+                            bootbox.hideAll();
+                        }
+                    },
                     danger: {
-                        label: 'Yes.',
+                        label: 'Delete',
                         className: 'btn-danger',
                         callback: function() {
                             self.trigger('remove:account');
                         }
                     },
-                    main: {
-                        label: 'No.',
-                        className: 'btn-primary',
-                        callback: function() {
-                            bootbox.hideAll();
-                        }
-                    }
+
                 }
             });
         }
