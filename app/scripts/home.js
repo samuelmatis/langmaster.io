@@ -51,7 +51,7 @@ $('.js-login-twitter').on('click', function (e) {
 $('.js-login-google').on('click', function (e) {
     e.preventDefault();
     OAuth.popup('google', function (err, result) {
-        $.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + result['access_token'], function(data) {
+        result.get('/oauth2/v1/userinfo').done(function(data) {
             login('google', data);
         });
     });
