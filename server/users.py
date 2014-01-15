@@ -36,7 +36,7 @@ def create_user(type, profile_url, name, username, email, picture):
 def get_user():
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
-    return Response(json.dumps(user_json[0], sort_keys=True, indent=4),mimetype='application/json')
+    return Response(json.dumps(user_json[0], sort_keys=True, indent=4), mimetype='application/json')
 
 
 @app.route('/api/user', methods=['PUT'])
@@ -47,17 +47,15 @@ def update_user():
             "set__location": request.json['location'],
             "set__native": request.json['native']})
     user_json = json.loads(user.to_json())
-    return Response(json.dumps(user_json, sort_keys=True, indent=4),
-                    mimetype='application/json')
+    return Response(json.dumps(user_json, sort_keys=True, indent=4), mimetype='application/json')
 
 
 @app.route('/api/user', methods=['DELETE'])
 def delete_user():
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
-    if user_json == []:
+    if not user_json:
         abort(404)
     else:
         user.delete()
-        return Response(json.dumps("ok", sort_keys=True, indent=4),
-                    mimetype='application/json')
+        return Response(json.dumps("ok", sort_keys=True, indent=4), mimetype='application/json')

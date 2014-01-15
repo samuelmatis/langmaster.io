@@ -17,7 +17,7 @@ def get_word_id(word_id):
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
     word = [word for word in words if word["word_id"] == word_id]
-    if word == []:
+    if not word:
         abort(404)
     return Response(json.dumps(word[0], sort_keys=True, indent=4), mimetype='application/json')
 
@@ -55,15 +55,15 @@ def change_word(word_id):
     words = user_json[0]["words"]
     wordid_index = [k for k in range(len(words)) if words[k]["word_id"]
                     == word_id]
-    if [word_id for word in words if word["word_id"] == word_id] == []:
+    if not [word_id for word in words if word["word_id"] == word_id]:
         abort(404)
     wordid = [word_id for word in words if word["word_id"] == word_id][0]
     word = Word(word_id=wordid,
                 word=request.json.get("word", words[wordid_index[0]]["word"]),
                 translation=request.json.get("translation", words[wordid_index[0]]["translation"]),
-                points = words[wordid]["points"],
-                last_points = words[wordid]["last_points"],
-                last_test = words[wordid]["last_test"],
+                points=words[wordid]["points"],
+                last_points=words[wordid]["last_points"],
+                last_test=words[wordid]["last_test"],
                 strength=words[wordid]["strength"])
 
     new_word = word.to_dict()
@@ -78,7 +78,7 @@ def delete_word(word_id):
     user_json = json.loads(user.to_json())
     words = user_json[0]["words"]
     word = [word for word in words if word["word_id"] == word_id]
-    if word == []:
+    if not word:
         abort(404)
     words.pop(words.index(word[0]))
     user.update(**{
