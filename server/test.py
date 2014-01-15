@@ -10,7 +10,7 @@ def compare(words, original, written):
     translation = [word["translation"] for word in words if word["word"] == original]
     if translation == []:
         abort(404)
-    return str(SequenceMatcher(None, translation[0], written).ratio())
+    return str(SequenceMatcher(None, translation[0].lower(), written.lower()).ratio())
 
 @app.route('/api/test', methods=['POST'])
 def test():
