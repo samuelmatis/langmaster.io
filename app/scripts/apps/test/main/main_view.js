@@ -96,7 +96,7 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
         serializeData: function() {
             return {
                 'totalSteps': this.totalSteps,
-                'step': localStorage.getItem('step')
+                'step': this.totalSteps - localStorage.getItem('step')
             };
         }
     });

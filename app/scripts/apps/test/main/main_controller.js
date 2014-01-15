@@ -60,7 +60,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
 
             // Initialize localStorage test data
             localStorage.setItem('totalSteps', 10);
-            localStorage.setItem('step', 10);
+            localStorage.setItem('step', localStorage.getItem('totalSteps'));
             localStorage.setItem('last_word', '');
             localStorage.setItem('words', '[]');
 
