@@ -8,7 +8,7 @@ from datetime import datetime
 
 def compare(words, original, written):
     translation = [word["translation"] for word in words if word["word"] == original]
-    if translation == []:
+    if not translation:
         abort(404)
     return str(SequenceMatcher(None, translation[0], written).ratio())
 
@@ -59,54 +59,54 @@ def test_end():
         word = words[i]
 
         if str(word["word_id"]) in request.json["words"]:
-            word["last_test"]  =  datetime.now().strftime('%Y-%m-%d')
+            word["last_test"] = datetime.now().strftime('%Y-%m-%d')
             if word["strength"] == 0 and word["last_points"] >= 30:
-                word["strength"] = word["strength"] + 1
-                word["last_points"] = word["last_points"] -30
+                word["strength"] += 1
+                word["last_points"] -= 30
                 word["success"] = 1
                 testa.append(word)
             elif word["strength"] == 1 and word["last_points"] >= 40:
-                word["strength"] = word["strength"] + 1
-                word["last_points"] = word["last_points"] -40
+                word["strength"] += 1
+                word["last_points"] -= 40
                 word["success"] = 1
                 testa.append(word)
             elif word["strength"] == 1 and word["last_points"] <= -50:
-                word["strength"] = word["strength"] - 1
+                word["strength"] -= 1
                 word["last_points"] = 0
                 word["success"] = -1
                 testa.append(word)
             elif word["strength"] == 2 and word["last_points"] >= 60:
-                word["strength"] = word["strength"] + 1
-                word["last_points"] = word["last_points"] -60
+                word["strength"] += 1
+                word["last_points"] -= 60
                 word["success"] = +1
                 testa.append(word)
             elif word["strength"] == 2 and word["last_points"] <= -40:
-                word["strength"] = word["strength"] - 1
+                word["strength"] -= 1
                 word["last_points"] = 0
                 word["success"] = -1
                 testa.append(word)
             elif word["strength"] == 3 and word["last_points"] >= 80:
-                word["strength"] = word["strength"] + 1
-                word["last_points"] = word["last_points"] -80
+                word["strength"] += 1
+                word["last_points"] -= 80
                 word["success"] = +1
                 testa.append(word)
             elif word["strength"] == 3 and word["last_points"] <= -30:
-                word["strength"] = word["strength"] - 1
+                word["strength"] -= 1
                 word["last_points"] = 0
                 word["success"] = -1
                 testa.append(word)
             elif word["strength"] == 4 and word["last_points"] >= 100:
-                words["strength"] = words["strength"] + 1
-                word["last_points"] = word["last_points"] -100
+                words["strength"]+= 1
+                word["last_points"] -= 100
                 word["success"] = +1
                 testa.append(word)
             elif word["strength"] == 4 and word["last_points"] <= -20:
-                word["strength"] = word["strength"] - 1
+                word["strength"] -= 1
                 word["last_points"] = 0
                 word["success"] = -1
                 testa.append(word)
             elif word["strength"] == 5 and word["last_points"] <= -10:
-                word["strength"] = word["strength"] - 1
+                word["strength"] -= 1
                 word["last_points"] = 0
                 word["success"] = -1
                 testa.append(word)
