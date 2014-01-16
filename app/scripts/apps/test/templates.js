@@ -1,7 +1,7 @@
 window.JST['test/header-panel'] = _.template(
     '<div class="container"> \
-        <ul class="nav navbar-nav navbar-right"> \
-            <li><button type="button" class="js-back-to-words btn btn-default navbar-btn btn-logout">Back to words <i class="glyphicon glyphicon-chevron-right"></i></a></li> \
+        <ul class="nav navbar-nav navbar-left"> \
+            <li><button type="button" class="js-back-to-words btn btn-default navbar-btn btn-logout"><i class="glyphicon glyphicon-chevron-left"></i> Back to words</a></li> \
         </ul> \
     </div>');
 
@@ -87,8 +87,8 @@ window.JST['test/final'] = _.template(
                 <tbody> \
                 </tbody> \
             </table> \
-            <button class="js-start-again btn btn-success pull-left">Start again</button> \
-            <button class="js-end-test btn btn-primary pull-right">End test</button> \
+            <button class="js-end-test btn btn-default pull-right">End test</button> \
+            <button class="js-start-again col-md-9 btn btn-success pull-left">Start again</button> \
         </div> \
     </div>');
 

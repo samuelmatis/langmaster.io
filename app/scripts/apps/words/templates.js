@@ -43,7 +43,7 @@ window.JST['words/list-item'] = _.template(
         <a href="#words/<%= id %>/edit" class="js-edit btn btn-default btn-xs"> \
             <span class="glyphicon glyphicon-pencil"></span> Edit \
         </a> \
-        <button class="js-delete btn btn-danger btn-xs"> \
+        <button class="js-delete btn btn-default btn-xs"> \
             <i class="glyphicon glyphicon-remove"></i> Delete \
         </button> \
     </td>');
