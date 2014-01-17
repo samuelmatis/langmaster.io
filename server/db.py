@@ -66,6 +66,7 @@ class User(Document):
     email = StringField(unique=True)
     picture = StringField()
     points = IntField()
+    streak = IntField()
     type = ListField(EmbeddedDocumentField(Type))
     bio = StringField(max_length=150)
     first_login = StringField()
