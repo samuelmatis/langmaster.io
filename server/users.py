@@ -24,6 +24,7 @@ def create_user(type, profile_url, name, username, email, picture):
                 native="",
                 points=0,
                 num_words=0,
+                last_test="",
                 first_login=datetime.now().strftime('%Y-%m-%d'),
                 words=[])
 
