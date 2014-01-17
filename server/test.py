@@ -4,13 +4,18 @@ from flask import request, session, abort, Response
 import json
 from difflib import SequenceMatcher
 from datetime import datetime
+import unicodedata
+
+
+def remove_diacritic(input):
+    return unicodedata.normalize('NFKD', input).encode('ASCII', 'ignore')
 
 
 def compare(words, original, written):
     translation = [word["translation"] for word in words if word["word"] == original]
     if translation == []:
         abort(404)
-    return str(SequenceMatcher(None, translation[0].lower(), written.lower()).ratio())
+    return str(SequenceMatcher(None, remove_diacritic(translation[0]).lower(), remove_diacritic(written).lower()).ratio())
 
 @app.route('/api/test', methods=['POST'])
 def test():
