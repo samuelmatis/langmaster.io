@@ -78,7 +78,6 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
             };
 
             var nextWord = function() {
-
                 // Update views
                 var word = randomWord();
                 testLayoutMain.model = word;
@@ -105,7 +104,7 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
                 testLayoutMain.on('show', function() {
 
                     // Check if word is not repeating
-                    if(localStorage.getItem('step') < 11) {
+                    if(localStorage.getItem('step') <= localStorage.getItem('totalSteps')) {
                         if(weakestWords.size() > 1) {
                             if(this.model.get('word') === localStorage.getItem('last_word')) {
                                 nextWord();
