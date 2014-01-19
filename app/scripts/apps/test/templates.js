@@ -71,7 +71,7 @@ window.JST['test/main-region'] = _.template(
 
 window.JST['test/result-region'] = _.template(
     '<div class="alert alert-<%= result %>" style="margin-top: 40px;"><%= result_text %><button class="js-next btn-submit-answer btn btn-<%= result %> pull-right">Next</button> \
-    <% if(answer != "") { %><b><%= answer %></b><% } %></div>');
+    <% if(answer) { %><b><%= answer %></b><% } %></div>');
 
 window.JST['test/final'] = _.template(
     '<h1>Test results</h1> \

@@ -135,19 +135,22 @@ App.module('Test.Main', function(Main, Test, Backbone, Marionette, $, _) {
         template: 'test/result-region',
 
         serializeData: function() {
-            if (this.options.result === 1) {
+            if (this.options.result == 1) {
+                $('.js-test-input').addClass('test-input-success');
                 return {
                     'result': 'success',
                     'result_text': 'Good! :)',
                     'answer': ''
                 };
-            } else if (this.options.result === 0) {
+            } else if (this.options.result < 1.0 && this.options.result >= 0.9) {
+                $('.js-test-input').addClass('test-input-warning');
                 return {
                     'result': 'warning',
                     'result_text': 'You have a small typo in your answer. The answer is ',
                     'answer': this.options.translation
                 };
-            } else if (this.options.result === -1) {
+            } else if (this.options.result < 0.9) {
+                $('.js-test-input').addClass('test-input-fail');
                 return {
                     'result': 'danger',
                     'result_text': 'No, the answer is ',

@@ -152,18 +152,8 @@ App.module('Test.Main', function(Main, App, Backbone, Marionette, $, _) {
 
                     // Check word correctness from API
                     $.post('api/test', {'origin': this.model.get('word'), 'input': data.answer}, function(data) {
-
-                        // Check how many points received word and show result
-                        if(data == 1) {
-                            self.$('.js-test-input').addClass('test-input-success');
-                            showResult(1);
-                        } else if (data < 1.0 && data >= 0.9) {
-                            self.$('.js-test-input').addClass('test-input-warning');
-                            showResult(0);
-                        } else if (data < 0.9) {
-                            self.$('.js-test-input').addClass('test-input-fail');
-                            showResult(-1);
-                        }
+                        // Show result
+                        showResult(data);
                     });
 
                 });
