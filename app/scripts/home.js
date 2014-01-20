@@ -30,29 +30,19 @@ function login(type, data) {
     });
 }
 
-$('.js-login-facebook').on('click', function (e) {
-    e.preventDefault();
-    OAuth.popup('facebook', function (err, result) {
-        result.get('/me?fields=id,name,username,email,link,picture.type(large)').done(function(data) {
-            login('facebook', data);
-        });
-    });
-});
+var urls = {
+    facebook: "/me?fields=id,name,username,email,link,picture.type(large)",
+    twitter: "/1.1/account/verify_credentials.json",
+    google: "/oauth2/v1/userinfo"
+};
 
-$('.js-login-twitter').on('click', function (e) {
+$('.js-login').on('click', function (e) {
     e.preventDefault();
-    OAuth.popup('twitter', function (err, result) {
-        result.get('/1.1/account/verify_credentials.json').done(function(data) {
-            login('twitter', data);
-        });
-    });
-});
 
-$('.js-login-google').on('click', function (e) {
-    e.preventDefault();
-    OAuth.popup('google', function (err, result) {
-        result.get('/oauth2/v1/userinfo').done(function(data) {
-            login('google', data);
+    var type = $(this).data('type');
+    OAuth.popup(type, function (err, result) {
+        result.get(urls[type]).done(function(data) {
+            login(type, data);
         });
     });
 });
