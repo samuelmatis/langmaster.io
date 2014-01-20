@@ -1,12 +1,27 @@
 from mongoengine import *
 from flask.ext.mongoengine import MongoEngine
 import os
+from flask import request, session, abort, Response, flash, redirect, url_for
+import json
+from functools import wraps
 
 # Connect to MongoDB
 connect(
     'words',
     host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
 )
+
+def logged_in(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('email') is not None:
+            return f(*args, **kwargs)
+        else:
+            return Response(json.dumps({
+    "error": "Authentication is required"
+}, sort_keys=True, indent=4), mimetype='application/json')
+
+    return decorated_function
 
 # Make dict from MongoDB collection
 def make_dict(obj):
@@ -66,14 +81,12 @@ class User(Document):
     email = StringField(unique=True)
     picture = StringField()
     points = IntField()
-    streak = IntField()
     type = ListField(EmbeddedDocumentField(Type))
     bio = StringField(max_length=150)
     first_login = StringField()
     location = StringField()
     native = StringField()
     num_words = IntField()
-    last_test = StringField()
     words = ListField(EmbeddedDocumentField(Word))
     meta = {'collection': 'users', 'ordering': ['-user_id']}
 
