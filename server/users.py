@@ -1,8 +1,8 @@
 from db import *
 from app import *
-from flask import request, session, abort, Response
 import json
 from datetime import datetime
+
 
 def create_user(type, profile_url, name, username, email, picture):
     users = json.loads(User.objects().to_json())
@@ -24,8 +24,6 @@ def create_user(type, profile_url, name, username, email, picture):
                 native="",
                 points=0,
                 num_words=0,
-                streak=0,
-                last_test="",
                 first_login=datetime.now().strftime('%Y-%m-%d'),
                 words=[])
 
@@ -35,13 +33,16 @@ def create_user(type, profile_url, name, username, email, picture):
 
 
 @app.route('/api/user', methods=['GET'])
+@logged_in
 def get_user():
+    print str(session.get('email'))
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
     return Response(json.dumps(user_json[0], sort_keys=True, indent=4), mimetype='application/json')
 
 
 @app.route('/api/user', methods=['PUT'])
+@logged_in
 def update_user():
     user = User.objects(email=session.get('email',''))
     user.update(**{
@@ -53,6 +54,7 @@ def update_user():
 
 
 @app.route('/api/user', methods=['DELETE'])
+@logged_in
 def delete_user():
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())

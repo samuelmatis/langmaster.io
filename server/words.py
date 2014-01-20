@@ -1,10 +1,10 @@
 from db import *
 from app import *
-from flask import request, session, abort, Response
 import json
 
 
 @app.route('/api/user/words', methods=['GET'])
+@logged_in
 def get_words():
     user = User.objects(email=session.get('email', ''))
     user_json = json.loads(user.to_json())
@@ -12,6 +12,7 @@ def get_words():
 
 
 @app.route('/api/user/words/<int:word_id>', methods=['GET'])
+@logged_in
 def get_word_id(word_id):
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
@@ -23,6 +24,7 @@ def get_word_id(word_id):
 
 
 @app.route('/api/user/words', methods=['POST'])
+@logged_in
 def create_word():
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
@@ -49,6 +51,7 @@ def create_word():
 
 
 @app.route('/api/user/words/<int:word_id>', methods=['PUT'])
+@logged_in
 def change_word(word_id):
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
@@ -73,6 +76,7 @@ def change_word(word_id):
 
 
 @app.route('/api/user/words/<int:word_id>', methods=['DELETE'])
+@logged_in
 def delete_word(word_id):
     user = User.objects(email=session.get('email',''))
     user_json = json.loads(user.to_json())
