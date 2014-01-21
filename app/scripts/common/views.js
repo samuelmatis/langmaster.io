@@ -10,13 +10,6 @@ App.module('Common.Views', function(Views, App, Backbone, Marionette, $, _) {
     Views.Loading = Marionette.ItemView.extend({
         template: 'common/loading',
 
-        serializeData: function() {
-            return {
-                title: this.options.title || 'Loading Data',
-                message: this.options.message || 'Please wait, data is loading'
-            };
-        },
-
         onShow: function() {
             var opts = {
                 lines: 13,
