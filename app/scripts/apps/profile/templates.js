@@ -12,7 +12,9 @@ window.JST['profile/profile'] = _.template(
                                 </div> \
                                 <div class="col-sm-6 col-md-8"> \
                                     <h4><%= name %></h4> \
+                                    <% if(location) { %>\
                                     <small><cite title="San Francisco, USA"><%= location %> <i class="glyphicon glyphicon-profile glyphicon-map-marker"> \
+                                    <% } %>\
                                     </i></cite></small> \
                                     <p> \
                                         <i class="glyphicon glyphicon-profile glyphicon-envelope"></i><%= email %> \
