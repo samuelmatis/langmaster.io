@@ -11,9 +11,17 @@ App.module('Profile.Show', function(Show, App, Backbone, Marionette, $, _) {
 		template: 'profile/profile',
 		className: 'pure-g content-ribbon',
 
+        totalLength: 150,
+
         events: {
             'click .js-save': 'saveAbout',
-            'click .js-remove-account': 'removeAccount'
+            'click .js-remove-account': 'removeAccount',
+            'keyup textarea.form-control': 'limitTextarea',
+            'keydown textarea.form-control': 'limitTextarea'
+        },
+
+        limitTextarea: function(e) {
+            this.$('span#character-count').text((this.totalLength - $('textarea.form-control').val().length))
         },
 
         saveAbout: function(e) {

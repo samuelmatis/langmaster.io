@@ -49,6 +49,7 @@ window.JST['profile/profile'] = _.template(
                 </div> \
                 <label for="bio">Bio</label> \
                 <textarea class="form-control" id="bio" name="bio" rows="5"><%= bio %></textarea> \
+                <span id="character-count">150</span>\
                 <br> \
                 <div class="row"> \
                     <div class="col-xs-12 col-md-12 form-group"> \
