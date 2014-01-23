@@ -11,7 +11,13 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
             id: 1
         },
 
-        url: 'api/user'
+        url: 'api/user',
+
+        validate: function(attrs) {
+            if (attrs.bio.length > 150) {
+                return "a bio must have max 150 length."
+            }
+        }
     });
 
     /**
