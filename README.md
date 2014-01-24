@@ -41,3 +41,7 @@ Web application for smarter memorizing vocabulary of a foreign language.
 2. Go to the *server/app.py*
 3. Change `../app` folders to `../dist` (2x)
 4. Run the application : `python server/server.py`
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/samuelmatis/langmaster.io/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
