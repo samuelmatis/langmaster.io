@@ -17,9 +17,9 @@ def logged_in(f):
         if session.get('email') is not None:
             return f(*args, **kwargs)
         else:
-            return Response(json.dumps({
-    "error": "Authentication is required"
-}, sort_keys=True, indent=4), mimetype='application/json')
+            return Response(json.dumps(
+                {"error": "Authentication is required"},
+                sort_keys=True, indent=4), mimetype='application/json')
 
     return decorated_function
 
