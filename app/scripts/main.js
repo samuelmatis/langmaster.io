@@ -23,10 +23,7 @@ App.on('initialize:before', function() {
     $.ajax({
         type: 'GET',
         url: '/api/user',
-        async: false,
-        error: function() {
-            App.vent.trigger('app:logout');
-        }
+        async: false
     });
 });
 
