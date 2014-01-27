@@ -31,9 +31,9 @@ function login(type, data) {
 }
 
 var urls = {
-    facebook: "/me?fields=id,name,username,email,link,picture.type(large)",
-    twitter: "/1.1/account/verify_credentials.json",
-    google: "/oauth2/v1/userinfo"
+    facebook: '/me?fields=id,name,username,email,link,picture.type(large)',
+    twitter: '/1.1/account/verify_credentials.json',
+    google: '/oauth2/v1/userinfo'
 };
 
 $('.js-login').on('click', function (e) {
