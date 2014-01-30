@@ -7,7 +7,7 @@ from functools import wraps
 # Connect to MongoDB
 connect(
     'words',
-    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
+    host=os.environ['MONGOLAB_URI']
 )
 
 def logged_in(f):
