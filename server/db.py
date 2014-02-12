@@ -1,14 +1,13 @@
 from mongoengine import *
-from flask.ext.mongoengine import MongoEngine
 import os
-from flask import request, session, abort, Response, flash, redirect, url_for
+from flask import session, Response
 import json
 from functools import wraps
 
 # Connect to MongoDB
 connect(
     'words',
-    host='mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'
+    host=os.environ['MONGOLAB_URI']
 )
 
 def logged_in(f):
@@ -22,6 +21,7 @@ def logged_in(f):
                 sort_keys=True, indent=4), mimetype='application/json')
 
     return decorated_function
+
 
 # Make dict from MongoDB collection
 def make_dict(obj):
@@ -51,6 +51,7 @@ def make_dict(obj):
             return_data.append((field_name, mongo_to_dict(data)))
 
     return dict(return_data)
+
 
 # Define mongoengine schema
 class Word(EmbeddedDocument):
