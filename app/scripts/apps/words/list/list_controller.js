@@ -47,7 +47,7 @@ App.module('Words.List', function(List, App, Backbone, Marionette, $, _) {
                 if(criterion) {
                     filteredWords.filter(criterion);
 
-                    appRegionView.once('show', function(){
+                    appRegionView.once('show', function() {
                         appRegionView.triggerMethod('set:filter:criterion', criterion);
                     });
                 }

@@ -18,19 +18,19 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
         },
 
         parse: function (response) {
-            response.id = response["word_id"];
-            delete response["word_id"];
-            delete response["_id"];
+            response.id = response['word_id'];
+            delete response['word_id'];
+            delete response['_id'];
             return response;
         },
 
         validate: function(attrs) {
             var errors = {};
             if(!attrs.word) {
-                errors.word = "Can't be blank";
+                errors.word = 'Can not be blank';
             }
             if(!attrs.translation) {
-                errors.translation = "Can't be blank";
+                errors.translation = 'Can not be blank';
             }
             if(!_.isEmpty(errors)) {
                 return errors;

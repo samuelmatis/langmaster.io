@@ -1,4 +1,4 @@
-App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
+App.module('Header.List', function(List, App, Backbone, Marionette, $, _) {
     'use strict';
 
     List.Controller = {
@@ -16,11 +16,11 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
             $.when(links, user).done(function(links, user) {
                 var headers = new List.Headers({collection: links, name: user.get('name')});
 
-                headers.on('brand:clicked', function(){
+                headers.on('brand:clicked', function() {
                     App.trigger('words:list');
                 });
 
-                headers.on('itemview:navigate', function(childView, model){
+                headers.on('itemview:navigate', function(childView, model) {
                     var trigger = model.get('navigationTrigger');
                     App.trigger(trigger);
                 });

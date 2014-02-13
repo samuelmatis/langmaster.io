@@ -1,6 +1,6 @@
 'use strict';
 
-$('.js-signin').on('click',function(e){
+$('.js-signin').on('click',function(e) {
     e.preventDefault();
     $(this).fadeOut(1,function() {
         $('.jumbotron-links').hide();

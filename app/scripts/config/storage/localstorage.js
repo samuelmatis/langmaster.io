@@ -1,4 +1,4 @@
-App.module('Entities', function(Entities, App, Backbone, Marionette, $, _){
+App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
     'use strict';
 
     var findStorageKey = function(entity) {
@@ -18,12 +18,12 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _){
         throw new Error('Unable to determine storage key');
     };
 
-    var StorageMixin = function(entityPrototype){
+    var StorageMixin = function(entityPrototype) {
         var storageKey = findStorageKey(entityPrototype);
         return { localStorage: new Backbone.LocalStorage(storageKey) };
     };
 
-    Entities.configureStorage = function(entity){
+    Entities.configureStorage = function(entity) {
         _.extend(entity.prototype, new StorageMixin(entity.prototype));
     };
 });

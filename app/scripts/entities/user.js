@@ -15,7 +15,7 @@ App.module('Entities', function(Entities, App, Backbone, Marionette, $, _) {
 
         validate: function(attrs) {
             if (attrs.bio.length > 150) {
-                return "A bio must have max 150 length."
+                return 'A bio must have max 150 length.'
             }
         }
     });

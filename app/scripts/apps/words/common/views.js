@@ -33,7 +33,7 @@ App.module('Words.Common.Views', function(Views, App, Backbone, Marionette, $, _
                 });
             };
 
-            var markErrors = function(value, key){
+            var markErrors = function(value, key) {
                 var $controlGroup = $view.find('#edit-' + key).parent();
                 var $errorEl = $('<span>', { class: 'help-inline error', text: value });
                 $controlGroup.append($errorEl).addClass('has-error');

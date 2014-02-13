@@ -1,4 +1,4 @@
-App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
+App.module('Header.List', function(List, App, Backbone, Marionette, $, _) {
     'use strict';
 
     /**
@@ -15,12 +15,12 @@ App.module('Header.List', function(List, App, Backbone, Marionette, $, _){
             'click a': 'navigate'
         },
 
-        navigate: function(e){
+        navigate: function(e) {
             e.preventDefault();
             this.trigger('navigate', this.model);
         },
 
-        onRender: function(){
+        onRender: function() {
             if(this.model.selected){
                 this.$el.addClass('active');
             }
