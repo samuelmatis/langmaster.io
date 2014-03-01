@@ -3,8 +3,7 @@
 $('.js-signin').on('click',function(e) {
     e.preventDefault();
     $(this).fadeOut(1,function() {
-        $('.jumbotron-links').hide();
-        $('.login-buttons').css({'margin-top': '56px','margin-bottom': '55px'}).css('margin-bottom','55px').show();
+        $('.login-buttons').css({'text-align': 'center'}).show();
     });
 });
 

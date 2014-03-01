@@ -1,81 +1,83 @@
-html, body {
-    height: 100%;
+@import url(http://fonts.googleapis.com/css?family=Montserrat|Roboto);
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.centered {
+    text-align: center;
+}
+
+.navbar {
+    height: 65px;
+    padding-top: 7px;
+    background-color: white;
+    border-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .jumbotron {
-    position: relative;
-    font-size: 16px;
-    color: rgb(56, 56, 56);
-    text-align: center;
-    background-image: url(../images/homepage-bg.jpg);
-    background-position: top center;
-
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    border-radius: 0;
-    height: 90%;
+    background: rgba(42,145,209,1);
+    background: -moz-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(42,145,209,1)), color-stop(100%, rgba(0,117,190,1)));
+    background: -webkit-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
+    background: -o-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
+    background: -ms-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
+    background: linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a91d1', endColorstr='#0075be', GradientType=1 );
+    color: white;
+    font-family: arial;
+    border-radius: 0px !important;
+    padding-bottom: 80px;
+    padding-top: 80px;
+    margin-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .jumbotron h1 {
-    margin-bottom: 15px;
-    font-weight: 300;
-    letter-spacing: -1px;
-}
-
-.jumbotron p a, .jumbotron-links a {
-    font-weight: 500;
-}
-
-.login-button {
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 18px 24px;
-    color: #fff;
-    display: inline-block;
+    font-size: 48px;
     text-align: center;
-    background: #37aaea;
-    cursor: pointer;
-    text-decoration: none;
-    text-shadow: 0 1px 0px rgba(0,0,0,0.15);
-    border-width: 1px 1px 3px !important;
-    border-style: solid;
-    border-color: #0090FF;
-    white-space: nowrap;
-    overflow: hidden;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-    -moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
 }
 
-.btn-outline:hover, .btn-outline:active {
-    color: #6c71c4;
-    background-color: #fff;
-    border-color: #fff;
+.jumbotron .btn {
+    margin-top: 30px;
+    padding: 12px;
+    border: 1px solid #fff;
+    margin-top: 30px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    padding: 10px 46px 10px 66px;
+    -webkit-transition: background ease-out 500ms;
+    -moz-transition: background ease-out 500ms;
+    -o-transition: background ease-out 500ms;
+    transition: background ease-out 500ms;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    position: relative;
 }
 
-.jumbotron-links {
-    margin-top: 15px;
-    margin-bottom: 0;
-    padding-left: 0;
-    list-style: none;
-    font-size: 14px;
+.jumbotron .btn-signin {
+    color: #fff;
 }
 
-.jumbotron-links li {
-    display: inline;
+.jumbotron .btn-signin:hover {
+    background: #fff;
+    color: #0489c3;
+    -webkit-transition: background ease-out 500ms;
+    -moz-transition: background ease-out 500ms;
+    -o-transition: background ease-out 500ms;
+    transition: background ease-out 500ms;
 }
 
-.jumbotron-links li+li {
-    margin-left: 20px;
+.btn-social i {
+    margin-top: 5px;
 }
 
 .login-buttons {
@@ -95,63 +97,88 @@ html, body {
     margin-left: 20px;
 }
 
-.feature-divider {
-    margin: 50px 0;
-}
 
-.features {
+.container-full {
+    width: 1170px;
+    margin-right: auto;
+    margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
+    margin-bottom: 70px;
 }
 
-.features h2 {
-    font-weight: normal;
+.contrast {
+    background: #ededed;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-.feature-heading {
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -1px;
+.row-intro {
+    padding-left: 40px;
 }
 
-.feature-second {
-    margin-top: 90px !important;
-}
-
-footer {
+.container-full h1, .intro {
     text-align: center;
 }
 
-@media (max-width: 400px) {
-    #version {
-        display: none;
-    }
+.intro-feature-description {
+    color: #303030;
+    font-size: 18px;
+    margin-top: 15px;
 }
 
-@media (max-width: 720) {
-    .login-buttons li {
-        display: block;
-    }
-
-    .login-buttons li {
-        margin-top: 20px;
-    }
+.feature-heading {
+    color: #0075be;
 }
 
-@media (min-width: 768px) {
-    .features {
-        padding-left: 0;
-        padding-right: 0;
-    }
+.img-center {
+    margin:0 auto;
 }
 
-@media (min-width: 992px) {
-    .feature-heading {
-        margin-top: 120px;
-    }
+.h-arrow {
+    margin-top: 70px;
 }
-@media (min-width: 768px) {
-    .feature-heading {
-        font-size: 50px;
-    }
+
+.features-hr {
+    border-top: 1px solid #AFAFAF;
 }
+
+.row-feature-first {
+    margin-top: 30px;
+}
+
+.row-feature {
+    margin-top: 80px;
+}
+
+.feature-description {
+    font-size: 16px;
+    color: #1B1B1B;
+}
+
+.container-bottom {
+    padding-top: 30px;
+    margin-top: 30px;
+}
+
+/* Set the fixed height of the footer here */
+      #push {
+        height: 30px;
+      }
+      #footer {
+        padding-top: 20px;
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
