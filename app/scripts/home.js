@@ -7,6 +7,11 @@ $('.js-signin').on('click',function(e) {
     });
 });
 
+$('.js-signin-next').on('click', function(e) {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('.js-signin').trigger('click');
+});
+
 function login(type, data) {
     $.ajax({
         type: 'POST',
