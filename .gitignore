@@ -5,6 +5,7 @@ deploy.sh
 test/temp
 app/bower_components
 .tmp
+.env
 test/bower_components/
 *.py[cod]
 newrelic.ini
