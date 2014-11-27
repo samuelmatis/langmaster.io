@@ -2,6 +2,7 @@
 
 Web application for smarter memorizing vocabulary of a foreign language.
 
+### New version in progress - [AngularJS and NodeJS rewrite](https://github.com/samuelmatis/langmaster-v2-angular) ###
 
 ### Technologies: ####
 
@@ -24,7 +25,7 @@ Web application for smarter memorizing vocabulary of a foreign language.
 
 ### Setting up database ###
 * #### Use our demo database (publicly available) ####
-    
+
     1. Go to the *server/db.py*
     2. Change `os.environ['MONGOLAB_URI']` to `'mongodb://admin:iicenajv@ds053948.mongolab.com:53948/words'`
 
