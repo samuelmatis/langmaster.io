@@ -13,23 +13,34 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     text-align: center;
 }
 
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar, .jumbotron {
+    background: -webkit-linear-gradient(90deg, #B993D6 10%, #8CA6DB 90%);
+    background:    -moz-linear-gradient(90deg, #B993D6 10%, #8CA6DB 90%);
+    background:     -ms-linear-gradient(90deg, #B993D6 10%, #8CA6DB 90%);
+    background:      -o-linear-gradient(90deg, #B993D6 10%, #8CA6DB 90%);
+    background:         linear-gradient(90deg, #B993D6 10%, #8CA6DB 90%);
+}
+
 .navbar {
     height: 65px;
     padding-top: 7px;
-    background-color: white;
     border-bottom: 0px;
     margin-bottom: 0px;
 }
 
+.navbar-default .navbar-nav > li > a {
+    color: #FFF;
+}
+
+.navbar-default .navbar-nav > .active > a {
+    background-color: #C0CCF0;
+}
+
 .jumbotron {
-    background: rgba(42,145,209,1);
-    background: -moz-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
-    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(42,145,209,1)), color-stop(100%, rgba(0,117,190,1)));
-    background: -webkit-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
-    background: -o-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
-    background: -ms-linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
-    background: linear-gradient(45deg, rgba(42,145,209,1) 0%, rgba(0,117,190,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a91d1', endColorstr='#0075be', GradientType=1 );
     color: white;
     font-family: arial;
     border-radius: 0px !important;
